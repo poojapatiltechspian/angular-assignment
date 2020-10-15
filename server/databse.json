@@ -1,0 +1,28 @@
+{
+    "list": [
+        {
+            "id": 1,
+            "title": "link1",
+            "short_description": "Short Description 1",
+            "category_tag": "news"
+        },
+        {
+            "id": 2,
+            "title": "link2",
+            "short_description": "Short Description 2",
+            "category_tag": "news"
+        },
+        {
+            "id": 3,
+            "title": "link3",
+            "short_description": "Short Description 3",
+            "category_tag": "news"
+        },
+        {
+            "id": 4,
+            "title": "link4",
+            "short_description": "Short Description 4",
+            "category_tag": "news"
+        }
+    ]
+}

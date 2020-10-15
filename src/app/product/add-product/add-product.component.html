@@ -1,0 +1,33 @@
+<div class="form-container">
+    <div class="heading add-link" *ngIf="isEdit != true">Add Product</div>
+    <div class="heading add-link" *ngIf="isEdit == true">Edit Product</div>
+
+    <form [formGroup]="linksForm" (ngSubmit)="onSubmit(linksForm)">
+      <div class="input-container">
+        <input type="text"  formControlName="name" placeholder="Name" class="full-width">
+      </div>
+      
+      <div class="input-container">
+        <textarea formControlName="description" placeholder="Description" class="full-width"></textarea>
+      </div>
+      
+      <div class="input-container">
+        <input type="text"  formControlName="price" placeholder="Price" class="full-width">
+      </div> 
+      <div class="input-container">
+        <input type="text"  formControlName="quantity" placeholder="Quantity" class="full-width">
+      </div>
+      
+      <div class="input-container" *ngIf="isEdit != true">
+        <button type="submit" [disabled]="linksForm.invalid">
+          Save
+        </button>
+      </div>
+      <div class="input-container" *ngIf="isEdit == true">
+        <button type="Button" [disabled]="linksForm.invalid" (click)="editData()">
+          Update
+        </button>
+      </div>
+    </form>
+</div>
+  

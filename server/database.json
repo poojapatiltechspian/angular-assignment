@@ -1,0 +1,133 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "name": "product1 update",
+      "description": "product1 description",
+      "price": "120",
+      "quantity": "120"
+    },
+    {
+      "id": 3,
+      "name": "product2",
+      "description": "product 2 description",
+      "price": "390",
+      "quantity": "23"
+    },
+    {
+      "id": 4,
+      "name": "product3",
+      "description": "Product3 description",
+      "price": "90",
+      "quantity": "88"
+    },
+    {
+      "id": 5,
+      "name": "product 4",
+      "description": "description",
+      "price": "12",
+      "quantity": "12"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "product1",
+      "description": "product1 description",
+      "price": "1200",
+      "quantity": "120"
+    },
+    {
+      "id": 3,
+      "name": "product2",
+      "description": "product 2 description",
+      "price": "390",
+      "quantity": "23"
+    },
+    {
+      "id": 4,
+      "name": "product3",
+      "description": "Product3 description",
+      "price": "90",
+      "quantity": "88"
+    },
+    {
+      "id": 5,
+      "name": "product 4",
+      "description": "description",
+      "price": "12",
+      "quantity": "12"
+    }
+  ],
+  "user-details": [
+    {
+      "id": "1",
+      "user_name": "user1",
+      "password": "123"
+    },
+    {
+      "user_name": "user2",
+      "password": "user2",
+      "id": "4jx61t8"
+    },
+    {
+      "user_name": "user2",
+      "password": "123",
+      "confirm_password": "123",
+      "id": "_ruzhpi"
+    },
+    {
+      "user_name": "user3",
+      "password": "123",
+      "confirm_password": "123",
+      "id": "vITfy7a"
+    }
+  ],
+  "books": [
+    {
+      "id": "1",
+      "name": "Wise and Otherwise: A salute to Life",
+      "display_name": "Wise and Otherwise",
+      "author": "Sudha Murty",
+      "price": "250",
+      "description": "Understanding human and human nature is one of the toughest jobs .Many time what seems right and good or vice versa can be completely different if explored to proper depth. In many instance, we all come across people and forms an opinion about the people we meet without actually knowing anything about them. But hearing and learning about such instances helps us to redefine our thought process and become wiser. Sudha Murty’s book Wise and otherwise will take you to a journey across the length and breadth of India through narrations of 51 stories inspired by the extensive travels of the author herself.",
+      "img_path": "assets/img/sudhamurti1.jpeg"
+    },
+    {
+      "id": "2",
+      "name": "The Gopi Diaries: Coming Home",
+      "display_name": "The Gopi Diarie",
+      "author": "Sudha Murty",
+      "price": "150",
+      "description": "The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi's voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty's inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told from a dog's perspective.",
+      "img_path": "assets/img/sudhamurti2.jpeg"
+    },
+    {
+      "id": "3",
+      "name": "Wings of Fire: An Autobiography of Abdul Kalam",
+      "display_name": "Wings of Fire",
+      "author": "Dr. A. P. J. Abdul Kalam",
+      "price": "350",
+      "description": "Dr. Kalam by narrating his life journey evokes the reader to identify with one’s inner fire and potential, for he was of the firm belief that each one of us was born with the strength and potential to make a tangible change in the world. How he inspired himself to achieve dreams and how he went about accomplishing so much is what the book captures nicely.",
+      "img_path": "assets/img/wings-of-fire-biography-kalam.jpg"
+    },
+    {
+      "id": "4",
+      "name": "Target 3 Billion: Innovative Solutions Towards Sustainable Development",
+      "display_name": "Target 3 Billion",
+      "author": "Dr. A. P. J. Abdul Kalam",
+      "price": "300",
+      "description": "Target 3 Billion: Innovative Solutions Towards Sustainable Development talks about the 3 billion people across the globe who live in villages and are often deprived of basic resources. The authors explain how the global model of development has failed to eradicate poverty.",
+      "img_path": "assets/img/target-3-billion-1.jpg"
+    },
+    {
+      "id": "5",
+      "name": "Dr. A.P.J. Abdul Kalam: Biography Of A Saintly Scientist",
+      "display_name": "Dr. A.P.J. Abdul Kalam",
+      "author": "Dr. A. P. J. Abdul Kalam",
+      "price": "360",
+      "description": "Dr. Kalam was a learner all his life. He commanded subjects beyond his realm of work. He felt home with Science as well as social subjects. He did not allow anything to escape his notice and he wanted to know everything. As he toured different parts of the country and world, he made bid to learn and whenever he had a doubt, he would consult books and people to resolve it.",
+      "img_path": "assets/img/download.jpeg"
+    }
+  ]
+}

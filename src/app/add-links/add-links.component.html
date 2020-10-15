@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="heading add-link">Add Link</div>
+  <!-- <button type="button" (click)="authonticateUser()">
+    Save
+  </button><div class="userstatus">{{userStatus}}</div> -->
+  <!-- <form [formGroup]="linksForm" (ngSubmit)="onSubmit(linksForm)">
+    <div class="input-container">
+      <input type="text"  formControlName="title" placeholder="Title" class="full-width">
+    </div>
+    
+    <div class="input-container">
+      <textarea formControlName="short_description" placeholder="Short Description" class="full-width"></textarea>
+    </div>
+    
+    <div class="input-container">
+      <select formControlName="category_tag" placeholder="Category Tag" class="full-width">
+        <option value="tech">tech</option>
+        <option value="news">news</option>
+        <option value="cooking">cooking</option>
+      </select>
+    </div>
+    
+    <div class="input-container" *ngIf="isEdit != true">
+      <button type="submit" [disabled]="linksForm.invalid">
+        Save
+      </button>
+    </div>
+    <div class="input-container" *ngIf="isEdit == true">
+      <button type="Button" [disabled]="linksForm.invalid" (click)="editData()">
+        Update
+      </button>
+    </div>
+  </form> -->
+
+
+    <!-- 
+      <div *ngIf="linksForm.get('title').hasError('required')">
+      Title is required!
+    </div> 
+    <div *ngIf="linksForm.controls.short_description.hasError('required')">
+      Short Description is required!
+    </div>
+    <div *ngIf="linksForm.get('category_tag').hasError('required')">
+      Category Tag is required!
+    </div>
+  -->
+  <form [formGroup]="linksForm" (ngSubmit)="onSubmit(linksForm)">
+    <div class="input-container">
+      <input type="text"  formControlName="name" placeholder="Name" class="full-width">
+    </div>
+    
+    <div class="input-container">
+      <textarea formControlName="description" placeholder="Description" class="full-width"></textarea>
+    </div>
+    
+    <div class="input-container">
+      <input type="text"  formControlName="price" placeholder="Price" class="full-width">
+    </div> 
+    <div class="input-container">
+      <input type="text"  formControlName="quantity" placeholder="Quantity" class="full-width">
+    </div>
+    
+    <div class="input-container" *ngIf="isEdit != true">
+      <button type="submit" [disabled]="linksForm.invalid">
+        Save
+      </button>
+    </div>
+    <div class="input-container" *ngIf="isEdit == true">
+      <button type="Button" [disabled]="linksForm.invalid" (click)="editData()">
+        Update
+      </button>
+    </div>
+  </form>
+<div class="heading">Link List</div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let link of products" class="table-row">
+        <td>{{link.id}}</td>
+        <td>{{link.name}}</td>
+        <td>{{link.description}}</td>
+        <td>{{link.price}}</td>
+        <td>{{link.quantity}}</td>
+        <td><button (click)="edit(link.id)">Edit</button></td>
+        <td><button (click)="delete(link.id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

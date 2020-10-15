@@ -1,0 +1,11 @@
+<app-create></app-create>
+<div class="right" *ngIf="tutorials">
+    <h3>Tutorials</h3>
+    <ul>
+        <li *ngFor="let tutorial of tutorials | async; let i = index">
+            <a [href]="tutorial.url" target="_blank">{{tutorial.name}}</a>
+            &nbsp;&nbsp;
+            <button (click)="deleteTutorial(i)">Delete</button>
+        </li>
+    </ul>
+</div>
