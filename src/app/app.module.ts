@@ -19,7 +19,6 @@ import { MyCounterComponent } from './ngrx-example2/my-counter/my-counter.compon
 import { Store } from '@ngrx/store';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducers, metaReducers } from './reducers';
 import { environment } from '../environments/environment';
 import { Product2Module } from './product/product2.module';
 

@@ -8,10 +8,10 @@ import { of } from 'rxjs';
 @Injectable()
 export class ProductEffects {
 // add product
-  createProduct$ = createEffect(() => 
+  createProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductAction.addProduct),
-      mergeMap(action => 
+      mergeMap(action =>
         this.commonService.createLink(action.product).pipe(
             map(product => fromProductAction.addProductSuccess({product})),
             catchError(error => of(fromProductAction.addProductFailure({error})))
@@ -20,10 +20,10 @@ export class ProductEffects {
     )
   );
 // Load list of products
-  loadProducts$ = createEffect(() => 
+  loadProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductAction.loadProducts),
-      mergeMap(() => 
+      mergeMap(() =>
         this.commonService.getLink().pipe(
             map(products => fromProductAction.loadProductsSuccess({products})),
             catchError(error => of(fromProductAction.loadProductsFailure({error})))
@@ -32,10 +32,10 @@ export class ProductEffects {
     )
   );
 // Load indiviual product
-  loadSelectedProduct$ = createEffect(() => 
+  loadSelectedProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductAction.loadProduct),
-      mergeMap((action) => 
+      mergeMap((action) =>
         this.commonService.getLinkData(action.id).pipe(
             map(product => fromProductAction.loadProductSuccess({selectedProduct: product})),
             catchError(error => of(fromProductAction.loadProductFailure({error})))
@@ -43,11 +43,11 @@ export class ProductEffects {
       )
     )
   );
-// update product 
-  editProduct$ = createEffect(() => 
+// update product
+  editProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductAction.updateProduct),
-      mergeMap(action => 
+      mergeMap(action =>
         this.commonService.updateLink(
           action.product.id,
           action.product.changes
@@ -58,10 +58,10 @@ export class ProductEffects {
       {dispatch: false}
   );
 // delete product
-  deleteProduct$ = createEffect(() => 
+  deleteProduct$ = createEffect(() =>
   this.actions$.pipe(
     ofType(fromProductAction.deleteProduct),
-    mergeMap(action => 
+    mergeMap(action =>
        this.commonService.deleteLink(
           action.id,
         )

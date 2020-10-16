@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class UserRegistrationComponent implements OnInit {
 
- 
   RegistrationForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -22,7 +21,7 @@ export class UserRegistrationComponent implements OnInit {
     this.createForm();
 
   }
-  createForm(){
+  createForm(): void{
     this.RegistrationForm = this.fb.group({
       // user_id: [''],
       user_name:  ['', [Validators.required, Validators.maxLength(200), Validators.minLength(2)]],
@@ -30,11 +29,11 @@ export class UserRegistrationComponent implements OnInit {
       confirm_password: ['', [Validators.required]],
     });
   }
-  onSubmit() {
+  onSubmit(): void {
     console.log(this.RegistrationForm.value);
     this.loginRegistrationSetupService.registerUser(this.RegistrationForm.value).subscribe((data) => {
-      alert('User registered successfully!')
+      alert('User registered successfully!');
       this.router.navigate(['/user/login']);
-    })
+    });
   }
 }

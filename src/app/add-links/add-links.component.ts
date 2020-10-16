@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../common.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-links',
   templateUrl: './add-links.component.html',
@@ -18,56 +18,56 @@ export class AddLinksComponent implements OnInit {
     private fb: FormBuilder,
     ) {}
 
-  ngOnInit(){
+  ngOnInit(): void{
     this.createForm();
     this.getLinks();
   }
-  createForm(){
+  createForm(): void{
     this.linksForm = this.fb.group({
       id:  [''],
       name: ['', Validators.required],
       description: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      quantity:['', [Validators.required]],
+      quantity: ['', [Validators.required]],
     });
   }
-  patchForm(data?: any){
+  patchForm(data?: any): void{
     this.linksForm = this.fb.group({
-      id:  [''|| data.id],
-      name: [''|| data.name, Validators.required],
+      id:  ['' || data.id],
+      name: ['' || data.name, Validators.required],
       description: ['' || data.description, [Validators.required]],
-      price: [''|| data.price, [Validators.required]],
-      quantity: [''|| data.quantity, [Validators.required]]
+      price: ['' || data.price, [Validators.required]],
+      quantity: ['' || data.quantity, [Validators.required]]
     });
   }
-    delete(id) {
-      this.commonService.deleteLink(id).subscribe((data)=>{
+    delete(id): void {
+      this.commonService.deleteLink(id).subscribe((data) => {
         this.getLinks();
-      })
+      });
     }
-    getLinks() {
-      this.commonService.getLink().subscribe((data)=>{
-        this.products= data;
-      })
+    getLinks(): void {
+      this.commonService.getLink().subscribe((data) => {
+        this.products = data;
+      });
     }
-    onSubmit(data){
-      this.commonService.createLink(data.value).subscribe((data)=>{
+    onSubmit(data): void{
+      this.commonService.createLink(data.value).subscribe(() => {
         this.getLinks();
         this.linksForm.reset();
-      })
+      });
     }
-    edit(id) {
-      this.commonService.getLinkData(id).subscribe((data)=>{
+    edit(id): void {
+      this.commonService.getLinkData(id).subscribe((data) => {
         this.patchForm(data);
         this.isEdit = true;
-      })
+      });
     }
-    editData(){
-      this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data)=>{
+    editData(): void{
+      this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {
         this.getLinks();
         this.linksForm.reset();
         this.isEdit = false;
-      })
+      });
   }
 }
 

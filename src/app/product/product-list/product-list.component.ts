@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../common.service';
 import { select, Store } from '@ngrx/store';
-import * as formActions from "../store/product.actions"
+import * as formActions from '../store/product.actions';
 import { Product } from '../store/product.model';
 import { Observable } from 'rxjs';
-import { selectProduct } from "../store/product.selecters";
+import { selectProduct } from '../store/product.selecters';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
@@ -25,13 +25,13 @@ export class ProductListComponent implements OnInit {
     this.store.dispatch(formActions.loadProducts());
     this.getLinks();
   }
-  getLinks() {
+  getLinks(): void {
     this.productList$ = this.store.pipe(select(selectProduct));
   }
-  edit(id){
-    this.router.navigate(['./edit-product/', id])
+  edit(id): void{
+    this.router.navigate(['./edit-product/', id]);
   }
-  delete(id) {
+  delete(id): void {
     this.store.dispatch(formActions.deleteProduct({id: id}));
   }
 }

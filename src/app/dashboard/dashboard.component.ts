@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../common.service'
+import { CommonService } from '../common.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,10 +15,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getBooksData();
   }
-  getBooksData() {  
+  getBooksData(): void {
     this.commonService.getBooks().subscribe((data) => {
       this.bookData = data;
-    })
-
+    });
   }
 }

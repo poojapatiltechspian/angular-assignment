@@ -24,7 +24,7 @@ export const productReducer = createReducer(
   initialState,
   // add product
   on(ProductActions.addProductSuccess,
-    (state, action) => 
+    (state, action) =>
       adapter.addOne(action.product, state)
   ),
   on(ProductActions.addProductFailure, (state, action) => {
@@ -71,8 +71,8 @@ export const productReducer = createReducer(
     (state, action) => adapter.removeOne(action.id, state)
   ),
 );
-export function reducer(state: ProductState | undefined, action: Action) {
-  return productReducer(state, action)
+export function reducer(state: ProductState | undefined, action: Action): any {
+  return productReducer(state, action);
 }
 export const {
   selectIds,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product/store/product.model';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,48 +14,48 @@ export class CommonService {
   ) { }
 
   createLink(product): Observable<Product> {
-    const url = this.baseurl + 'products/'
+    const url = this.baseurl + 'products/';
     return this.http.post<Product>(url, product);
   }
-  getLink(): Observable<Product[]> { 
-    const url = this.baseurl + 'products/'
+  getLink(): Observable<Product[]> {
+    const url = this.baseurl + 'products/';
     return this.http.get<Product[]>(url);
   }
-  getLinkData(id): Observable<Product> { 
+  getLinkData(id): Observable<Product> {
     const url = this.baseurl + 'products/' + id;
-    return this.http.get<Product>(url)
+    return this.http.get<Product>(url);
   }
   updateLink(id: string | number, data: Partial<Product>): Observable<Product> {
     const url = this.baseurl + 'products/' + id;
-    return this.http.put<Product>(url, data)
+    return this.http.put<Product>(url, data);
   }
 
-  deleteLink(id) {
+  deleteLink(id): any {
     const url = this.baseurl + 'products/' + id;
-    return this.http.delete(url)
+    return this.http.delete(url);
   }
 
 
   // *************Books*******************
-  createBook(product) {
-    const url = this.baseurl + 'books/'
+  createBook(product): any {
+    const url = this.baseurl + 'books/';
     return this.http.post(url, product);
   }
-  getBooks() { 
-    const url = this.baseurl + 'books/'
+  getBooks(): any{
+    const url = this.baseurl + 'books/';
     return this.http.get(url);
   }
-  getBookData(id) { 
+  getBookData(id): any {
     const url = this.baseurl + 'books/' + id;
-    return this.http.get(url)
+    return this.http.get(url);
   }
-  updateBook(id: string | number, data) {
+  updateBook(id: string | number, data): any {
     const url = this.baseurl + 'books/' + id;
-    return this.http.put(url, data)
+    return this.http.put(url, data);
   }
 
-  deleteBook(id) {
+  deleteBook(id): any{
     const url = this.baseurl + 'books/' + id;
-    return this.http.delete(url)
+    return this.http.delete(url);
   }
 }

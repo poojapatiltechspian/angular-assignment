@@ -10,20 +10,16 @@ import { increment, decrement, reset } from '../actions/counter.actions';
 export class MyCounterComponent {
 
   count$: Observable<number>;
- 
   constructor(private store: Store<{ count: number }>) {
     this.count$ = store.select('count');
   }
- 
-  increment() {
+  increment(): void {
     this.store.dispatch(increment());
   }
- 
-  decrement() {
+  decrement(): void {
     this.store.dispatch(decrement());
   }
- 
-  reset() {
+  reset(): void {
     this.store.dispatch(reset());
   }
 }

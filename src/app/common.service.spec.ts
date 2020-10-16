@@ -19,7 +19,7 @@ describe('CommonService', () => {
     service = TestBed.inject(CommonService);
     http = TestBed.inject(HttpTestingController);
   });
-  afterEach(()=> {
+  afterEach(() => {
     http.verify();
   });
 
@@ -30,16 +30,16 @@ describe('CommonService', () => {
   it('should test http client get', () => {
     const saveData =  {
           id: '1',
-          name: "tech",
+          name: 'tech',
           description: 5,
-          price: "short description 5",
-          quantity: "link 5",
+          price: 'short description 5',
+          quantity: 'link 5',
         };
 
     service.getLink().subscribe((post) => {
       expect(saveData).toBe(post);
     });
-    const req =http.expectOne('http://localhost:3000/products/');
+    const req = http.expectOne('http://localhost:3000/products/');
 
     expect(req.cancelled).toBeFalsy();
     expect(req.request.responseType).toEqual('json');
@@ -48,30 +48,30 @@ describe('CommonService', () => {
 
   it('should be add data and return added data', () => {
     const saveData =  {
-      category_tag: "tech",
+      category_tag: 'tech',
       id: 6,
-      short_description: "short description 6",
-      title: "link 6",
+      short_description: 'short description 6',
+      title: 'link 6',
     };
     service.createLink(saveData).subscribe((addedPost) => {
       expect(addedPost).toBe(saveData);
     });
-    const req =http.expectOne('http://localhost:3000/products/')
+    const req = http.expectOne('http://localhost:3000/products/');
     expect(req.cancelled).toBeFalsy();
     expect(req.request.responseType).toEqual('json');
     req.flush(saveData);
   });
   it('should test 404 error', () => {
     const errorMsg = 'mock 404 error occour';
-    service.getLink().subscribe((data)=> {
+    service.getLink().subscribe((data) => {
       fail('failing with error 404');
       },
-      (error: HttpErrorResponse)=> {
-        expect(error.status).toEqual(404);
-        expect(error.error).toEqual(errorMsg);
+      (err: HttpErrorResponse) => {
+        expect(err.status).toEqual(404);
+        expect(err.error).toEqual(errorMsg);
       }
     );
-    const req =http.expectOne('http://localhost:3000/products/');
-    req.flush(errorMsg, {status:404, statusText: 'Not Found'});
-  })
+    const req = http.expectOne('http://localhost:3000/products/');
+    req.flush(errorMsg, {status: 404, statusText: 'Not Found'});
+  });
 });

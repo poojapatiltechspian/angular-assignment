@@ -54,9 +54,9 @@
     {
       "id": 5,
       "name": "product 4",
-      "description": "description",
-      "price": "12",
-      "quantity": "12"
+      "description": "data",
+      "price": "120",
+      "quantity": "120"
     }
   ],
   "user-details": [

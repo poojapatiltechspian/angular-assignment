@@ -16,7 +16,7 @@ describe('FlexLayoutComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FlexLayoutComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -9,7 +9,15 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { LayoutComponent  } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuardService as AuthGuard } from './auth-guard.service';
+
 const routes: Routes = [
+
+  {
+    path: '',
+    redirectTo: 'user/login',
+    pathMatch: 'full'
+  },
   {
     path: 'user',
     loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
@@ -17,52 +25,61 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
       },
       {
-        path:'crud-oprations',
-        component: AddLinksComponent
+        path: 'crud-oprations',
+        component: AddLinksComponent,
+        canActivate: [AuthGuard],
       },
       {
-        path:'add-product',
-        component: AddProductComponent
+        path: 'add-product',
+        component: AddProductComponent,
+        canActivate: [AuthGuard],
       },
       {
-        path:'edit-product/:id',
-        component: AddProductComponent
+        path: 'edit-product/:id',
+        component: AddProductComponent,
+        canActivate: [AuthGuard],
       },
       {
-        path:'flex-Layout',
-        component: FlexLayoutComponent
+        path: 'flex-Layout',
+        component: FlexLayoutComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'grid-layout',
-        component: GridLayoutComponent
+        component: GridLayoutComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'ngrx-tutorial-example',
-        component: ReadComponent
+        component: ReadComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'ngrx-tutorial-example2',
-        component: MyCounterComponent
+        component: MyCounterComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'product-list',
         component: ProductListComponent,
+        canActivate: [AuthGuard],
       },
     ]
   },
 
   {
-    path:'',
+    path: '**',
     redirectTo: 'user/login',
     pathMatch: 'full'
   },
-  
 ];
 
 @NgModule({

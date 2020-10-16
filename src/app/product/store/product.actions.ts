@@ -18,27 +18,27 @@ export const addProductFailure = createAction(
 );
 // Load list of products
 export const loadProducts = createAction(
-  '[Product List Components] Load Products', 
+  '[Product List Components] Load Products',
 );
 export const loadProductsSuccess = createAction(
-  '[Product List Effect] Load Products Success', 
+  '[Product List Effect] Load Products Success',
   props<{ products: Product[] }>()
 );
 export const loadProductsFailure = createAction(
-  '[Product List Effect] Load Products Failure', 
+  '[Product List Effect] Load Products Failure',
   props<{ error: any }>()
 );
 // Load indiviual product
 export const loadProduct = createAction(
-  '[Product Components] Load Product', 
+  '[Product Components] Load Product',
   props<{ id: string }>()
 );
 export const loadProductSuccess = createAction(
-  '[Product Effect] Load Product Success', 
+  '[Product Effect] Load Product Success',
   props<{ selectedProduct: Product }>()
 );
 export const loadProductFailure = createAction(
-  '[Product Effect] Load Product Failure', 
+  '[Product Effect] Load Product Failure',
   props<{ error: any }>()
 );
 // update product

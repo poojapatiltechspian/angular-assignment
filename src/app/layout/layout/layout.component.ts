@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ThemeService } from '../../theme.service';
-import { Router } from "@angular/router";
+import { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -12,7 +12,7 @@ export class LayoutComponent implements OnInit {
   darkTheme = new FormControl(false);
   constructor(
     private themeService: ThemeService,
-    private router: Router
+    private loginRegistrationSetupService: LoginRegistrationSetupService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class LayoutComponent implements OnInit {
       }
     });
   }
-  logout() {
-    this.router.navigate(['/user/login']);
+  logout(): any {
+    this.loginRegistrationSetupService.Logout();
   }
 }

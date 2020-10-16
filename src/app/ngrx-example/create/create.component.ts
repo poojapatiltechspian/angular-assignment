@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';  
+import { Store } from '@ngrx/store';
 import { Tutorial } from '../models/tutorial.model';
 import { AppState } from '../../app.state';
 import * as TutorialActions from './../actions/tutorials.actions';
@@ -16,8 +16,8 @@ export class CreateComponent implements OnInit {
     private store: Store<AppState>
   ) { }
 
-  addTutorial(name, url) {
-    this.store.dispatch(new TutorialActions.AddTutorial({name: name, url: url}));
+  addTutorial(name, url): void {
+    this.store.dispatch(new TutorialActions.AddTutorial({ name: name, url: url }));
   }
   ngOnInit(): void {
   }

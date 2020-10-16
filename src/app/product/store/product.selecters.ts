@@ -6,4 +6,4 @@ export const selectProductState = createFeatureSelector<ProductState> (
 // load all products
 export const selectProduct = createSelector(selectProductState, selectAll);
 // load indiviual product
-export const selectedProduct = createSelector(selectProductState, (state: ProductState)=>state.selectedProduct);
+export const selectedProduct = createSelector(selectProductState, (state: ProductState) => state.selectedProduct);
