@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../common.service';
 import { select, Store } from '@ngrx/store';
 import * as formActions from '../store/product.actions';
 import { Product } from '../store/product.model';
@@ -16,7 +15,6 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   productList$: Observable<Product[]>;
   constructor(
-  private commonService: CommonService,
   private store: Store,
   private router: Router
   ) { }
@@ -32,6 +30,7 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['./edit-product/', id]);
   }
   delete(id): void {
-    this.store.dispatch(formActions.deleteProduct({id: id}));
+    const ids = {id};
+    this.store.dispatch(formActions.deleteProduct(ids));
   }
 }

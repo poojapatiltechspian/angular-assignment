@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     StoreModule.forFeature(fromProduct.productsFeatureKey, fromProduct.reducer),
     EffectsModule.forFeature([ProductEffects])
   ]

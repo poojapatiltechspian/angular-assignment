@@ -4,7 +4,7 @@ import { AddLinksComponent } from './add-links.component';
 import { FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonService } from '../common.service';
-
+import { ButtonComponent } from '../layout/button/button.component';
 describe('AppComponent', () => {
   let fixture: any;
   let commonServiceMock: any;
@@ -19,7 +19,8 @@ describe('AppComponent', () => {
         HttpClientTestingModule
       ],
       declarations: [
-        AddLinksComponent
+        AddLinksComponent,
+        ButtonComponent
       ],
       providers: [CommonService]
     }).compileComponents();

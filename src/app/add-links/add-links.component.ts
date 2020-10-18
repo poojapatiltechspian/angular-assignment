@@ -13,6 +13,9 @@ export class AddLinksComponent implements OnInit {
   linksForm: FormGroup;
   isEdit: boolean;
   userStatus: any;
+  buttonLable: any;
+  buttonEdit = 'Edit';
+  buttonDelete = 'delete';
   constructor(
     private commonService: CommonService,
     private fb: FormBuilder,
@@ -23,6 +26,7 @@ export class AddLinksComponent implements OnInit {
     this.getLinks();
   }
   createForm(): void{
+    this.buttonLable = 'save';
     this.linksForm = this.fb.group({
       id:  [''],
       name: ['', Validators.required],
@@ -46,9 +50,10 @@ export class AddLinksComponent implements OnInit {
       });
     }
     getLinks(): void {
-      this.commonService.getLink().subscribe((data) => {
-        this.products = data;
-      });
+      this.commonService.getLink().subscribe(
+        (data) => { this.products = data; },
+        (error) =>  { console.log('HTTP Error', error); }
+      );
     }
     onSubmit(data): void{
       this.commonService.createLink(data.value).subscribe(() => {
@@ -57,6 +62,7 @@ export class AddLinksComponent implements OnInit {
       });
     }
     edit(id): void {
+      this.buttonLable =  'Edit';
       this.commonService.getLinkData(id).subscribe((data) => {
         this.patchForm(data);
         this.isEdit = true;
@@ -67,6 +73,7 @@ export class AddLinksComponent implements OnInit {
         this.getLinks();
         this.linksForm.reset();
         this.isEdit = false;
+        this.buttonLable =  'SAVE';
       });
   }
 }

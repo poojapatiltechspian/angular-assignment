@@ -23,17 +23,23 @@ export class UserRegistrationComponent implements OnInit {
   }
   createForm(): void{
     this.RegistrationForm = this.fb.group({
-      // user_id: [''],
       user_name:  ['', [Validators.required, Validators.maxLength(200), Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(2)]],
-      confirm_password: ['', [Validators.required]],
+      confirm_password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(2)]],
     });
   }
   onSubmit(): void {
-    console.log(this.RegistrationForm.value);
-    this.loginRegistrationSetupService.registerUser(this.RegistrationForm.value).subscribe((data) => {
-      alert('User registered successfully!');
-      this.router.navigate(['/user/login']);
-    });
+    if (this.RegistrationForm.value.password === this.RegistrationForm.value.confirm_password) {
+      const user = {
+        user_name: this.RegistrationForm.value.uname,
+        password: this.RegistrationForm.value.password,
+      };
+      this.loginRegistrationSetupService.registerUser(user).subscribe((data) => {
+        alert('User registered successfully!');
+        this.router.navigate(['/user/login']);
+      });
+    }else {
+      alert('Password and confirm password not maching!');
+    }
   }
 }

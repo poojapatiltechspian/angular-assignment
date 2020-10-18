@@ -1,33 +1,39 @@
 <div class="container">
-  <div class="heading add-link">Add Link</div>
-  <form [formGroup]="linksForm" (ngSubmit)="onSubmit(linksForm)">
+  <div class="heading">Add Product</div>
+  <form [formGroup]="linksForm">
     <div class="input-container">
       <input type="text"  formControlName="name" placeholder="Name" class="full-width">
     </div>
-    
+    <div class="error-msg" *ngIf="linksForm.controls.name.invalid && (linksForm.controls.name.dirty || linksForm.controls.name.touched)" class="text-danger">
+      <span class="error-msg" *ngIf="linksForm.controls.name.errors.required">Name is required!</span>
+    </div>
     <div class="input-container">
       <textarea formControlName="description" placeholder="Description" class="full-width"></textarea>
     </div>
-    
+    <div class="error-msg" *ngIf="linksForm.controls.description.invalid && (linksForm.controls.description.dirty || linksForm.controls.description.touched)" class="text-danger">
+      <span class="error-msg" *ngIf="linksForm.controls.description.errors.required">Description is required!</span>
+    </div>
     <div class="input-container">
       <input type="text"  formControlName="price" placeholder="Price" class="full-width">
     </div> 
+    <div class="error-msg" *ngIf="linksForm.controls.price.invalid && (linksForm.controls.price.dirty || linksForm.controls.price.touched)" class="text-danger">
+      <span class="error-msg" *ngIf="linksForm.controls.price.errors.required">Price is required!</span>
+    </div>
     <div class="input-container">
       <input type="text"  formControlName="quantity" placeholder="Quantity" class="full-width">
     </div>
-    
+    <div class="error-msg" *ngIf="linksForm.controls.quantity.invalid && (linksForm.controls.quantity.dirty || linksForm.controls.quantity.touched)" class="text-danger">
+      <span class="error-msg" *ngIf="linksForm.controls.quantity.errors.required">Quantity is required!</span>
+    </div>
     <div class="input-container" *ngIf="isEdit != true">
-      <button type="submit" [disabled]="linksForm.invalid">
-        Save
-      </button>
+      <app-button [labelbutton]="buttonLable" [disabledFlag]="linksForm.invalid" [FormValue]="linksForm.value" (click)="onSubmit(linksForm)"></app-button>
     </div>
     <div class="input-container" *ngIf="isEdit == true">
-      <button type="Button" [disabled]="linksForm.invalid" (click)="editData()">
-        Update
-      </button>
+      <app-button [labelbutton]="buttonLable" [disabledFlag]="linksForm.invalid" [FormValue]="linksForm.value" (click)="editData(linksForm)"></app-button>
     </div>
   </form>
-<div class="heading">Link List</div>
+  <hr class="solid">
+<div class="heading">Link Products</div>
   <table>
     <thead>
       <tr>
@@ -47,8 +53,14 @@
         <td>{{link.description}}</td>
         <td>{{link.price}}</td>
         <td>{{link.quantity}}</td>
-        <td><button (click)="edit(link.id)">Edit</button></td>
-        <td><button (click)="delete(link.id)">Delete</button></td>
+        <td>
+        <app-button [labelbutton]="buttonEdit" [disabledFlag]="false" [FormValue]="link.id" (click)="edit(link.id)"></app-button>
+          <!-- <button (click)="edit(link.id)">Edit</button> -->
+        </td>
+        <td>
+          <app-button [labelbutton]="buttonDelete" [disabledFlag]="false" [FormValue]="link.id" (click)="delete(link.id)"></app-button>
+          <!-- <button (click)="delete(link.id)">Delete</button> -->
+        </td>
       </tr>
     </tbody>
   </table>

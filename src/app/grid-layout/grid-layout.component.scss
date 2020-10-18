@@ -83,12 +83,10 @@
 .container-1 > div, .container-2> div, .container-3> div, .container-4> div{
     border: 1px black solid;
     padding: 10px;
-    background: #eee;
 }
 .container-1 > div:nth-child(odd), .container-2> div:nth-child(odd), .container-3> div:nth-child(odd), .container-4> div:nth-child(odd) {
     border: 1px black solid;
     padding: 10px;
-    background: #ccc;
 }
 
 .nested> div{

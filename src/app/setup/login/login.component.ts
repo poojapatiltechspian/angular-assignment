@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit(): void {
-    console.log(this.LoginForm.value);
     this.loginRegistrationSetupService.LoginUser(this.LoginForm.value.user_name, this.LoginForm.value.password);
   }
 }

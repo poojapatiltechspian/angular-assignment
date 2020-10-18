@@ -25,6 +25,8 @@ import { Product2Module } from './product/product2.module';
 import { AppEffects } from './app.effects';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { ButtonComponent } from './layout/button/button.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +38,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MyCounterComponent,
     LayoutComponent,
     DashboardComponent,
+    HeaderComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [CommonService, Store],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

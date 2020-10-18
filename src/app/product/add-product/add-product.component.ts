@@ -21,12 +21,15 @@ export class AddProductComponent implements OnInit {
   linksForm: FormGroup;
   isEdit: boolean;
   userStatus: any;
+  productId: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<ProductState>,
     private activatedRoute: ActivatedRoute,
     private router: Router
     ) {
+      const prodid = 'id';
+      this. productId = this.activatedRoute.snapshot.params[prodid];
       if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {
         this.edit();
       }
@@ -61,15 +64,15 @@ export class AddProductComponent implements OnInit {
   }
   edit(): void {
     this.isEdit = true;
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.store.dispatch(loadProduct({id: id}));
+    const id = this.productId;
+    this.store.dispatch(loadProduct({id}));
     this.store.pipe(select(selectedProduct)).subscribe((product) => {
       this.selectedProduct = Object.assign(new Product(), product);
       this.patchForm(this.selectedProduct);
     });
   }
   editData(): void{
-    this.linksForm.value.id = this.activatedRoute.snapshot.params['id'];
+    this.linksForm.value.id = this.productId;
     const uppdate: Update<Product> = {
       id: this.linksForm.value.id,
       changes: this.linksForm.value

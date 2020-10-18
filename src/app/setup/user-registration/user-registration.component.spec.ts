@@ -26,10 +26,30 @@ describe('UserRegistrationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserRegistrationComponent);
     component = fixture.componentInstance;
-    // fixture.detectChanges();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('check form feilds', () => {
+    const RegistrationForm = {
+                user_name:  '',
+                password: '',
+                confirm_password: ''
+              };
+    expect(component.RegistrationForm.value).toEqual(RegistrationForm);
+  });
+  it('should invalidate form', () => {
+    component.RegistrationForm.controls.user_name.setValue('');
+    component.RegistrationForm.controls.password.setValue('');
+    component.RegistrationForm.controls.confirm_password.setValue('');
+    expect(component.RegistrationForm.valid).toBeFalsy();
+  });
+  it('should validate form', () => {
+    component.RegistrationForm.controls.user_name.setValue('user');
+    component.RegistrationForm.controls.password.setValue('1234');
+    component.RegistrationForm.controls.confirm_password.setValue('1234');
+    expect(component.RegistrationForm.valid).toBeTruthy();
   });
 });

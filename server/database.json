@@ -32,15 +32,15 @@
   "products": [
     {
       "id": 1,
-      "name": "product1",
+      "name": "product1 update",
       "description": "product1 description",
       "price": "1200",
-      "quantity": "120"
+      "quantity": "120 update update"
     },
     {
       "id": 3,
       "name": "product2",
-      "description": "product 2 description",
+      "description": "product 2 description update",
       "price": "390",
       "quantity": "23"
     },
@@ -53,10 +53,10 @@
     },
     {
       "id": 5,
-      "name": "product 4",
-      "description": "data",
-      "price": "120",
-      "quantity": "120"
+      "name": "product 5",
+      "description": "desc",
+      "price": "1234",
+      "quantity": "1234"
     }
   ],
   "user-details": [

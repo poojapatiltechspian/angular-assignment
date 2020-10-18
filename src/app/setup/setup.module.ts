@@ -8,7 +8,6 @@ import { SetupRoutingModule } from './setup-routing.module';
 import { LoginComponent } from './login/login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
-
 @NgModule({
   declarations: [LoginComponent, UserRegistrationComponent],
   imports: [

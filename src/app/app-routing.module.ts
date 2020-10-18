@@ -58,12 +58,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'ngrx-tutorial-example',
+        path: 'ngrx-tutorial-example2',
         component: ReadComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'ngrx-tutorial-example2',
+        path: 'ngrx-tutorial-example1',
         component: MyCounterComponent,
         canActivate: [AuthGuard],
       },
