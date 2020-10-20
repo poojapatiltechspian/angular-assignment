@@ -2,7 +2,7 @@ import { CommonService } from './common.service';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandlingService } from './error-handling.service';
+import { ErrorHandlingService } from './shared/services/error-handling.service';
 
 describe('CommonService', () => {
   let service: CommonService;

@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginRegistrationSetupService } from './login-registration-setup.service';
-import { ErrorHandlingService } from '../error-handling.service';
+import { ErrorHandlingService } from '../shared/services/error-handling.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginRegistrationSetupService', () => {
@@ -24,14 +24,10 @@ describe('LoginRegistrationSetupService', () => {
   });
   it('should test http client get for user details', () => {
     const saveData =  {
-          id: 1,
-          name: 'Book1',
-          display_name: 'book1',
-          author: 'author1',
-          price: '120',
-          description: 'descriptioon',
-          img_path: 'path',
-        };
+      userId: '1',
+      userName: 'use2',
+      password: '123'
+    };
 
     service.registerUser(saveData).subscribe((post) => {
       expect(saveData).toBe(post);
@@ -42,4 +38,5 @@ describe('LoginRegistrationSetupService', () => {
     expect(req.request.responseType).toEqual('json');
     req.flush(saveData);
   });
+
 });

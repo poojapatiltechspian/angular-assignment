@@ -9,7 +9,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { LayoutComponent  } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthGuardService as AuthGuard } from './auth-guard.service';
+import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
 const routes: Routes = [
 

@@ -1,0 +1,10 @@
+<div class="wrapper">
+    <div class="img__wrap" *ngFor="let book of bookData">
+        <img [src]="book.img_path" class="img__img" [alt]="book.display_name">
+        <div class="img__description"> 
+            <div class="book-name">{{book.display_name}}<div>
+            <div class="book-author">{{book.author}}<div>
+            <div class="book-price">${{book.price}}<div>
+        </div>
+    </div>
+</div>

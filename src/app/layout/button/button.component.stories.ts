@@ -1,6 +1,10 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button.component';
+import { action } from '@storybook/addon-actions';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule} from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export default {
   title: 'Button',
@@ -9,7 +13,9 @@ export default {
     moduleMetadata({
       // imports both components to allow component composition with storybook
       declarations: [ButtonComponent],
-      imports: [CommonModule],
+      imports: [CommonModule, RouterTestingModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule],
     }),
   ],
 };
@@ -17,29 +23,30 @@ export default {
 export const defaultTasksData = [
   { id: '1' },
 ];
+export const actionsData = {
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
+};
 export const EditButtonDisableFalse = () => ({
   component: ButtonComponent,
   template: `
-  <button type="Button" [disabled]="disabledFlag" (click)="functionClick(FormValue)">
-  {{labelbutton}}
-</button>
-`,
+  <app-button type="Button" [labelbutton]="labelbutton" [disabledFlag]="disabledFlag" [FormValue]="FormValue" (click)="onArchiveTask($event)"></app-button>`,
   props: {
     FormValue: defaultTasksData,
     disabledFlag: false,
     labelbutton: 'Edit',
+    onArchiveTask: actionsData.onArchiveTask,
   },
 });
 export const saveButtonTrueFalse = () => ({
     component: ButtonComponent,
     template: `
-    <button type="Button" [disabled]="disabledFlag" (click)="functionClick(FormValue)">
-    {{labelbutton}}
-  </button>
+    <app-button type="Button" [labelbutton]="labelbutton" [disabledFlag]="disabledFlag" [FormValue]="FormValue" (click)="onArchiveTask($event)"></app-button>
   `,
     props: {
       FormValue: defaultTasksData,
       disabledFlag: true,
       labelbutton: 'SAVE',
+      onArchiveTask: actionsData.onArchiveTask,
     },
 });

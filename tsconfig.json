@@ -16,5 +16,10 @@
       "es2018",
       "dom"
     ]
+  },
+  "test": {
+    "options": {
+      "codeCoverage": true
+    }
   }
 }

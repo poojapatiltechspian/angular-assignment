@@ -17,9 +17,14 @@ describe('AuthGuardService', () => {
     expect(service).toBeTruthy();
   });
 
-  // it('should be created', () => {
-  //   if (spyOn(localStorage, 'getItem') !== null) {
-  //     expect(service.canActivate).toBeFalsy();
-  //   }
-  // });
+  it('should be return true if local storage is not null', () => {
+    if (spyOn(localStorage, 'getItem') !== null) {
+      expect(service.canActivate).toBeTruthy();
+    }
+  });
+  it('should be return false if local storage is null', () => {
+    if (spyOn(localStorage, 'getItem') === null) {
+      expect(service.canActivate).toBeFalsy();
+    }
+  });
 });

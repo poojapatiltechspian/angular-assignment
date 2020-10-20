@@ -27,6 +27,15 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit(): void {
-    this.loginRegistrationSetupService.LoginUser(this.LoginForm.value.user_name, this.LoginForm.value.password);
+    this.loginRegistrationSetupService.LoginUser(this.LoginForm.value.user_name, this.LoginForm.value.password).subscribe((data) => {
+      if (data[0] === undefined) {
+        alert('User is not register!');
+      }else {
+        alert('Login successful!');
+        const jsonData = JSON.stringify(data[0]);
+        localStorage.setItem('user', jsonData);
+        this.router.navigate(['/home']);
+      }
+    });
   }
 }

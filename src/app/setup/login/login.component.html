@@ -2,7 +2,7 @@
     <div class="heading">User Login</div>
     <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
       <div class="input-container">
-        <input type="text"  formControlName="user_name" placeholder="User Name" class="full-width">
+        <input type="text" formControlName="user_name" placeholder="User Name" class="full-width">
       </div>
       <div class="error-msg" *ngIf="LoginForm.controls.user_name.invalid && (LoginForm.controls.user_name.dirty || LoginForm.controls.user_name.touched)" class="text-danger">
         <span class="error-msg" *ngIf="LoginForm.controls.user_name.errors.required">User name is required!</span>

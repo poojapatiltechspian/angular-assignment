@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-add-links',
   templateUrl: './add-links.component.html',
@@ -16,6 +18,7 @@ export class AddLinksComponent implements OnInit {
   buttonLable: any;
   buttonEdit = 'Edit';
   buttonDelete = 'delete';
+  sub: Subscription;
   constructor(
     private commonService: CommonService,
     private fb: FormBuilder,
@@ -50,7 +53,7 @@ export class AddLinksComponent implements OnInit {
       });
     }
     getLinks(): void {
-      this.commonService.getLink().subscribe(
+      this.sub = this.commonService.getLink().subscribe(
         (data) => { this.products = data; },
         (error) =>  { console.log('HTTP Error', error); }
       );

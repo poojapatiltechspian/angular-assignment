@@ -1,13 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AddLinksComponent } from './add-links.component';
 import { FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonService } from '../common.service';
 import { ButtonComponent } from '../layout/button/button.component';
+import { of } from 'rxjs';
+import { Product } from '../product/store/product.model';
+
 describe('AppComponent', () => {
   let fixture: any;
-  let commonServiceMock: any;
+  let commonServiceMock: CommonService;
   let component;
   let template: any;
   beforeEach(async () => {
@@ -35,6 +38,15 @@ describe('AppComponent', () => {
   it('should create the app', () => {
     expect(fixture).toBeTruthy();
   });
+
+  it('should call getLinks and return list of products', fakeAsync(() => {
+    const response: Product[] = [];
+    spyOn(commonServiceMock, 'getLink').and.returnValue(of(response));
+    component.getLinks();
+    fixture.detectChanges();
+    expect(component.products).toEqual(response);
+  }));
+
   it('check form feilds', () => {
     const linkForm = {
                 id:  '',

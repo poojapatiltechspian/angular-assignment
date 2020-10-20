@@ -1,2 +1,11 @@
+<div class="header-top">
+    <!-- <span class="header-user-name">Welcome {{userName}}</span> -->
+     <span class="right-side-top"> 
+        <!-- <span class="tooltip m-1">  -->
+          <label class="switch"><input type="checkbox" id="darkTheme" [formControl]="darkTheme"> <span class="slider round"></span></label>
+        <!-- </span> -->
+        <span class="logout m-1" (click)="logout()">Logout</span>
+    </span>
+</div>
 <app-header></app-header>
 <router-outlet></router-outlet> 

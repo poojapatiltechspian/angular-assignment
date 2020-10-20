@@ -27,6 +27,7 @@ import { LayoutComponent } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { ButtonComponent } from './layout/button/button.component';
+import { DashboardCardComponent } from './dashboard/dashboard-card/dashboard-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { ButtonComponent } from './layout/button/button.component';
     DashboardComponent,
     HeaderComponent,
     ButtonComponent,
+    DashboardCardComponent,
   ],
   imports: [
     BrowserModule,
