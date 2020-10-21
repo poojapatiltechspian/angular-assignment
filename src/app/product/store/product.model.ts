@@ -3,6 +3,6 @@ export class Product {
   name: string;
   description: string;
   price: string;
-  imgurl: string;
   quantity: number;
+  imgPath: string;
 }

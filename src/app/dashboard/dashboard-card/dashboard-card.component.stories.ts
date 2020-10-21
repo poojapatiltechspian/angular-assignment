@@ -30,7 +30,7 @@ export const bookData = [
 export const dashboardCardContainer = () => ({
   component: DashboardCardComponent,
   template: `
-  <app-dashboard-card [bookData]='data'></app-dashboard-card>`,
+  <app-dashboard-card [productData]='data'></app-dashboard-card>`,
     props: {
         data: bookData,
     }

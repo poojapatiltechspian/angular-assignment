@@ -1,11 +1,13 @@
-<div class="header-top">
-    <!-- <span class="header-user-name">Welcome {{userName}}</span> -->
+<div class="header-top m-1">
      <span class="right-side-top"> 
-        <!-- <span class="tooltip m-1">  -->
-          <label class="switch"><input type="checkbox" id="darkTheme" [formControl]="darkTheme"> <span class="slider round"></span></label>
-        <!-- </span> -->
-        <span class="logout m-1" (click)="logout()">Logout</span>
+        <button class="button-format m-1"  tabindex="1" (click)="theme(isChecked)">Switch Theme</button>
+        <button class="button-format m-1" *ngIf="isLoginUser==true" (click)="logout()"  tabindex="2">Logout</button>
+        <button class="button-format m-1" *ngIf="isLoginUser!=true" routerLink="/home"  tabindex="2">Home</button>
+        <button class="button-format m-1" *ngIf="isLoginUser!=true" routerLink="/user/login"  tabindex="3">Login User</button>
+        <button class="button-format m-1" *ngIf="isLoginUser!=true" routerLink="/user/registration" tabindex="4">Register User</button>
     </span>
 </div>
-<app-header></app-header>
+<div *ngIf="isLoginUser==true">
+  <app-header></app-header>
+</div>
 <router-outlet></router-outlet> 

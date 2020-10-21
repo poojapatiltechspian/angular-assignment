@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
         alert('User is not register!');
       }else {
         alert('Login successful!');
+        this.loginRegistrationSetupService.sendData(true);
         const jsonData = JSON.stringify(data[0]);
         localStorage.setItem('user', jsonData);
         this.router.navigate(['/home']);

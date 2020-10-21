@@ -160,7 +160,7 @@
         },
         {
             "name": "CommonService",
-            "id": "injectable-CommonService-749e392a65ce1cfbedebc5d4610da946",
+            "id": "injectable-CommonService-decbcb11c49f23a32204968cc65a1177",
             "file": "src/app/common.service.ts",
             "properties": [
                 {
@@ -397,7 +397,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\nexport class Book {\n  'id': string;\n  'name': string;\n  'display_name': string;\n  'author': string;\n  'price': string;\n  'description': string;\n  'img_path': string;\n}\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getLinkError(): Observable<Product[]> {\n    const url = this.baseurl + 'productss/';\n    return this.http.get<Product[]>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n\n\n  // *************Books*******************\n  createBook(product): Observable<Book> {\n    const url = this.baseurl + 'books/';\n    return this.http.post<Book>(url, product)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getBooks(): Observable<Book[]>{\n    const url = this.baseurl + 'books/';\n    return this.http.get<Book[]>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getBookData(id): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.get<Book>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  updateBook(id: string | number, data): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.put<Book>(url, data)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n\n  deleteBook(id): any{\n    const url = this.baseurl + 'books/' + id;\n    return this.http.delete(url).pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\nexport class Book {\n  'id': string;\n  'name': string;\n  'display_name': string;\n  'author': string;\n  'price': string;\n  'description': string;\n  'img_path': string;\n}\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkError(): Observable<Product[]> {\n    const url = this.baseurl + 'productss/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n\n  // *************Books*******************\n  createBook(product): Observable<Book> {\n    const url = this.baseurl + 'books/';\n    return this.http.post<Book>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getBooks(): Observable<Book[]>{\n    const url = this.baseurl + 'books/';\n    return this.http.get<Book[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getBookData(id): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.get<Book>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateBook(id: string | number, data): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.put<Book>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n  deleteBook(id): any{\n    const url = this.baseurl + 'books/' + id;\n    return this.http.delete(url).pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -472,7 +472,7 @@
         },
         {
             "name": "LoginRegistrationSetupService",
-            "id": "injectable-LoginRegistrationSetupService-0fa5aa44b96f3cd1f2de15301c8685a7",
+            "id": "injectable-LoginRegistrationSetupService-0d8bcd296c134e01cb65f4db87cdf486",
             "file": "src/app/setup/login-registration-setup.service.ts",
             "properties": [
                 {
@@ -550,7 +550,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable } from 'rxjs';\nimport { environment } from '../../environments/environment';\nimport { User } from './model/user.model';\nimport { Router } from '@angular/router';\nimport { retry, catchError } from 'rxjs/operators';\nimport { ErrorHandlingService } from '../shared/services/error-handling.service';\n@Injectable({\n  providedIn: 'root'\n})\nexport class LoginRegistrationSetupService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private router: Router,\n    private errorHandlingService: ErrorHandlingService\n  ) { }\n\n  registerUser(user): Observable<User> {\n    const url = this.baseurl + 'user-details/';\n    return this.http.post<User>(url, user)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  LoginUser(username, password): Observable<User> {\n    const url = this.baseurl + 'user-details?' + 'user_name=' + username + '&password=' + password;\n    return this.http.get<User>(url)\n    .pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n  Logout(): void {\n    localStorage.clear();\n    this.router.navigate(['/user/login']);\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable } from 'rxjs';\nimport { environment } from '../../environments/environment';\nimport { User } from './model/user.model';\nimport { Router } from '@angular/router';\nimport { retry, catchError } from 'rxjs/operators';\nimport { ErrorHandlingService } from '../shared/services/error-handling.service';\n@Injectable({\n  providedIn: 'root'\n})\nexport class LoginRegistrationSetupService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private router: Router,\n    private errorHandlingService: ErrorHandlingService\n  ) { }\n\n  registerUser(user): Observable<User> {\n    const url = this.baseurl + 'user-details/';\n    return this.http.post<User>(url, user)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  LoginUser(username, password): Observable<User> {\n    const url = this.baseurl + 'user-details?' + 'user_name=' + username + '&password=' + password;\n    return this.http.get<User>(url)\n    .pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n  Logout(): void {\n    localStorage.clear();\n    this.router.navigate(['/home']);\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -823,10 +823,10 @@
         },
         {
             "name": "Book",
-            "id": "class-Book-749e392a65ce1cfbedebc5d4610da946",
+            "id": "class-Book-decbcb11c49f23a32204968cc65a1177",
             "file": "src/app/common.service.ts",
             "type": "class",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\nexport class Book {\n  'id': string;\n  'name': string;\n  'display_name': string;\n  'author': string;\n  'price': string;\n  'description': string;\n  'img_path': string;\n}\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getLinkError(): Observable<Product[]> {\n    const url = this.baseurl + 'productss/';\n    return this.http.get<Product[]>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n\n\n  // *************Books*******************\n  createBook(product): Observable<Book> {\n    const url = this.baseurl + 'books/';\n    return this.http.post<Book>(url, product)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getBooks(): Observable<Book[]>{\n    const url = this.baseurl + 'books/';\n    return this.http.get<Book[]>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  getBookData(id): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.get<Book>(url)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n  updateBook(id: string | number, data): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.put<Book>(url, data)\n   //  .pipe(\n//      retry(1),\n//      catchError(this.errorHandlingService.handleError)\n//    );\n  }\n\n  deleteBook(id): any{\n    const url = this.baseurl + 'books/' + id;\n    return this.http.delete(url).pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\nexport class Book {\n  'id': string;\n  'name': string;\n  'display_name': string;\n  'author': string;\n  'price': string;\n  'description': string;\n  'img_path': string;\n}\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkError(): Observable<Product[]> {\n    const url = this.baseurl + 'productss/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n\n  // *************Books*******************\n  createBook(product): Observable<Book> {\n    const url = this.baseurl + 'books/';\n    return this.http.post<Book>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getBooks(): Observable<Book[]>{\n    const url = this.baseurl + 'books/';\n    return this.http.get<Book[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getBookData(id): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.get<Book>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateBook(id: string | number, data): Observable<Book> {\n    const url = this.baseurl + 'books/' + id;\n    return this.http.put<Book>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n  deleteBook(id): any{\n    const url = this.baseurl + 'books/' + id;\n    return this.http.delete(url).pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n}\n",
             "properties": [
                 {
                     "name": "author",
@@ -887,10 +887,10 @@
         },
         {
             "name": "Product",
-            "id": "class-Product-f563ddb9c128eb181fc2c7ff84bb8375",
+            "id": "class-Product-a0314210acffad07811de6b9d4865a6f",
             "file": "src/app/product/store/product.model.ts",
             "type": "class",
-            "sourceCode": "export class Product {\n  id: number;\n  name: string;\n  description: string;\n  price: string;\n  imgurl: string;\n  quantity: number;\n}\n",
+            "sourceCode": "export class Product {\n  id: number;\n  name: string;\n  description: string;\n  price: string;\n  quantity: number;\n  imgPath: string;\n}\n",
             "properties": [
                 {
                     "name": "description",
@@ -907,11 +907,11 @@
                     "line": 2
                 },
                 {
-                    "name": "imgurl",
+                    "name": "imgPath",
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 6
+                    "line": 7
                 },
                 {
                     "name": "name",
@@ -932,7 +932,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 7
+                    "line": 6
                 }
             ],
             "methods": [],
@@ -1042,7 +1042,7 @@
     "components": [
         {
             "name": "AddLinksComponent",
-            "id": "component-AddLinksComponent-55a338487a7852304a66ddb7e1d3474b",
+            "id": "component-AddLinksComponent-82570d17ade2f4c1aab3825ea516ade7",
             "file": "src/app/add-links/add-links.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1147,7 +1147,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 52,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -1169,7 +1169,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 69,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -1186,7 +1186,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 74
+                    "line": 76
                 },
                 {
                     "name": "getLinks",
@@ -1194,7 +1194,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55
+                    "line": 57
                 },
                 {
                     "name": "ngOnInit",
@@ -1215,7 +1215,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 61,
+                    "line": 63,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1238,7 +1238,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 42,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1256,7 +1256,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-add-links',\n  templateUrl: './add-links.component.html',\n  styleUrls: ['./add-links.component.scss']\n})\nexport class AddLinksComponent implements OnInit {\n\n  products: any;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  buttonLable: any;\n  buttonEdit = 'Edit';\n  buttonDelete = 'delete';\n  sub: Subscription;\n  constructor(\n    private commonService: CommonService,\n    private fb: FormBuilder,\n    ) {}\n\n  ngOnInit(): void{\n    this.createForm();\n    this.getLinks();\n  }\n  createForm(): void{\n    this.buttonLable = 'save';\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]]\n    });\n  }\n    delete(id): void {\n      this.commonService.deleteLink(id).subscribe((data) => {\n        this.getLinks();\n      });\n    }\n    getLinks(): void {\n      this.sub = this.commonService.getLink().subscribe(\n        (data) => { this.products = data; },\n        (error) =>  { console.log('HTTP Error', error); }\n      );\n    }\n    onSubmit(data): void{\n      this.commonService.createLink(data.value).subscribe(() => {\n        this.getLinks();\n        this.linksForm.reset();\n      });\n    }\n    edit(id): void {\n      this.buttonLable =  'Edit';\n      this.commonService.getLinkData(id).subscribe((data) => {\n        this.patchForm(data);\n        this.isEdit = true;\n      });\n    }\n    editData(): void{\n      this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {\n        this.getLinks();\n        this.linksForm.reset();\n        this.isEdit = false;\n        this.buttonLable =  'SAVE';\n      });\n  }\n}\n\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-add-links',\n  templateUrl: './add-links.component.html',\n  styleUrls: ['./add-links.component.scss']\n})\nexport class AddLinksComponent implements OnInit {\n\n  products: any;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  buttonLable: any;\n  buttonEdit = 'Edit';\n  buttonDelete = 'delete';\n  sub: Subscription;\n  constructor(\n    private commonService: CommonService,\n    private fb: FormBuilder,\n    ) {}\n\n  ngOnInit(): void{\n    this.createForm();\n    this.getLinks();\n  }\n  createForm(): void{\n    this.buttonLable = 'save';\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n    delete(id): void {\n      this.commonService.deleteLink(id).subscribe((data) => {\n        this.getLinks();\n      });\n    }\n    getLinks(): void {\n      this.sub = this.commonService.getLink().subscribe(\n        (data) => { this.products = data; },\n        (error) =>  { console.log('HTTP Error', error); }\n      );\n    }\n    onSubmit(data): void{\n      this.commonService.createLink(data.value).subscribe(() => {\n        this.getLinks();\n        this.linksForm.reset();\n      });\n    }\n    edit(id): void {\n      this.buttonLable =  'Edit';\n      this.commonService.getLinkData(id).subscribe((data) => {\n        this.patchForm(data);\n        this.isEdit = true;\n      });\n    }\n    editData(): void{\n      this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {\n        this.getLinks();\n        this.linksForm.reset();\n        this.isEdit = false;\n        this.buttonLable =  'SAVE';\n      });\n  }\n}\n\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1303,7 +1303,7 @@
         },
         {
             "name": "AddProductComponent",
-            "id": "component-AddProductComponent-174f3a7bdab29fbddb68993e4cd20c7f",
+            "id": "component-AddProductComponent-d3a5b0d1e188f01545b81fa46175367a",
             "file": "src/app/product/add-product/add-product.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1380,7 +1380,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 65
+                    "line": 67
                 },
                 {
                     "name": "editData",
@@ -1388,7 +1388,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 74
+                    "line": 76
                 },
                 {
                     "name": "ngOnInit",
@@ -1409,7 +1409,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 60,
+                    "line": 62,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1432,7 +1432,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 51,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1450,7 +1450,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { ProductState } from '../store/product.reducer';\nimport { select, Store } from '@ngrx/store';\nimport { addProduct, loadProduct, loadProducts, updateProduct } from '../store/product.actions';\nimport { selectProduct, selectedProduct } from '../store/product.selecters';\nimport { Observable } from 'rxjs';\nimport { Product } from '../store/product.model';\nimport { Update } from '@ngrx/entity';\nimport { Router, ActivatedRoute } from '@angular/router';\n\n@Component({\n  selector: 'app-add-product',\n  templateUrl: './add-product.component.html',\n  styleUrls: ['./add-product.component.scss']\n})\nexport class AddProductComponent implements OnInit {\n\n  products$: Observable<Product[]>;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  productId: any;\n  constructor(\n    private fb: FormBuilder,\n    private store: Store<ProductState>,\n    private activatedRoute: ActivatedRoute,\n    private router: Router\n    ) {\n      const prodid = 'id';\n      this. productId = this.activatedRoute.snapshot.params[prodid];\n      if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {\n        this.edit();\n      }\n    }\n\n  ngOnInit(): void{\n    this.createForm();\n  }\n  createForm(): void{\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]]\n    });\n  }\n\n  onSubmit(data): void{\n    this.store.dispatch(addProduct({product: data.value}));\n    this.linksForm.reset();\n    this.router.navigate(['./product-list']);\n  }\n  edit(): void {\n    this.isEdit = true;\n    const id = this.productId;\n    this.store.dispatch(loadProduct({id}));\n    this.store.pipe(select(selectedProduct)).subscribe((product) => {\n      this.selectedProduct = Object.assign(new Product(), product);\n      this.patchForm(this.selectedProduct);\n    });\n  }\n  editData(): void{\n    this.linksForm.value.id = this.productId;\n    const uppdate: Update<Product> = {\n      id: this.linksForm.value.id,\n      changes: this.linksForm.value\n    };\n    this.store.dispatch(updateProduct({product: uppdate}));\n    this.linksForm.reset();\n    this.isEdit = false;\n    this.router.navigate(['./product-list']);\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { ProductState } from '../store/product.reducer';\nimport { select, Store } from '@ngrx/store';\nimport { addProduct, loadProduct, loadProducts, updateProduct } from '../store/product.actions';\nimport { selectProduct, selectedProduct } from '../store/product.selecters';\nimport { Observable } from 'rxjs';\nimport { Product } from '../store/product.model';\nimport { Update } from '@ngrx/entity';\nimport { Router, ActivatedRoute } from '@angular/router';\n\n@Component({\n  selector: 'app-add-product',\n  templateUrl: './add-product.component.html',\n  styleUrls: ['./add-product.component.scss']\n})\nexport class AddProductComponent implements OnInit {\n\n  products$: Observable<Product[]>;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  productId: any;\n  constructor(\n    private fb: FormBuilder,\n    private store: Store<ProductState>,\n    private activatedRoute: ActivatedRoute,\n    private router: Router\n    ) {\n      const prodid = 'id';\n      this. productId = this.activatedRoute.snapshot.params[prodid];\n      if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {\n        this.edit();\n      }\n    }\n\n  ngOnInit(): void{\n    this.createForm();\n  }\n  createForm(): void{\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n\n  onSubmit(data): void{\n    this.store.dispatch(addProduct({product: data.value}));\n    this.linksForm.reset();\n    this.router.navigate(['./product-list']);\n  }\n  edit(): void {\n    this.isEdit = true;\n    const id = this.productId;\n    this.store.dispatch(loadProduct({id}));\n    this.store.pipe(select(selectedProduct)).subscribe((product) => {\n      this.selectedProduct = Object.assign(new Product(), product);\n      this.patchForm(this.selectedProduct);\n    });\n  }\n  editData(): void{\n    this.linksForm.value.id = this.productId;\n    const uppdate: Update<Product> = {\n      id: this.linksForm.value.id,\n      changes: this.linksForm.value\n    };\n    this.store.dispatch(updateProduct({product: uppdate}));\n    this.linksForm.reset();\n    this.isEdit = false;\n    this.router.navigate(['./product-list']);\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1862,7 +1862,7 @@
         },
         {
             "name": "DashboardCardComponent",
-            "id": "component-DashboardCardComponent-5ceae3cb5f99200324b3f93ea947d942",
+            "id": "component-DashboardCardComponent-2a0d620d23a9e0d9a0c896b91b30d7a7",
             "file": "src/app/dashboard/dashboard-card/dashboard-card.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1880,7 +1880,7 @@
             "viewProviders": [],
             "inputsClass": [
                 {
-                    "name": "bookData",
+                    "name": "productData",
                     "line": 10,
                     "type": "any"
                 }
@@ -1902,7 +1902,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\n\n@Component({\n  selector: 'app-dashboard-card',\n  templateUrl: './dashboard-card.component.html',\n  styleUrls: ['./dashboard-card.component.scss']\n})\nexport class DashboardCardComponent implements OnInit {\n\n  @Input() bookData: any;\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\n\n@Component({\n  selector: 'app-dashboard-card',\n  templateUrl: './dashboard-card.component.html',\n  styleUrls: ['./dashboard-card.component.scss']\n})\nexport class DashboardCardComponent implements OnInit {\n\n  @Input() productData: any;\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1920,11 +1920,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"wrapper\">\n    <div class=\"img__wrap\" *ngFor=\"let book of bookData\">\n        <img [src]=\"book.img_path\" class=\"img__img\" [alt]=\"book.display_name\">\n        <div class=\"img__description\"> \n            <div class=\"book-name\">{{book.display_name}}<div>\n            <div class=\"book-author\">{{book.author}}<div>\n            <div class=\"book-price\">${{book.price}}<div>\n        </div>\n    </div>\n</div>"
+            "templateData": "<div class=\"wrapper\">\n    <div class=\"img__wrap\" *ngFor=\"let product of productData\">\n        <img [src]=\"product.img_path\" class=\"img__img\" [alt]=\"product.display_name\">\n        <div class=\"img__description\"> \n            <div class=\"product-name\">{{product.name}}<div>\n            <!-- <div class=\"product-author\">{{product.author}}<div> -->\n            <div class=\"product-price\">${{product.price}}<div>\n        </div>\n    </div>\n</div>"
         },
         {
             "name": "DashboardComponent",
-            "id": "component-DashboardComponent-f80ec96f12fc0ab9e4f444d62ebe2ed5",
+            "id": "component-DashboardComponent-003f9e9d4ddfb8200281fbd420b3b4f0",
             "file": "src/app/dashboard/dashboard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1944,7 +1944,7 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
-                    "name": "bookData",
+                    "name": "productData",
                     "type": "any",
                     "optional": false,
                     "description": "",
@@ -1974,7 +1974,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  bookData: any;\n  constructor(\n    private commonService: CommonService\n  ) { }\n\n  ngOnInit(): void {\n    this.getBooksData();\n  }\n  getBooksData(): void {\n    this.commonService.getBooks().subscribe((data) => {\n      this.bookData = data;\n    });\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  productData: any;\n  constructor(\n    private commonService: CommonService\n  ) { }\n\n  ngOnInit(): void {\n    this.getBooksData();\n  }\n  getBooksData(): void {\n    this.commonService.getLink().subscribe((data) => {\n      this.productData = data;\n    });\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2006,7 +2006,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<app-dashboard-card [bookData]=\"bookData\"></app-dashboard-card>"
+            "templateData": "<app-dashboard-card [productData]=\"productData\"></app-dashboard-card>"
         },
         {
             "name": "FlexLayoutComponent",
@@ -2220,7 +2220,7 @@
         },
         {
             "name": "LayoutComponent",
-            "id": "component-LayoutComponent-f13809b17126194beb3c6b1359fc391d",
+            "id": "component-LayoutComponent-6e054efef2bb95d4986fb2dd7d56e81a",
             "file": "src/app/layout/layout/layout.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2248,6 +2248,13 @@
                     "line": 12
                 },
                 {
+                    "name": "isLoginUser",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
                     "name": "userName",
                     "type": "any",
                     "optional": false,
@@ -2262,7 +2269,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 33
+                    "line": 38
                 },
                 {
                     "name": "ngOnInit",
@@ -2270,7 +2277,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 19
+                    "line": 20
                 },
                 {
                     "name": "theme",
@@ -2278,7 +2285,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 24
+                    "line": 29
                 }
             ],
             "hostBindings": [],
@@ -2286,11 +2293,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { ThemeService } from '../../shared/services/theme.service';\nimport { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';\n@Component({\n  selector: 'app-layout',\n  templateUrl: './layout.component.html',\n  styleUrls: ['./layout.component.scss']\n})\nexport class LayoutComponent implements OnInit {\n\n  darkTheme = new FormControl(false);\n  userName: any;\n  constructor(\n    private themeService: ThemeService,\n    private loginRegistrationSetupService: LoginRegistrationSetupService\n  ) { }\n\n  ngOnInit(): void {\n    const user = JSON.parse(localStorage.getItem('user'));\n    this.userName = user.user_name;\n    this.theme();\n  }\n  theme(): any {\n    this.darkTheme.valueChanges.subscribe(value => {\n      if (value) {\n        this.themeService.toggleDark();\n      } else {\n        this.themeService.toggleLight();\n      }\n    });\n  }\n  logout(): any {\n    this.loginRegistrationSetupService.Logout();\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { ThemeService } from '../../shared/services/theme.service';\nimport { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';\n@Component({\n  selector: 'app-layout',\n  templateUrl: './layout.component.html',\n  styleUrls: ['./layout.component.scss']\n})\nexport class LayoutComponent implements OnInit {\n\n  darkTheme = new FormControl(false);\n  userName: any;\n  isLoginUser: boolean;\n  constructor(\n    private themeService: ThemeService,\n    private loginRegistrationSetupService: LoginRegistrationSetupService\n  ) { }\n\n  ngOnInit(): void {\n    if (localStorage.getItem('user') !== null) {\n      this.isLoginUser = true;\n    }else {\n      this.isLoginUser = false;\n    }\n    console.log(this.isLoginUser);\n    this.theme();\n  }\n  theme(): any {\n    this.darkTheme.valueChanges.subscribe(value => {\n      if (value) {\n        this.themeService.toggleDark();\n      } else {\n        this.themeService.toggleLight();\n      }\n    });\n  }\n  logout(): any {\n    this.loginRegistrationSetupService.Logout();\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".header-top{\n    position:relative; \n    margin: 23px 2px;\n}\n.header-user-name{\n  // color: #4c61af;\n    font-size: 20px;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n    font-weight: 500;\n}\n.right-side-top{\n  position:absolute;\n  right:0px;\n}\n//   for switch button\n.switch {\n    position: relative;\n    display: inline-block;\n    width: 60px;\n    height: 34px;\n    \n  }\n  \n  .switch input { \n    opacity: 0;\n    width: 0;\n    height: 0;\n  }\n  \n  .slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: #ccc;\n    -webkit-transition: .4s;\n    transition: .4s;\n  }\n  \n  .slider:before {\n    position: absolute;\n    content: \"\";\n    height: 26px;\n    width: 26px;\n    left: 4px;\n    bottom: 4px;\n    background-color: white;\n    -webkit-transition: .4s;\n    transition: .4s;\n  }\n  \n  input:checked + .slider {\n    background-color: #2196F3;\n  }\n  \n  input:focus + .slider {\n    box-shadow: 0 0 1px #2196F3;\n  }\n  \n  input:checked + .slider:before {\n    -webkit-transform: translateX(26px);\n    -ms-transform: translateX(26px);\n    transform: translateX(26px);\n  }\n  \n  /* Rounded sliders */\n  .slider.round {\n    border-radius: 34px;\n  }\n  \n  .slider.round:before {\n    border-radius: 50%;\n  }\n  .logout {\n    background-color: #4c61af;\n    color: white;\n    font-size: 16px;\n    text-align: center;\n    padding: 14px 16px;\n    text-decoration: none;\n    width: 120px;\n  }",
+                    "data": ".header-top{\n    display: grid;\n    justify-items: end;\n}\n//   for switch button\n.switch {\n    position: relative;\n    display: inline-block;\n    width: 60px;\n    height: 34px;\n  }  \n  .switch input { \n    opacity: 0;\n    width: 0;\n    height: 0;\n  }\n  .slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: #ccc;\n    -webkit-transition: .4s;\n    transition: .4s;\n  }\n  \n  .slider:before {\n    position: absolute;\n    content: \"\";\n    height: 26px;\n    width: 26px;\n    left: 4px;\n    bottom: 4px;\n    background-color: white;\n    -webkit-transition: .4s;\n    transition: .4s;\n  }\n  \n  input:checked + .slider {\n    background-color: #4c61af;\n  }\n  \n  input:focus + .slider {\n    box-shadow: 0 0 1px #4c61af;\n  }\n  \n  input:checked + .slider:before {\n    -webkit-transform: translateX(26px);\n    -ms-transform: translateX(26px);\n    transform: translateX(26px);\n  }\n  \n  /* Rounded sliders */\n  .slider.round {\n    border-radius: 34px;\n  }\n  \n  .slider.round:before {\n    border-radius: 50%;\n  }\n  .button-format {\n    background-color: #4c61af;\n    color: white;\n    font-size: 16px;\n    text-align: center;\n    padding: 14px 16px;\n    text-decoration: none;\n    width: 120px;\n    cursor: pointer;\n  }\n  .label-Switch-theme {\n    font-size: 20px;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n    font-weight: 500;\n    align-items: center;\n\n  }",
                     "styleUrl": "./layout.component.scss"
                 }
             ],
@@ -2308,7 +2315,7 @@
                         "type": "LoginRegistrationSetupService"
                     }
                 ],
-                "line": 13,
+                "line": 14,
                 "jsdoctags": [
                     {
                         "name": "themeService",
@@ -2329,7 +2336,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"header-top\">\n    <span class=\"header-user-name\">Welcome {{userName}}</span>\n    <span class=\"right-side-top\">\n        <span class=\"tooltip m-1\">\n            <span class=\"tooltiptext\">Switch Theme</span><label class=\"switch\"><input type=\"checkbox\" id=\"darkTheme\" [formControl]=\"darkTheme\"> <span class=\"slider round\"></span></label>\n        </span>\n        <span class=\"logout m-1\" (click)=\"logout()\">Logout</span>\n    </span>\n</div>\n<app-header></app-header>\n<router-outlet></router-outlet> "
+            "templateData": "<div class=\"header-top m-1\">\n     <span class=\"right-side-top\"> \n        <span class=\"label-Switch-theme \">Switch Theme</span>\n        <label class=\"switch\">\n          <input type=\"checkbox\" id=\"darkTheme\" [formControl]=\"darkTheme\">\n          <span class=\"slider round\"></span>\n        </label>\n        <span class=\"button-format m-1\" *ngIf=\"isLoginUser==true\" (click)=\"logout()\">Logout</span>\n        <span class=\"button-format m-1\" *ngIf=\"isLoginUser!=true\" routerLink=\"/user/login\">Login User</span>\n        <span class=\"button-format m-1\" *ngIf=\"isLoginUser!=true\" routerLink=\"/user/registration\">Register User</span>\n\n    </span>\n</div>\n<div *ngIf=\"isLoginUser==true\">\n  <app-header></app-header>\n</div>\n<router-outlet></router-outlet> "
         },
         {
             "name": "LoginComponent",
@@ -2445,7 +2452,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container form-width\">\n    <div class=\"heading\">User Login</div>\n    <form [formGroup]=\"LoginForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"input-container\">\n        <input type=\"text\" formControlName=\"user_name\" placeholder=\"User Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.invalid && (LoginForm.controls.user_name.dirty || LoginForm.controls.user_name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.required\">User name is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.maxlength\">Maximum 200  characters required!</span>\n        <!-- <span *ngIf=\"LoginForm.controls.user_name.errors.pattern\">Invalid value for this field</span> -->\n    </div>\n      <div class=\"input-container\">\n        <input type=\"password\"  formControlName=\"password\" placeholder=\"password\" class=\"full-width\">\n      </div> \n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.password.invalid && (LoginForm.controls.password.dirty || LoginForm.controls.password.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.required\">Password is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.maxlength\">Maximum 10  characters required!</span>\n    </div>\n      <div class=\"input-container\">\n        <button type=\"submit\">\n          Login\n        </button>\n      </div>\n      <div class=\"m-1\">\n        <a routerLink=\"/user/registration\">Register User</a>\n      </div>\n    </form>\n</div>\n"
+            "templateData": "<div class=\"container form-width m-1\">\n    <div class=\"heading\">User Login</div>\n    <form [formGroup]=\"LoginForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"input-container\">\n        <input type=\"text\" formControlName=\"user_name\" placeholder=\"User Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.invalid && (LoginForm.controls.user_name.dirty || LoginForm.controls.user_name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.required\">User name is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.maxlength\">Maximum 200  characters required!</span>\n        <!-- <span *ngIf=\"LoginForm.controls.user_name.errors.pattern\">Invalid value for this field</span> -->\n    </div>\n      <div class=\"input-container\">\n        <input type=\"password\"  formControlName=\"password\" placeholder=\"password\" class=\"full-width\">\n      </div> \n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.password.invalid && (LoginForm.controls.password.dirty || LoginForm.controls.password.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.required\">Password is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.maxlength\">Maximum 10  characters required!</span>\n    </div>\n      <div class=\"input-container\">\n        <button type=\"submit\">\n          Login\n        </button>\n      </div>\n      <div class=\"m-1\">\n        <a routerLink=\"/home\">Home</a>\n      </div>\n    </form>\n</div>\n"
         },
         {
             "name": "MyCounterComponent",
@@ -2901,7 +2908,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container form-width\">\n    <div class=\"heading\">User Registration</div>\n    <form [formGroup]=\"RegistrationForm\" (ngSubmit)=\"onSubmit()\">\n        <div class=\"input-container\">\n           <input type=\"text\" formControlName=\"user_name\" placeholder=\"User Id\" class=\"full-width\">\n        </div>\n        <div class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.invalid && (RegistrationForm.controls.user_name.dirty || RegistrationForm.controls.user_name.touched)\" class=\"text-danger\">\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.errors.required\">User name is required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.errors.minlength\">Minimum 2 characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.errors.maxlength\">Maximum 200  characters required!</span>\n        </div>\n        <div class=\"input-container\">\n            <input type=\"password\"  formControlName=\"password\" placeholder=\"password\" class=\"full-width\">\n        </div> \n        <div class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.invalid && (RegistrationForm.controls.password.dirty || RegistrationForm.controls.password.touched)\" class=\"text-danger\">\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.errors.required\">Password is required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.errors.minlength\">Minimum 2 characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.errors.maxlength\">Maximum 10  characters required!</span>\n        </div>\n        <div class=\"input-container\">\n            <input type=\"password\"  formControlName=\"confirm_password\" placeholder=\"Confirm Password\" class=\"full-width\">\n        </div> \n        <div class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.invalid && (RegistrationForm.controls.confirm_password.dirty || RegistrationForm.controls.confirm_password.touched)\" class=\"text-danger\">\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.errors.required\">Confirm Password is required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.errors.minlength\">Minimum 2 characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.errors.maxlength\">Maximum 10  characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.value !== RegistrationForm.controls.password.value\">Password and confirm password not maching!</span>\n        </div>\n        <div class=\"error-msg p-1\" *ngIf=\"RegistrationForm.controls.confirm_password.value !== RegistrationForm.controls.password.value\">Password and confirm password not maching!</div>\n        <div class=\"input-container\">\n            <button type=\"submit\">\n            Submit\n            </button>\n        </div>\n        <div class=\"m-1\">\n            <a routerLink=\"/user/login\">Login</a>\n        </div>\n    </form>\n</div>\n"
+            "templateData": "<div class=\"container form-width m-1\">\n    <div class=\"heading\">User Registration</div>\n    <form [formGroup]=\"RegistrationForm\" (ngSubmit)=\"onSubmit()\">\n        <div class=\"input-container\">\n           <input type=\"text\" formControlName=\"user_name\" placeholder=\"User Id\" class=\"full-width\">\n        </div>\n        <div class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.invalid && (RegistrationForm.controls.user_name.dirty || RegistrationForm.controls.user_name.touched)\" class=\"text-danger\">\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.errors.required\">User name is required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.errors.minlength\">Minimum 2 characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.user_name.errors.maxlength\">Maximum 200  characters required!</span>\n        </div>\n        <div class=\"input-container\">\n            <input type=\"password\"  formControlName=\"password\" placeholder=\"password\" class=\"full-width\">\n        </div> \n        <div class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.invalid && (RegistrationForm.controls.password.dirty || RegistrationForm.controls.password.touched)\" class=\"text-danger\">\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.errors.required\">Password is required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.errors.minlength\">Minimum 2 characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.password.errors.maxlength\">Maximum 10  characters required!</span>\n        </div>\n        <div class=\"input-container\">\n            <input type=\"password\"  formControlName=\"confirm_password\" placeholder=\"Confirm Password\" class=\"full-width\">\n        </div> \n        <div class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.invalid && (RegistrationForm.controls.confirm_password.dirty || RegistrationForm.controls.confirm_password.touched)\" class=\"text-danger\">\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.errors.required\">Confirm Password is required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.errors.minlength\">Minimum 2 characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.errors.maxlength\">Maximum 10  characters required!</span>\n            <span class=\"error-msg\" *ngIf=\"RegistrationForm.controls.confirm_password.value !== RegistrationForm.controls.password.value\">Password and confirm password not maching!</span>\n        </div>\n        <div class=\"error-msg p-1\" *ngIf=\"RegistrationForm.controls.confirm_password.value !== RegistrationForm.controls.password.value\">Password and confirm password not maching!</div>\n        <div class=\"input-container\">\n            <button type=\"submit\">\n            Submit\n            </button>\n        </div>\n        <div class=\"m-1\">\n            <a routerLink=\"/home\">Home</a>\n        </div>\n    </form>\n</div>\n"
         }
     ],
     "modules": [
@@ -4142,50 +4149,44 @@
                 "children": [
                     {
                         "path": "",
-                        "redirectTo": "user/login",
+                        "redirectTo": "/home",
                         "pathMatch": "full"
-                    },
-                    {
-                        "path": "user",
-                        "loadChildren": "./setup/setup.module#SetupModule",
-                        "children": [
-                            {
-                                "kind": "module",
-                                "children": [
-                                    {
-                                        "name": "routes",
-                                        "filename": "src/app/setup/setup-routing.module.ts",
-                                        "module": "SetupRoutingModule",
-                                        "children": [
-                                            {
-                                                "path": "login",
-                                                "component": "LoginComponent"
-                                            },
-                                            {
-                                                "path": "registration",
-                                                "component": "UserRegistrationComponent"
-                                            }
-                                        ],
-                                        "kind": "module"
-                                    }
-                                ],
-                                "module": "SetupModule"
-                            }
-                        ]
                     },
                     {
                         "path": "",
                         "component": "LayoutComponent",
-                        "canActivate": [
-                            "AuthGuard"
-                        ],
                         "children": [
                             {
-                                "path": "home",
-                                "component": "DashboardComponent",
-                                "canActivate": [
-                                    "AuthGuard"
+                                "path": "user",
+                                "loadChildren": "./setup/setup.module#SetupModule",
+                                "children": [
+                                    {
+                                        "kind": "module",
+                                        "children": [
+                                            {
+                                                "name": "routes",
+                                                "filename": "src/app/setup/setup-routing.module.ts",
+                                                "module": "SetupRoutingModule",
+                                                "children": [
+                                                    {
+                                                        "path": "login",
+                                                        "component": "LoginComponent"
+                                                    },
+                                                    {
+                                                        "path": "registration",
+                                                        "component": "UserRegistrationComponent"
+                                                    }
+                                                ],
+                                                "kind": "module"
+                                            }
+                                        ],
+                                        "module": "SetupModule"
+                                    }
                                 ]
+                            },
+                            {
+                                "path": "home",
+                                "component": "DashboardComponent"
                             },
                             {
                                 "path": "crud-oprations",
@@ -4472,7 +4473,7 @@
                 "linktype": "component",
                 "name": "LayoutComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {

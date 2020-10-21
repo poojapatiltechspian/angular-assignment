@@ -7,7 +7,7 @@ import { CommonService } from '../common.service';
 })
 export class DashboardComponent implements OnInit {
 
-  bookData: any;
+  productData: any;
   constructor(
     private commonService: CommonService
   ) { }
@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
     this.getBooksData();
   }
   getBooksData(): void {
-    this.commonService.getBooks().subscribe((data) => {
-      this.bookData = data;
+    this.commonService.getLink().subscribe((data) => {
+      this.productData = data;
     });
   }
 }

@@ -42,11 +42,4 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should call getBooks and return list of Books', fakeAsync(() => {
-    const response: Books[] = [];
-    spyOn(commonServiceMock, 'getBooks').and.returnValue(of(response));
-    component.getBooksData();
-    fixture.detectChanges();
-    expect(component.bookData).toEqual(response);
-  }));
 });

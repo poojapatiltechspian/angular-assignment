@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from './model/user.model';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { ErrorHandlingService } from '../shared/services/error-handling.service'
 export class LoginRegistrationSetupService {
 
   baseurl = environment.baseUrl;
+  private flagLogin = new Subject<boolean>();
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -34,8 +35,24 @@ export class LoginRegistrationSetupService {
       catchError(this.errorHandlingService.handleError)
     );
   }
-  Logout(): void {
+  isLoginUser(): boolean {
+    if (localStorage.getItem('user') !== null) {
+      return true;
+    }
+    return false;
+  }
+  Logout(): Observable<boolean> {
     localStorage.clear();
-    this.router.navigate(['/user/login']);
+    if (localStorage.getItem('user') === null) {
+      return of(true);
+    }
+    return of(false);
+  }
+  sendData(islogin: boolean): any {
+    this.flagLogin.next(islogin);
+  }
+
+  getData(): Observable<boolean> {
+    return this.flagLogin.asObservable();
   }
 }

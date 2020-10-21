@@ -78,69 +78,6 @@ describe('CommonService', () => {
     req.flush(saveData);
   });
 
-  // books tests
-
-
-  it('should test http client get for books', () => {
-    const saveData =  {
-          id: 1,
-          name: 'Book1',
-          display_name: 'book1',
-          author: 'author1',
-          price: '120',
-          description: 'descriptioon',
-          img_path: 'path',
-        };
-
-    service.getBooks().subscribe((post) => {
-      expect(saveData).toBe(post);
-    });
-    const req = http.expectOne('http://localhost:3000/books/');
-
-    expect(req.cancelled).toBeFalsy();
-    expect(req.request.responseType).toEqual('json');
-    req.flush(saveData);
-  });
-
-  it('should be add books data and return added data', () => {
-    const saveData =  {
-      id: 1,
-      name: 'Book1',
-      display_name: 'book1',
-      author: 'author1',
-      price: '120',
-      description: 'descriptioon',
-      img_path: 'path',
-    };
-    service.createBook(saveData).subscribe((addedPost) => {
-      expect(addedPost).toBe(saveData);
-    });
-    const req = http.expectOne('http://localhost:3000/books/');
-    expect(req.cancelled).toBeFalsy();
-    expect(req.request.responseType).toEqual('json');
-    req.flush(saveData);
-  });
-
-  it('should be edit book data and return edit data', () => {
-    const id = '1';
-    const saveData =  {
-      id: 1,
-      name: 'Book2',
-      display_name: 'book2',
-      author: 'author1',
-      price: '120',
-      description: 'descriptioon',
-      img_path: 'path',
-    };
-    service.updateBook(id, saveData).subscribe((addedPost) => {
-      expect(addedPost).toBe(saveData);
-    });
-    const req = http.expectOne('http://localhost:3000/books/1');
-    expect(req.cancelled).toBeFalsy();
-    expect(req.request.responseType).toEqual('json');
-    req.flush(saveData);
-  });
-
   // it('should test 404 error', () => {
   //   const errorMsg = 'mock 404 error occour';
   //   service.getLinkError().subscribe((data) => {

@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DashboardCardComponent implements OnInit {
 
-  @Input() bookData: any;
+  @Input() productData: any;
   constructor() { }
 
   ngOnInit(): void {

@@ -6,16 +6,6 @@ import { environment } from '../environments/environment';
 import { ErrorHandlingService } from './shared/services/error-handling.service';
 import { retry, catchError } from 'rxjs/operators';
 
-export class Book {
-  'id': string;
-  'name': string;
-  'display_name': string;
-  'author': string;
-  'price': string;
-  'description': string;
-  'img_path': string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -77,46 +67,4 @@ export class CommonService {
    );
   }
 
-
-  // *************Books*******************
-  createBook(product): Observable<Book> {
-    const url = this.baseurl + 'books/';
-    return this.http.post<Book>(url, product)
-    .pipe(
-     retry(1),
-     catchError(this.errorHandlingService.handleError)
-   );
-  }
-  getBooks(): Observable<Book[]>{
-    const url = this.baseurl + 'books/';
-    return this.http.get<Book[]>(url)
-    .pipe(
-     retry(1),
-     catchError(this.errorHandlingService.handleError)
-   );
-  }
-  getBookData(id): Observable<Book> {
-    const url = this.baseurl + 'books/' + id;
-    return this.http.get<Book>(url)
-    .pipe(
-     retry(1),
-     catchError(this.errorHandlingService.handleError)
-   );
-  }
-  updateBook(id: string | number, data): Observable<Book> {
-    const url = this.baseurl + 'books/' + id;
-    return this.http.put<Book>(url, data)
-    .pipe(
-     retry(1),
-     catchError(this.errorHandlingService.handleError)
-   );
-  }
-
-  deleteBook(id): any{
-    const url = this.baseurl + 'books/' + id;
-    return this.http.delete(url).pipe(
-      retry(1),
-      catchError(this.errorHandlingService.handleError)
-    );
-  }
 }

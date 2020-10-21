@@ -15,22 +15,20 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'user/login',
+    redirectTo: '/home',
     pathMatch: 'full'
-  },
-  {
-    path: 'user',
-    loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
   },
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
     children: [
+      {
+        path: 'user',
+        loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
+      },
       {
         path: 'home',
         component: DashboardComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'crud-oprations',

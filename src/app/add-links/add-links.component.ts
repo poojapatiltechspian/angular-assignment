@@ -36,6 +36,7 @@ export class AddLinksComponent implements OnInit {
       description: ['', [Validators.required]],
       price: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
+      img_path: ['assets/img/box.jpg']
     });
   }
   patchForm(data?: any): void{
@@ -44,7 +45,8 @@ export class AddLinksComponent implements OnInit {
       name: ['' || data.name, Validators.required],
       description: ['' || data.description, [Validators.required]],
       price: ['' || data.price, [Validators.required]],
-      quantity: ['' || data.quantity, [Validators.required]]
+      quantity: ['' || data.quantity, [Validators.required]],
+      img_path: ['assets/img/box.jpg']
     });
   }
     delete(id): void {

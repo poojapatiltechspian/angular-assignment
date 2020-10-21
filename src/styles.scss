@@ -78,6 +78,7 @@ hr.solid {
 
 // *******
 .container {
+    display: grid;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0px 7px 10px rgba(black, 0.5);

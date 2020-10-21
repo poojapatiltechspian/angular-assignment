@@ -53,7 +53,8 @@ describe('AppComponent', () => {
                 name: '',
                 description: '',
                 price: '',
-                quantity: ''
+                quantity: '',
+                img_path: 'assets/img/box.jpg'
               };
     expect(component.linksForm.value).toEqual(linkForm);
   });
@@ -62,7 +63,7 @@ describe('AppComponent', () => {
     component.linksForm.controls.description.setValue('');
     component.linksForm.controls.price.setValue('');
     component.linksForm.controls.quantity.setValue('');
-
+    component.linksForm.controls.img_path.setValue('');
     expect(component.linksForm.valid).toBeFalsy();
   });
   it('should validate form', () => {
@@ -70,6 +71,7 @@ describe('AppComponent', () => {
     component.linksForm.controls.description.setValue('Short Description 5');
     component.linksForm.controls.price.setValue('200');
     component.linksForm.controls.quantity.setValue('120');
+    component.linksForm.controls.img_path.setValue('assets/img/box.jpg');
     expect(component.linksForm.valid).toBeTruthy();
   });
 });
