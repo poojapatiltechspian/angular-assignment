@@ -2,28 +2,6 @@
     "pipes": [],
     "interfaces": [
         {
-            "name": "AppState",
-            "id": "interface-AppState-7ecac11a69001a369d58300b18b81f21",
-            "file": "src/app/app.state.ts",
-            "type": "interface",
-            "sourceCode": "import { Tutorial } from './ngrx-example/models/tutorial.model';\n\nexport interface AppState {\n    readonly tutorial: Tutorial[];\n}\n",
-            "properties": [
-                {
-                    "name": "tutorial",
-                    "type": "Tutorial[]",
-                    "optional": false,
-                    "description": "",
-                    "line": 4,
-                    "modifierKind": [
-                        132
-                    ]
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 150,
-            "methods": []
-        },
-        {
             "name": "ProductState",
             "id": "interface-ProductState-a4785047cdbf9088b20183af47d8d721",
             "file": "src/app/product/store/product.reducer.ts",
@@ -49,65 +27,9 @@
             "kind": 150,
             "methods": [],
             "extends": "EntityState"
-        },
-        {
-            "name": "Tutorial",
-            "id": "interface-Tutorial-339c464cf95669c56c57e7685ef44fce",
-            "file": "src/app/ngrx-example/models/tutorial.model.ts",
-            "type": "interface",
-            "sourceCode": "export interface Tutorial {\n    name: string;\n    url: string;\n}\n",
-            "properties": [
-                {
-                    "name": "name",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 2
-                },
-                {
-                    "name": "url",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 3
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 150,
-            "methods": []
         }
     ],
     "injectables": [
-        {
-            "name": "AppEffects",
-            "id": "injectable-AppEffects-1f693f2dbf60611ca21b398c78ba673d",
-            "file": "src/app/app.effects.ts",
-            "properties": [],
-            "methods": [],
-            "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Actions, createEffect } from '@ngrx/effects';\n\n\n\n@Injectable()\nexport class AppEffects {\n\n\n\n  constructor(private actions$: Actions) {}\n\n}\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "actions$",
-                        "type": "Actions"
-                    }
-                ],
-                "line": 7,
-                "jsdoctags": [
-                    {
-                        "name": "actions$",
-                        "type": "Actions",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "type": "injectable"
-        },
         {
             "name": "AuthGuardService",
             "id": "injectable-AuthGuardService-6b3ca64aa3a7cf7336e6801aedc55a0d",
@@ -160,7 +82,7 @@
         },
         {
             "name": "CommonService",
-            "id": "injectable-CommonService-ada9072d0edd864c0a0ded12e128b8d4",
+            "id": "injectable-CommonService-74e70e3bde8c90c02fb4b8bc155b68bf",
             "file": "src/app/common.service.ts",
             "properties": [
                 {
@@ -206,7 +128,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 61,
+                    "line": 52,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -236,7 +158,7 @@
                     "optional": false,
                     "returnType": "Observable<Product>",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 36,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -246,14 +168,6 @@
                             }
                         }
                     ]
-                },
-                {
-                    "name": "getLinkError",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "Observable<Product[]>",
-                    "typeParameters": [],
-                    "line": 36
                 },
                 {
                     "name": "updateLink",
@@ -270,7 +184,7 @@
                     "optional": false,
                     "returnType": "Observable<Product>",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 44,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -290,7 +204,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkError(): Observable<Product[]> {\n    const url = this.baseurl + 'productss/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -326,7 +240,7 @@
         },
         {
             "name": "ErrorHandlingService",
-            "id": "injectable-ErrorHandlingService-c5ca7b468fe0a2a8e364a76fc50c84d1",
+            "id": "injectable-ErrorHandlingService-b7f3b0da3983260acc20c923d081385f",
             "file": "src/app/shared/services/error-handling.service.ts",
             "properties": [],
             "methods": [
@@ -354,7 +268,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Observable, throwError } from 'rxjs';\n@Injectable({\n  providedIn: 'root'\n})\nexport class ErrorHandlingService {\n\n  constructor() { }\n  handleError(error): Observable<never> {\n    let errorMessage = '';\n    if (error.error instanceof ErrorEvent) {\n        // client-side error\n        errorMessage = `Error: ${error.error.message}`;\n    } else {\n        // server-side error\n        errorMessage = `Error Code: ${error.status}\\nMessage: ${error.message}`;\n    }\n    console.log(errorMessage);\n    return throwError(errorMessage);\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Observable, throwError } from 'rxjs';\n@Injectable({\n  providedIn: 'root'\n})\nexport class ErrorHandlingService {\n\n  constructor() { }\n  handleError(error): Observable<never> {\n    let errorMessage = '';\n    if (error.error instanceof ErrorEvent) {\n        // client-side error\n        errorMessage = `Error: ${error.error.message}`;\n    } else {\n        // server-side error\n        errorMessage = `Error Code: ${error.status}\\nMessage: ${error.message}`;\n    }\n    return throwError(errorMessage);\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -365,7 +279,7 @@
         },
         {
             "name": "LoginRegistrationSetupService",
-            "id": "injectable-LoginRegistrationSetupService-9729d4ca89cea2a2ae5f7d39578b41ba",
+            "id": "injectable-LoginRegistrationSetupService-e8a819691d18451ba00405a67f2b0fdf",
             "file": "src/app/setup/login-registration-setup.service.ts",
             "properties": [
                 {
@@ -395,15 +309,7 @@
                     "optional": false,
                     "returnType": "Observable<boolean>",
                     "typeParameters": [],
-                    "line": 55
-                },
-                {
-                    "name": "isLoginUser",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
-                    "line": 38
+                    "line": 45
                 },
                 {
                     "name": "LoginUser",
@@ -442,9 +348,9 @@
                     "name": "Logout",
                     "args": [],
                     "optional": false,
-                    "returnType": "Observable<boolean>",
+                    "returnType": "any",
                     "typeParameters": [],
-                    "line": 44
+                    "line": 38
                 },
                 {
                     "name": "registerUser",
@@ -479,7 +385,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 51,
+                    "line": 41,
                     "jsdoctags": [
                         {
                             "name": "islogin",
@@ -492,7 +398,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable, of, Subject } from 'rxjs';\nimport { environment } from '../../environments/environment';\nimport { User } from './model/user.model';\nimport { Router } from '@angular/router';\nimport { retry, catchError } from 'rxjs/operators';\nimport { ErrorHandlingService } from '../shared/services/error-handling.service';\n@Injectable({\n  providedIn: 'root'\n})\nexport class LoginRegistrationSetupService {\n\n  baseurl = environment.baseUrl;\n  private flagLogin = new Subject<boolean>();\n  constructor(\n    private http: HttpClient,\n    private router: Router,\n    private errorHandlingService: ErrorHandlingService\n  ) { }\n\n  registerUser(user): Observable<User> {\n    const url = this.baseurl + 'user-details/';\n    return this.http.post<User>(url, user)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  LoginUser(username, password): Observable<User> {\n    const url = this.baseurl + 'user-details?' + 'user_name=' + username + '&password=' + password;\n    return this.http.get<User>(url)\n    .pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n  isLoginUser(): boolean {\n    if (localStorage.getItem('user') !== null) {\n      return true;\n    }\n    return false;\n  }\n  Logout(): Observable<boolean> {\n    localStorage.clear();\n    if (localStorage.getItem('user') === null) {\n      return of(true);\n    }\n    return of(false);\n  }\n  sendData(islogin: boolean): any {\n    this.flagLogin.next(islogin);\n  }\n\n  getData(): Observable<boolean> {\n    return this.flagLogin.asObservable();\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable, of, Subject } from 'rxjs';\nimport { environment } from '../../environments/environment';\nimport { User } from './model/user.model';\nimport { Router } from '@angular/router';\nimport { retry, catchError } from 'rxjs/operators';\nimport { ErrorHandlingService } from '../shared/services/error-handling.service';\n@Injectable({\n  providedIn: 'root'\n})\nexport class LoginRegistrationSetupService {\n\n  baseurl = environment.baseUrl;\n  private flagLogin = new Subject<boolean>();\n  constructor(\n    private http: HttpClient,\n    private router: Router,\n    private errorHandlingService: ErrorHandlingService\n  ) { }\n\n  registerUser(user): Observable<User> {\n    const url = this.baseurl + 'user-details/';\n    return this.http.post<User>(url, user)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  LoginUser(username, password): Observable<User> {\n    const url = this.baseurl + 'user-details?' + 'user_name=' + username + '&password=' + password;\n    return this.http.get<User>(url)\n    .pipe(\n      retry(1),\n      catchError(this.errorHandlingService.handleError)\n    );\n  }\n  Logout(): any{\n    localStorage.clear();\n  }\n  sendData(islogin: boolean): any {\n    this.flagLogin.next(islogin);\n  }\n\n  getData(): Observable<boolean> {\n    return this.flagLogin.asObservable();\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -674,65 +580,6 @@
     ],
     "classes": [
         {
-            "name": "AddTutorial",
-            "id": "class-AddTutorial-294d12fb6140b7bc1f657a52c8ff1b55",
-            "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-            "type": "class",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Action } from '@ngrx/store';\nimport { Tutorial } from '../models/tutorial.model';\n\nexport const ADD_TUTORIAL = '[TUTORIAL] Add';\nexport const REMOVE_TUTORIAL = '[TUTORIAL] Remove';\n\nexport class AddTutorial implements Action {\n    readonly type = ADD_TUTORIAL;\n\n    constructor(public payload: Tutorial) {}\n}\n\nexport class RemoveTutorial implements Action {\n    readonly type = REMOVE_TUTORIAL;\n\n    constructor(public payload: number) {}\n}\n\nexport type Actions = AddTutorial | RemoveTutorial;\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "payload",
-                        "type": "Tutorial"
-                    }
-                ],
-                "line": 9,
-                "jsdoctags": [
-                    {
-                        "name": "payload",
-                        "type": "Tutorial",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "properties": [
-                {
-                    "name": "payload",
-                    "type": "Tutorial",
-                    "optional": false,
-                    "description": "",
-                    "line": 11,
-                    "modifierKind": [
-                        114
-                    ]
-                },
-                {
-                    "name": "type",
-                    "defaultValue": "ADD_TUTORIAL",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 9,
-                    "modifierKind": [
-                        132
-                    ]
-                }
-            ],
-            "methods": [],
-            "indexSignatures": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "hostBindings": [],
-            "hostListeners": [],
-            "implements": [
-                "Action"
-            ]
-        },
-        {
             "name": "AppPage",
             "id": "class-AppPage-a0db91bfa3b9914e9048612074084ee6",
             "file": "e2e/src/app.po.ts",
@@ -765,10 +612,10 @@
         },
         {
             "name": "Product",
-            "id": "class-Product-a0314210acffad07811de6b9d4865a6f",
+            "id": "class-Product-b910df40ab09d71964e3663e44c4fe1e",
             "file": "src/app/product/store/product.model.ts",
             "type": "class",
-            "sourceCode": "export class Product {\n  id: number;\n  name: string;\n  description: string;\n  price: string;\n  quantity: number;\n  imgPath: string;\n}\n",
+            "sourceCode": "export class Product {\n  id: string;\n  name: string;\n  description: string;\n  price: string;\n  quantity: string;\n  imgPath: string;\n}\n",
             "properties": [
                 {
                     "name": "description",
@@ -779,7 +626,7 @@
                 },
                 {
                     "name": "id",
-                    "type": "number",
+                    "type": "string",
                     "optional": false,
                     "description": "",
                     "line": 2
@@ -807,7 +654,7 @@
                 },
                 {
                     "name": "quantity",
-                    "type": "number",
+                    "type": "string",
                     "optional": false,
                     "description": "",
                     "line": 6
@@ -819,65 +666,6 @@
             "outputsClass": [],
             "hostBindings": [],
             "hostListeners": []
-        },
-        {
-            "name": "RemoveTutorial",
-            "id": "class-RemoveTutorial-294d12fb6140b7bc1f657a52c8ff1b55",
-            "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-            "type": "class",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Action } from '@ngrx/store';\nimport { Tutorial } from '../models/tutorial.model';\n\nexport const ADD_TUTORIAL = '[TUTORIAL] Add';\nexport const REMOVE_TUTORIAL = '[TUTORIAL] Remove';\n\nexport class AddTutorial implements Action {\n    readonly type = ADD_TUTORIAL;\n\n    constructor(public payload: Tutorial) {}\n}\n\nexport class RemoveTutorial implements Action {\n    readonly type = REMOVE_TUTORIAL;\n\n    constructor(public payload: number) {}\n}\n\nexport type Actions = AddTutorial | RemoveTutorial;\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "payload",
-                        "type": "number"
-                    }
-                ],
-                "line": 15,
-                "jsdoctags": [
-                    {
-                        "name": "payload",
-                        "type": "number",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "properties": [
-                {
-                    "name": "payload",
-                    "type": "number",
-                    "optional": false,
-                    "description": "",
-                    "line": 17,
-                    "modifierKind": [
-                        114
-                    ]
-                },
-                {
-                    "name": "type",
-                    "defaultValue": "REMOVE_TUTORIAL",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 15,
-                    "modifierKind": [
-                        132
-                    ]
-                }
-            ],
-            "methods": [],
-            "indexSignatures": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "hostBindings": [],
-            "hostListeners": [],
-            "implements": [
-                "Action"
-            ]
         },
         {
             "name": "User",
@@ -920,7 +708,7 @@
     "components": [
         {
             "name": "AddLinksComponent",
-            "id": "component-AddLinksComponent-82570d17ade2f4c1aab3825ea516ade7",
+            "id": "component-AddLinksComponent-fb1354857a51d7eb7e037754e073b53d",
             "file": "src/app/add-links/add-links.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -963,11 +751,25 @@
                     "line": 18
                 },
                 {
+                    "name": "isDelete",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
                     "name": "isEdit",
                     "type": "boolean",
                     "optional": false,
                     "description": "",
                     "line": 16
+                },
+                {
+                    "name": "isSubmit",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
                 },
                 {
                     "name": "linksForm",
@@ -1012,7 +814,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31
+                    "line": 33
                 },
                 {
                     "name": "delete",
@@ -1025,7 +827,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 54,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -1047,7 +849,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 69,
+                    "line": 73,
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -1064,7 +866,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 76
+                    "line": 80
                 },
                 {
                     "name": "getLinks",
@@ -1072,7 +874,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 57
+                    "line": 60
                 },
                 {
                     "name": "ngOnInit",
@@ -1080,7 +882,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 29
                 },
                 {
                     "name": "onSubmit",
@@ -1093,7 +895,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 66,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1116,7 +918,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 44,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1134,7 +936,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-add-links',\n  templateUrl: './add-links.component.html',\n  styleUrls: ['./add-links.component.scss']\n})\nexport class AddLinksComponent implements OnInit {\n\n  products: any;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  buttonLable: any;\n  buttonEdit = 'Edit';\n  buttonDelete = 'delete';\n  sub: Subscription;\n  constructor(\n    private commonService: CommonService,\n    private fb: FormBuilder,\n    ) {}\n\n  ngOnInit(): void{\n    this.createForm();\n    this.getLinks();\n  }\n  createForm(): void{\n    this.buttonLable = 'save';\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n    delete(id): void {\n      this.commonService.deleteLink(id).subscribe((data) => {\n        this.getLinks();\n      });\n    }\n    getLinks(): void {\n      this.sub = this.commonService.getLink().subscribe(\n        (data) => { this.products = data; },\n        (error) =>  { console.log('HTTP Error', error); }\n      );\n    }\n    onSubmit(data): void{\n      this.commonService.createLink(data.value).subscribe(() => {\n        this.getLinks();\n        this.linksForm.reset();\n      });\n    }\n    edit(id): void {\n      this.buttonLable =  'Edit';\n      this.commonService.getLinkData(id).subscribe((data) => {\n        this.patchForm(data);\n        this.isEdit = true;\n      });\n    }\n    editData(): void{\n      this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {\n        this.getLinks();\n        this.linksForm.reset();\n        this.isEdit = false;\n        this.buttonLable =  'SAVE';\n      });\n  }\n}\n\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-add-links',\n  templateUrl: './add-links.component.html',\n  styleUrls: ['./add-links.component.scss']\n})\nexport class AddLinksComponent implements OnInit {\n\n  products: any;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  buttonLable: any;\n  buttonEdit = 'Edit';\n  buttonDelete = 'delete';\n  sub: Subscription;\n  isDelete: boolean;\n  isSubmit: boolean;\n  constructor(\n    private commonService: CommonService,\n    private fb: FormBuilder,\n    ) {}\n\n  ngOnInit(): void{\n    this.createForm();\n    this.getLinks();\n  }\n  createForm(): void{\n    this.buttonLable = 'save';\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  delete(id): void {\n    this.commonService.deleteLink(id).subscribe((data) => {\n      this.isDelete = true;\n      this.getLinks();\n    });\n  }\n  getLinks(): void {\n    this.sub = this.commonService.getLink().subscribe(\n      (data) => { this.products = data; },\n      // (error) =>  { const errmsg = 'HTTP Error ' + error; alert(errmsg); }\n    );\n  }\n  onSubmit(data): void{\n    this.commonService.createLink(data.value).subscribe(() => {\n      this.getLinks();\n      this.linksForm.reset();\n      this.isSubmit = true;\n    });\n  }\n  edit(id): void {\n    this.buttonLable =  'Edit';\n    this.commonService.getLinkData(id).subscribe((data) => {\n      this.patchForm(data);\n      this.isEdit = true;\n    });\n  }\n  editData(): void{\n    this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {\n      this.getLinks();\n      this.linksForm.reset();\n      this.isEdit = false;\n      this.buttonLable =  'SAVE';\n    });\n  }\n}\n\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1156,7 +958,7 @@
                         "type": "FormBuilder"
                     }
                 ],
-                "line": 21,
+                "line": 23,
                 "jsdoctags": [
                     {
                         "name": "commonService",
@@ -1181,7 +983,7 @@
         },
         {
             "name": "AddProductComponent",
-            "id": "component-AddProductComponent-d3a5b0d1e188f01545b81fa46175367a",
+            "id": "component-AddProductComponent-0309331c29a612204a9217a65d7eee73",
             "file": "src/app/product/add-product/add-product.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1274,7 +1076,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38
+                    "line": 33
                 },
                 {
                     "name": "onSubmit",
@@ -1328,7 +1130,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { ProductState } from '../store/product.reducer';\nimport { select, Store } from '@ngrx/store';\nimport { addProduct, loadProduct, loadProducts, updateProduct } from '../store/product.actions';\nimport { selectProduct, selectedProduct } from '../store/product.selecters';\nimport { Observable } from 'rxjs';\nimport { Product } from '../store/product.model';\nimport { Update } from '@ngrx/entity';\nimport { Router, ActivatedRoute } from '@angular/router';\n\n@Component({\n  selector: 'app-add-product',\n  templateUrl: './add-product.component.html',\n  styleUrls: ['./add-product.component.scss']\n})\nexport class AddProductComponent implements OnInit {\n\n  products$: Observable<Product[]>;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  productId: any;\n  constructor(\n    private fb: FormBuilder,\n    private store: Store<ProductState>,\n    private activatedRoute: ActivatedRoute,\n    private router: Router\n    ) {\n      const prodid = 'id';\n      this. productId = this.activatedRoute.snapshot.params[prodid];\n      if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {\n        this.edit();\n      }\n    }\n\n  ngOnInit(): void{\n    this.createForm();\n  }\n  createForm(): void{\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n\n  onSubmit(data): void{\n    this.store.dispatch(addProduct({product: data.value}));\n    this.linksForm.reset();\n    this.router.navigate(['./product-list']);\n  }\n  edit(): void {\n    this.isEdit = true;\n    const id = this.productId;\n    this.store.dispatch(loadProduct({id}));\n    this.store.pipe(select(selectedProduct)).subscribe((product) => {\n      this.selectedProduct = Object.assign(new Product(), product);\n      this.patchForm(this.selectedProduct);\n    });\n  }\n  editData(): void{\n    this.linksForm.value.id = this.productId;\n    const uppdate: Update<Product> = {\n      id: this.linksForm.value.id,\n      changes: this.linksForm.value\n    };\n    this.store.dispatch(updateProduct({product: uppdate}));\n    this.linksForm.reset();\n    this.isEdit = false;\n    this.router.navigate(['./product-list']);\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { ProductState } from '../store/product.reducer';\nimport { select, Store } from '@ngrx/store';\nimport { addProduct, loadProduct, loadProducts, updateProduct } from '../store/product.actions';\nimport { selectProduct, selectedProduct } from '../store/product.selecters';\nimport { Observable } from 'rxjs';\nimport { Product } from '../store/product.model';\nimport { Update } from '@ngrx/entity';\nimport { Router, ActivatedRoute } from '@angular/router';\n\n@Component({\n  selector: 'app-add-product',\n  templateUrl: './add-product.component.html',\n  styleUrls: ['./add-product.component.scss']\n})\nexport class AddProductComponent implements OnInit {\n\n  products$: Observable<Product[]>;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  productId: any;\n  constructor(\n    private fb: FormBuilder,\n    private store: Store<ProductState>,\n    private activatedRoute: ActivatedRoute,\n    private router: Router\n    ) {\n    }\n\n  ngOnInit(): void{\n    const prodid = 'id';\n    this. productId = this.activatedRoute.snapshot.params[prodid];\n    if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {\n      this.edit();\n    }\n    this.createForm();\n  }\n  createForm(): void{\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n\n  onSubmit(data): void{\n    this.store.dispatch(addProduct({product: data.value}));\n    this.linksForm.reset();\n    this.router.navigate(['./product-list']);\n  }\n  edit(): void {\n    this.isEdit = true;\n    const id = this.productId;\n    this.store.dispatch(loadProduct({id}));\n    this.store.pipe(select(selectedProduct)).subscribe((product) => {\n      this.selectedProduct = Object.assign(new Product(), product);\n      this.patchForm(this.selectedProduct);\n    });\n  }\n  editData(): void{\n    this.linksForm.value.id = this.productId;\n    const uppdate: Update<Product> = {\n      id: this.linksForm.value.id,\n      changes: this.linksForm.value\n    };\n    this.store.dispatch(updateProduct({product: uppdate}));\n    this.linksForm.reset();\n    this.isEdit = false;\n    this.router.navigate(['./product-list']);\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1636,111 +1438,8 @@
             "templateData": "<button type=\"Button\" [disabled]=\"disabledFlag\" (click)=\"functionClick(FormValue)\">\n    {{labelbutton}}\n</button>\n"
         },
         {
-            "name": "CreateComponent",
-            "id": "component-CreateComponent-3fbcd386c53cae32e542ae6a968d79ee",
-            "file": "src/app/ngrx-example/create/create.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-create",
-            "styleUrls": [
-                "./create.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./create.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "addTutorial",
-                    "args": [
-                        {
-                            "name": "name",
-                            "type": ""
-                        },
-                        {
-                            "name": "url",
-                            "type": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 19,
-                    "jsdoctags": [
-                        {
-                            "name": "name",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "url",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 22
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { Store } from '@ngrx/store';\nimport { Tutorial } from '../models/tutorial.model';\nimport { AppState } from '../../app.state';\nimport * as TutorialActions from './../actions/tutorials.actions';\n\n@Component({\n  selector: 'app-create',\n  templateUrl: './create.component.html',\n  styleUrls: ['./create.component.scss']\n})\nexport class CreateComponent implements OnInit {\n\n  constructor(\n    private store: Store<AppState>\n  ) { }\n\n  addTutorial(name, url): void {\n    this.store.dispatch(new TutorialActions.AddTutorial({ name, url }));\n  }\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".left {\n    float: left;\n    width: calc(50% - 6em);\n    padding: 3em;\n    font-family: Arial, Helvetica, sans-serif;\n}\n\ninput[type='text'] {\n    width: 100%;\n    padding: 5px;\n    margin-bottom: 10px;\n}",
-                    "styleUrl": "./create.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "store",
-                        "type": "Store<AppState>"
-                    }
-                ],
-                "line": 13,
-                "jsdoctags": [
-                    {
-                        "name": "store",
-                        "type": "Store<AppState>",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<div class=\"left\">\n    <input type=\"text\" placeholder=\"Name\" #name>\n    <input type=\"text\" placeholder=\"url\" #url>\n\n    <button (click)=\"addTutorial(name.value, url.value)\">Add a Tutorial</button>     \n</div>\n"
-        },
-        {
             "name": "DashboardCardComponent",
-            "id": "component-DashboardCardComponent-2a0d620d23a9e0d9a0c896b91b30d7a7",
+            "id": "component-DashboardCardComponent-f37a95685835b5bdfb0da1218574cda4",
             "file": "src/app/dashboard/dashboard-card/dashboard-card.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1763,16 +1462,45 @@
                     "type": "any"
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "newItemEvent",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "line": 11,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [],
             "methodsClass": [
+                {
+                    "name": "addNewItem",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 13,
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 13
+                    "line": 18
                 }
             ],
             "hostBindings": [],
@@ -1780,7 +1508,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\n\n@Component({\n  selector: 'app-dashboard-card',\n  templateUrl: './dashboard-card.component.html',\n  styleUrls: ['./dashboard-card.component.scss']\n})\nexport class DashboardCardComponent implements OnInit {\n\n  @Input() productData: any;\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'app-dashboard-card',\n  templateUrl: './dashboard-card.component.html',\n  styleUrls: ['./dashboard-card.component.scss']\n})\nexport class DashboardCardComponent implements OnInit {\n\n  @Input() productData: any;\n  @Output() newItemEvent = new EventEmitter<string>();\n\n  addNewItem(value: string): any {\n    this.newItemEvent.emit(value);\n  }\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1793,16 +1521,16 @@
                 "name": "constructor",
                 "description": "",
                 "args": [],
-                "line": 10
+                "line": 15
             },
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"wrapper\">\n    <div class=\"img__wrap\" *ngFor=\"let product of productData\">\n        <img [src]=\"product.img_path\" class=\"img__img\" [alt]=\"product.display_name\">\n        <div class=\"img__description\"> \n            <div class=\"product-name\">{{product.name}}<div>\n            <div class=\"product-price\">${{product.price}}<div>\n        </div>\n    </div>\n</div>"
+            "templateData": "<div class=\"wrapper\">\n    <div class=\"img__wrap\" *ngFor=\"let product of productData\" (click)=\"addNewItem(product.id)\">\n        <img [src]=\"product.img_path\" class=\"img__img\" [alt]=\"product.name\">\n        <div class=\"img__description\"> \n            <div class=\"product-name\">{{product.name}}<div>\n            <div class=\"product-price\">${{product.price}}<div>\n        </div>\n    </div>\n</div>"
         },
         {
             "name": "DashboardComponent",
-            "id": "component-DashboardComponent-003f9e9d4ddfb8200281fbd420b3b4f0",
+            "id": "component-DashboardComponent-b6db98c54cac80a4c91062c912cb62b3",
             "file": "src/app/dashboard/dashboard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1826,7 +1554,7 @@
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 10
+                    "line": 11
                 }
             ],
             "methodsClass": [
@@ -1836,7 +1564,29 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 18
+                    "line": 20
+                },
+                {
+                    "name": "navigationRouteString",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 25,
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 },
                 {
                     "name": "ngOnInit",
@@ -1844,7 +1594,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15
+                    "line": 17
                 }
             ],
             "hostBindings": [],
@@ -1852,7 +1602,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  productData: any;\n  constructor(\n    private commonService: CommonService\n  ) { }\n\n  ngOnInit(): void {\n    this.getBooksData();\n  }\n  getBooksData(): void {\n    this.commonService.getLink().subscribe((data) => {\n      this.productData = data;\n    });\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  productData: any;\n  constructor(\n    private commonService: CommonService,\n    private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.getBooksData();\n  }\n  getBooksData(): void {\n    this.commonService.getLink().subscribe((data) => {\n      this.productData = data;\n    });\n  }\n  navigationRouteString(id): any {\n    this.router.navigate(['/product/', id]);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1868,13 +1618,24 @@
                     {
                         "name": "commonService",
                         "type": "CommonService"
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router"
                     }
                 ],
-                "line": 10,
+                "line": 11,
                 "jsdoctags": [
                     {
                         "name": "commonService",
                         "type": "CommonService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router",
                         "tagName": {
                             "text": "param"
                         }
@@ -1884,7 +1645,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<app-dashboard-card [productData]=\"productData\"></app-dashboard-card>"
+            "templateData": "<app-dashboard-card [productData]=\"productData\" (newItemEvent)=\"navigationRouteString($event)\"></app-dashboard-card>"
         },
         {
             "name": "FlexLayoutComponent",
@@ -2052,7 +1813,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"navbar\">\n    <a routerLink=\"./home\" routerLinkActive=\"active\">Home</a>\n    <a routerLink=\"./crud-oprations\" routerLinkActive=\"active\">Crud Operations</a>\n    <div class=\"dropdown\">\n        <button class=\"dropbtn\">NgRx \n          <i class=\"fa fa-caret-down\"></i>\n        </button>\n        <div class=\"dropdown-content\">\n          <a routerLink=\"./product-list\" routerLinkActive=\"active\">Product List</a>\n          <a routerLink=\"./add-product\" routerLinkActive=\"active\">Add Product</a>\n        </div>\n    </div> \n    <div class=\"dropdown\">\n      <button class=\"dropbtn\">Practice Assignment \n        <i class=\"fa fa-caret-down\"></i>\n      </button>\n      <div class=\"dropdown-content\">\n        <a routerLink=\"./flex-Layout\" routerLinkActive=\"active\">Flexbox Layout</a>\n        <a routerLink=\"./grid-layout\" routerLinkActive=\"active\">Grid Layout</a>\n        <a routerLink=\"./ngrx-tutorial-example1\" routerLinkActive=\"active\">NgRx Example1</a>\n        <a routerLink=\"./ngrx-tutorial-example2\" routerLinkActive=\"active\">NgRx Example2</a>\n      </div>\n    </div> \n  </div>"
+            "templateData": "<div class=\"navbar\">\n    <a routerLink=\"./home\" routerLinkActive=\"active\">Home</a>\n    <a routerLink=\"./crud-oprations\" routerLinkActive=\"active\">Crud Operations</a>\n    <div class=\"dropdown\">\n        <button class=\"dropbtn\">NgRx \n          <i class=\"fa fa-caret-down\"></i>\n        </button>\n        <div class=\"dropdown-content\">\n          <a routerLink=\"./product-list\" routerLinkActive=\"active\">Product List</a>\n          <a routerLink=\"./add-product\" routerLinkActive=\"active\">Add Product</a>\n        </div>\n    </div> \n    <div class=\"dropdown\">\n      <button class=\"dropbtn\">Practice Assignment \n        <i class=\"fa fa-caret-down\"></i>\n      </button>\n      <div class=\"dropdown-content\">\n        <a routerLink=\"./flex-Layout\" routerLinkActive=\"active\">Flexbox Layout</a>\n        <a routerLink=\"./grid-layout\" routerLinkActive=\"active\">Grid Layout</a>\n        <!-- <a routerLink=\"./ngrx-tutorial-example1\" routerLinkActive=\"active\">NgRx Example1</a>\n        <a routerLink=\"./ngrx-tutorial-example2\" routerLinkActive=\"active\">NgRx Example2</a> -->\n      </div>\n    </div> \n  </div>"
         },
         {
             "name": "HeaderStoryComponent",
@@ -2097,8 +1858,174 @@
             }
         },
         {
+            "name": "IndiviualProductCardComponent",
+            "id": "component-IndiviualProductCardComponent-043b039e2abbe352a3c39ac016ef9b6b",
+            "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-indiviual-product-card",
+            "styleUrls": [
+                "./indiviual-product-card.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./indiviual-product-card.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "product",
+                    "line": 10,
+                    "type": "any"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-indiviual-product-card',\n  templateUrl: './indiviual-product-card.component.html',\n  styleUrls: ['./indiviual-product-card.component.scss']\n})\nexport class IndiviualProductCardComponent implements OnInit {\n\n  @Input() product: any;\n  constructor() {}\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container-product {\n    display: grid;\n    grid-template-columns: repeat(2, 1fr);\n    justify-items: center;\n    padding: 50px;\n    border-radius: 15px;\n    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);\n    width: 90%;\n    margin: 0 auto;\n    text-align: center;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n    font-weight: normal;\n}\n.img__img {\n    width: 500px;\n    height: 500px;\n}\n.content__name {\n    margin: 10px;\n    font-size: 29px;\n    font-weight: 500;\n}\n.content__description {\n    font-size: 15px;\n    margin: 10px;\n}\n.content__price {\n    font-size: 21px;\n    margin: 10px;\n    font-weight: 500;\n}\n\n\n@media (max-width: 760px) {\n    .container-product {\n        grid-template-columns: repeat(1, 1fr);\n        padding: 10px;\n    }\n    .img__img {\n        width: 100%;\n        height: 100%;\n    }\n}",
+                    "styleUrl": "./indiviual-product-card.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 10
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"container-product\">\n    <div class=\"img__wrapper\">\n        <img [src]=\"product?.img_path\" class=\"img__img\" [alt]=\"product?.name\">\n    </div>\n    <div class=\"content__wrapper\">\n        <div class=\"heading\">Product Details</div>\n        <div class=\"content__name\"> {{product?.name}} </div>\n        <div class=\"content__description\"> {{product?.description}} </div>\n        <div class=\"content__price\">Price: $ {{product?.price}} </div>\n        <div class=\"content__price\">Avaible quentity: {{product?.quantity}} </div>\n    </div>\n</div>\n"
+        },
+        {
+            "name": "IndiviualProductComponent",
+            "id": "component-IndiviualProductComponent-6452e5b71fdcea9367c68b24e1e231f9",
+            "file": "src/app/dashboard/indiviual-product/indiviual-product.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-indiviual-product",
+            "styleUrls": [
+                "./indiviual-product.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./indiviual-product.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "productData",
+                    "type": "Product",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "productId",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getData",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 26
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../../common.service';\nimport { Router, ActivatedRoute } from '@angular/router';\nimport { Product } from '../../product/store/product.model';\n\n@Component({\n  selector: 'app-indiviual-product',\n  templateUrl: './indiviual-product.component.html',\n  styleUrls: ['./indiviual-product.component.scss']\n})\nexport class IndiviualProductComponent implements OnInit {\n\n  productId: any;\n  productData: Product;\n  constructor(\n    private activatedRoute: ActivatedRoute,\n    private commonService: CommonService\n  ) {\n    const prodid = 'id';\n    this. productId = this.activatedRoute.snapshot.params[prodid];\n  }\n\n  ngOnInit(): void {\n    this.getData();\n  }\n  getData(): any {\n    this.commonService.getLinkData(this.productId).subscribe((data) => {\n      this.productData = data;\n    });\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./indiviual-product.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "activatedRoute",
+                        "type": "ActivatedRoute"
+                    },
+                    {
+                        "name": "commonService",
+                        "type": "CommonService"
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "activatedRoute",
+                        "type": "ActivatedRoute",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "commonService",
+                        "type": "CommonService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<app-indiviual-product-card [product]=\"productData\"></app-indiviual-product-card>\n"
+        },
+        {
             "name": "LayoutComponent",
-            "id": "component-LayoutComponent-5fac948401482f02fc3a55be0e574436",
+            "id": "component-LayoutComponent-5fa85c1221bd0e7549402f720f686a81",
             "file": "src/app/layout/layout/layout.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2149,12 +2076,20 @@
             ],
             "methodsClass": [
                 {
+                    "name": "getUserStatus",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 27
+                },
+                {
                     "name": "logout",
                     "args": [],
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 43
+                    "line": 45
                 },
                 {
                     "name": "ngOnInit",
@@ -2175,7 +2110,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 35,
+                    "line": 37,
                     "jsdoctags": [
                         {
                             "name": "event",
@@ -2192,7 +2127,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { ThemeService } from '../../shared/services/theme.service';\nimport { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-layout',\n  templateUrl: './layout.component.html',\n  styleUrls: ['./layout.component.scss']\n})\nexport class LayoutComponent implements OnInit {\n\n  darkTheme = new FormControl(false);\n  userName: any;\n  isLoginUser: boolean;\n  isChecked: boolean;\n  constructor(\n    private themeService: ThemeService,\n    private loginRegistrationSetupService: LoginRegistrationSetupService,\n    private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.isChecked = false;\n    this.loginRegistrationSetupService.getData().subscribe(wrapper => {\n      if (wrapper) {\n      this.isLoginUser = true;\n    }else {\n      this.isLoginUser = false;\n    }\n   });\n    // console.log(this.isLoginUser);\n    this.theme(false);\n  }\n  theme(event): any {\n    if (event) {\n      this.themeService.toggleDark();\n    } else {\n      this.themeService.toggleLight();\n    }\n    this.isChecked = !event;\n  }\n  logout(): any {\n    this.loginRegistrationSetupService.Logout().subscribe ( (data) => {\n      if (data) {\n        this.loginRegistrationSetupService.sendData(false);\n        this.router.navigate(['/home']);\n      }\n    });\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { ThemeService } from '../../shared/services/theme.service';\nimport { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-layout',\n  templateUrl: './layout.component.html',\n  styleUrls: ['./layout.component.scss']\n})\nexport class LayoutComponent implements OnInit {\n\n  darkTheme = new FormControl(false);\n  userName: any;\n  isLoginUser: boolean;\n  isChecked: boolean;\n  constructor(\n    private themeService: ThemeService,\n    private loginRegistrationSetupService: LoginRegistrationSetupService,\n    private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.getUserStatus();\n    this.theme(false);\n  }\n  getUserStatus(): any {\n    this.isChecked = false;\n    this.loginRegistrationSetupService.getData().subscribe(wrapper => {\n      if (wrapper) {\n      this.isLoginUser = true;\n    }else {\n      this.isLoginUser = false;\n    }\n   });\n  }\n  theme(event): any {\n    if (event) {\n      this.themeService.toggleDark();\n    } else {\n      this.themeService.toggleLight();\n    }\n    this.isChecked = !event;\n  }\n  logout(): any {\n    this.loginRegistrationSetupService.Logout();\n    this.loginRegistrationSetupService.sendData(false);\n    this.router.navigate(['/home']);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2250,7 +2185,7 @@
         },
         {
             "name": "LoginComponent",
-            "id": "component-LoginComponent-bd433783f0fa216198567326783b57f0",
+            "id": "component-LoginComponent-caa383e9e94ab74b77190688b9f9fe05",
             "file": "src/app/setup/login/login.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2270,6 +2205,13 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "isLogin",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
                     "name": "LoginForm",
                     "type": "FormGroup",
                     "optional": false,
@@ -2284,7 +2226,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23
+                    "line": 24
                 },
                 {
                     "name": "ngOnInit",
@@ -2292,15 +2234,29 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 20
+                    "line": 21
                 },
                 {
                     "name": "onSubmit",
-                    "args": [],
+                    "args": [
+                        {
+                            "name": "form",
+                            "type": ""
+                        }
+                    ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29
+                    "line": 30,
+                    "jsdoctags": [
+                        {
+                            "name": "form",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "hostBindings": [],
@@ -2308,7 +2264,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { LoginRegistrationSetupService } from '../login-registration-setup.service';\nimport { Router } from '@angular/router';\n\n@Component({\n  selector: 'app-login',\n  templateUrl: './login.component.html',\n  styleUrls: ['./login.component.scss']\n})\nexport class LoginComponent implements OnInit {\n\n  LoginForm: FormGroup;\n  constructor(\n    private fb: FormBuilder,\n    private loginRegistrationSetupService: LoginRegistrationSetupService,\n    private router: Router\n) { }\n\n  ngOnInit(): void {\n    this.createForm();\n  }\n  createForm(): void{\n    this.LoginForm = this.fb.group({\n      user_name:  ['', [Validators.required, Validators.maxLength(200), Validators.minLength(2)]],\n      password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(2)]],\n    });\n  }\n  onSubmit(): void {\n    this.loginRegistrationSetupService.LoginUser(this.LoginForm.value.user_name, this.LoginForm.value.password).subscribe((data) => {\n      if (data[0] === undefined) {\n        alert('User is not register!');\n      }else {\n        alert('Login successful!');\n        this.loginRegistrationSetupService.sendData(true);\n        const jsonData = JSON.stringify(data[0]);\n        localStorage.setItem('user', jsonData);\n        this.router.navigate(['/home']);\n      }\n    });\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { LoginRegistrationSetupService } from '../login-registration-setup.service';\nimport { Router } from '@angular/router';\n\n@Component({\n  selector: 'app-login',\n  templateUrl: './login.component.html',\n  styleUrls: ['./login.component.scss']\n})\nexport class LoginComponent implements OnInit {\n\n  LoginForm: FormGroup;\n  isLogin: boolean;\n  constructor(\n    private fb: FormBuilder,\n    private loginRegistrationSetupService: LoginRegistrationSetupService,\n    private router: Router\n) { }\n\n  ngOnInit(): void {\n    this.createForm();\n  }\n  createForm(): void{\n    this.LoginForm = this.fb.group({\n      user_name:  ['', [Validators.required, Validators.maxLength(200), Validators.minLength(2)]],\n      password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(2)]],\n    });\n  }\n  onSubmit(form): void {\n    this.loginRegistrationSetupService.LoginUser(form.user_name, form.password).subscribe((data) => {\n      if (data[0] === undefined) {\n        alert('User is not register!');\n        this.isLogin = false;\n      }else {\n        alert('Login successful!');\n        this.loginRegistrationSetupService.sendData(true);\n        this.isLogin = true;\n        const jsonData = JSON.stringify(data[0]);\n        localStorage.setItem('user', jsonData);\n        this.router.navigate(['/home']);\n      }\n    });\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2334,7 +2290,7 @@
                         "type": "Router"
                     }
                 ],
-                "line": 13,
+                "line": 14,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -2362,98 +2318,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container form-width m-1\">\n    <div class=\"heading\">User Login</div>\n    <form [formGroup]=\"LoginForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"input-container\">\n        <input type=\"text\" formControlName=\"user_name\" placeholder=\"User Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.invalid && (LoginForm.controls.user_name.dirty || LoginForm.controls.user_name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.required\">User name is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.maxlength\">Maximum 200  characters required!</span>\n        <!-- <span *ngIf=\"LoginForm.controls.user_name.errors.pattern\">Invalid value for this field</span> -->\n    </div>\n      <div class=\"input-container\">\n        <input type=\"password\"  formControlName=\"password\" placeholder=\"password\" class=\"full-width\">\n      </div> \n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.password.invalid && (LoginForm.controls.password.dirty || LoginForm.controls.password.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.required\">Password is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.maxlength\">Maximum 10  characters required!</span>\n    </div>\n      <div class=\"input-container\">\n        <button type=\"submit\">\n          Login\n        </button>\n      </div>\n    </form>\n</div>\n"
-        },
-        {
-            "name": "MyCounterComponent",
-            "id": "component-MyCounterComponent-c3ecdc6831aea6a5f15ac9416dc82dac",
-            "file": "src/app/ngrx-example2/my-counter/my-counter.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-my-counter",
-            "styleUrls": [
-                "./my-counter.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./my-counter.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "count$",
-                    "type": "Observable<number>",
-                    "optional": false,
-                    "description": "",
-                    "line": 12
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "decrement",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 19
-                },
-                {
-                    "name": "increment",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 16
-                },
-                {
-                    "name": "reset",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 22
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { Store } from '@ngrx/store';\nimport { Observable } from 'rxjs';\nimport { increment, decrement, reset } from '../actions/counter.actions';\n@Component({\n  selector: 'app-my-counter',\n  templateUrl: './my-counter.component.html',\n  styleUrls: ['./my-counter.component.scss']\n})\nexport class MyCounterComponent {\n\n  count$: Observable<number>;\n  constructor(private store: Store<{ count: number }>) {\n    this.count$ = store.select('count');\n  }\n  increment(): void {\n    this.store.dispatch(increment());\n  }\n  decrement(): void {\n    this.store.dispatch(decrement());\n  }\n  reset(): void {\n    this.store.dispatch(reset());\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./my-counter.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "store",
-                        "type": "Store<literal type>"
-                    }
-                ],
-                "line": 12,
-                "jsdoctags": [
-                    {
-                        "name": "store",
-                        "type": "Store<literal type>",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "templateData": "\n\n<div>Current Count: {{ count$ | async }}</div>\n\n<button (click)=\"increment()\">Increment</button>\n\n<button (click)=\"decrement()\">Decrement</button>\n\n<button (click)=\"reset()\">Reset Counter</button>"
+            "templateData": "<div class=\"container form-width m-1\">\n    <div class=\"heading\">User Login</div>\n    <form [formGroup]=\"LoginForm\" (ngSubmit)=\"onSubmit(LoginForm.value)\">\n      <div class=\"input-container\">\n        <input type=\"text\" formControlName=\"user_name\" placeholder=\"User Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.invalid && (LoginForm.controls.user_name.dirty || LoginForm.controls.user_name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.required\">User name is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.user_name.errors.maxlength\">Maximum 200  characters required!</span>\n        <!-- <span *ngIf=\"LoginForm.controls.user_name.errors.pattern\">Invalid value for this field</span> -->\n    </div>\n      <div class=\"input-container\">\n        <input type=\"password\"  formControlName=\"password\" placeholder=\"password\" class=\"full-width\">\n      </div> \n      <div class=\"error-msg\" *ngIf=\"LoginForm.controls.password.invalid && (LoginForm.controls.password.dirty || LoginForm.controls.password.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.required\">Password is required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.minlength\">Minimum 2 characters required!</span>\n        <span class=\"error-msg\" *ngIf=\"LoginForm.controls.password.errors.maxlength\">Maximum 10  characters required!</span>\n    </div>\n      <div class=\"input-container\">\n        <button type=\"submit\">\n          Login\n        </button>\n      </div>\n    </form>\n</div>\n"
         },
         {
             "name": "ProductListComponent",
@@ -2605,106 +2470,6 @@
             "templateData": "<div class=\"container\">\n  <div class=\"heading\">NgRx Product List</div>\n  <table>\n    <thead>\n      <tr>\n        <th>ID</th>\n        <th>Name</th>\n        <th>Description</th>\n        <th>Price</th>\n        <th>Quntity</th>\n        <th>Edit</th>\n        <th>Delete</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let link of productList$ | async\" classe=\"table-row\">\n        <td>{{link.id}}</td>\n        <td>{{link.name}}</td>\n        <td>{{link.description}}</td>\n        <td>{{link.price}}</td>\n        <td>{{link.quantity}}</td>\n        <td>\n            <button (click)=\"edit(link.id)\">Edit</button>\n        </td> \n        <td>\n            <button (click)=\"delete(link.id)\">Delete</button>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
         },
         {
-            "name": "ReadComponent",
-            "id": "component-ReadComponent-88abdee72b058b1e84dfc473664c7c92",
-            "file": "src/app/ngrx-example/read/read.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-read",
-            "styleUrls": [
-                "./read.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./read.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "tutorials",
-                    "type": "Observable<Tutorial[]>",
-                    "optional": false,
-                    "description": "",
-                    "line": 15
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "deleteTutorial",
-                    "args": [
-                        {
-                            "name": "index",
-                            "type": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 22,
-                    "jsdoctags": [
-                        {
-                            "name": "index",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 25
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { Store } from '@ngrx/store';\nimport { Tutorial } from '../models/tutorial.model';\nimport { AppState } from '../../app.state';\nimport * as TutorialActions from './../actions/tutorials.actions';\n\n@Component({\n  selector: 'app-read',\n  templateUrl: './read.component.html',\n  styleUrls: ['./read.component.scss']\n})\nexport class ReadComponent implements OnInit {\n\n  tutorials: Observable<Tutorial[]>;\n  constructor(\n    private store: Store<AppState>\n  ) {\n    this.tutorials = store.select('tutorial');\n  }\n\n  deleteTutorial(index): void{\n    this.store.dispatch(new TutorialActions.RemoveTutorial(index));\n  }\n  ngOnInit(): void {}\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".right {\n    float: right;\n    width: calc(50% - 6em);\n    padding: 3em;\n    font-family: Arial, Helvetica, sans-serif;\n}\n",
-                    "styleUrl": "./read.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "store",
-                        "type": "Store<AppState>"
-                    }
-                ],
-                "line": 15,
-                "jsdoctags": [
-                    {
-                        "name": "store",
-                        "type": "Store<AppState>",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<app-create></app-create>\n<div class=\"right\" *ngIf=\"tutorials\">\n    <h3>Tutorials</h3>\n    <ul>\n        <li *ngFor=\"let tutorial of tutorials | async; let i = index\">\n            <a [href]=\"tutorial.url\" target=\"_blank\">{{tutorial.name}}</a>\n            &nbsp;&nbsp;\n            <button (click)=\"deleteTutorial(i)\">Delete</button>\n        </li>\n    </ul>\n</div>\n"
-        },
-        {
             "name": "UserRegistrationComponent",
             "id": "component-UserRegistrationComponent-37902e2feda1fdc8964bca448a15c13a",
             "file": "src/app/setup/user-registration/user-registration.component.ts",
@@ -2843,9 +2608,6 @@
                             "name": "AppComponent"
                         },
                         {
-                            "name": "CreateComponent"
-                        },
-                        {
                             "name": "DashboardCardComponent"
                         },
                         {
@@ -2861,13 +2623,13 @@
                             "name": "HeaderComponent"
                         },
                         {
+                            "name": "IndiviualProductCardComponent"
+                        },
+                        {
+                            "name": "IndiviualProductComponent"
+                        },
+                        {
                             "name": "LayoutComponent"
-                        },
-                        {
-                            "name": "MyCounterComponent"
-                        },
-                        {
-                            "name": "ReadComponent"
                         }
                     ]
                 },
@@ -3070,28 +2832,12 @@
     "miscellaneous": {
         "variables": [
             {
-                "name": "actionsData",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/layout/button/button.component.stories.ts",
-                "type": "object",
-                "defaultValue": "{\n  onPinTask: action('onPinTask'),\n  onArchiveTask: action('onArchiveTask'),\n}"
-            },
-            {
                 "name": "adapter",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/product/store/product.reducer.ts",
                 "type": "EntityAdapter<Product>",
                 "defaultValue": "createEntityAdapter<Product>()"
-            },
-            {
-                "name": "ADD_TUTORIAL",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "type": "string",
-                "defaultValue": "'[TUTORIAL] Add'"
             },
             {
                 "name": "addProduct",
@@ -3126,12 +2872,52 @@
                 "defaultValue": "[\n    {\n      id: '1',\n      name: 'Wise and Otherwise: A salute to Life',\n      display_name: 'Wise and Otherwise',\n      author: 'Sudha Murty',\n      price: '250',\n      description: 'Understanding human and human nature is one of the toughest jobs .Many time what seems right and good or vice versa can be completely different if explored to proper depth. In many instance, we all come across people and forms an opinion about the people we meet without actually knowing anything about them. But hearing and learning about such instances helps us to redefine our thought process and become wiser. Sudha Murty’s book Wise and otherwise will take you to a journey across the length and breadth of India through narrations of 51 stories inspired by the extensive travels of the author herself.',\n      img_path: 'assets/img/sudhamurti1.jpeg'\n    },\n]"
             },
             {
-                "name": "counterReducerr",
+                "name": "bookData",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/ngrx-example2/reducers/counter.reducer.ts",
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "object",
+                "defaultValue": "{\n      id: '1',\n      name: 'Wise and Otherwise: A salute to Life',\n      display_name: 'Wise and Otherwise',\n      author: 'Sudha Murty',\n      price: '250',\n      description: 'Understanding human and human nature is one of the toughest jobs .Many time what seems right and good or vice versa can be completely different if explored to proper depth. In many instance, we all come across people and forms an opinion about the people we meet without actually knowing anything about them. But hearing and learning about such instances helps us to redefine our thought process and become wiser. Sudha Murty’s book Wise and otherwise will take you to a journey across the length and breadth of India through narrations of 51 stories inspired by the extensive travels of the author herself.',\n      img_path: 'assets/img/sudhamurti1.jpeg'\n    }"
+            },
+            {
+                "name": "bookData2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "object",
+                "defaultValue": "{\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  }"
+            },
+            {
+                "name": "bookData2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "[]",
+                "defaultValue": "[\n  {\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  },\n]"
+            },
+            {
+                "name": "Button",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/layout/button/button.component.stories.ts",
                 "type": "",
-                "defaultValue": "createReducer(\n  initialState,\n  on(increment, (state) => state + 1),\n  on(decrement, (state) => state - 1),\n  on(reset, (state) => 0)\n)"
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "card1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "card2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "darkTheme",
@@ -3142,28 +2928,12 @@
                 "defaultValue": "{\n  'primary-color': '#455363',\n  'background-color': '#1f2935',\n  'text-color': '#fff'\n}"
             },
             {
-                "name": "dashboardCardContainer",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\n  component: DashboardCardComponent,\n  template: `\n  <app-dashboard-card [productData]='data'></app-dashboard-card>`,\n    props: {\n        data: bookData,\n    }\n})"
-            },
-            {
-                "name": "decrement",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/ngrx-example2/actions/counter.actions.ts",
-                "type": "",
-                "defaultValue": "createAction('[Counter Component] Decrement')"
-            },
-            {
-                "name": "defaultTasksData",
+                "name": "Delete",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/layout/button/button.component.stories.ts",
-                "type": "[]",
-                "defaultValue": "[\n  { id: '1' },\n]"
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "deleteProduct",
@@ -3174,12 +2944,19 @@
                 "defaultValue": "createAction(\n  '[Product/API] Delete Product',\n  props<{ id: string }>()\n)"
             },
             {
-                "name": "EditButtonDisableFalse",
+                "name": "Edit",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/layout/button/button.component.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: ButtonComponent,\n  template: `\n  <app-button type=\"Button\" [labelbutton]=\"labelbutton\" [disabledFlag]=\"disabledFlag\" [FormValue]=\"FormValue\" (click)=\"onArchiveTask($event)\"></app-button>`,\n  props: {\n    FormValue: defaultTasksData,\n    disabledFlag: false,\n    labelbutton: 'Edit',\n    onArchiveTask: actionsData.onArchiveTask,\n  },\n})"
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/product/store/product.reducer.ts",
+                "type": "",
+                "defaultValue": "adapter.getSelectors()"
             },
             {
                 "name": "environment",
@@ -3222,12 +2999,20 @@
                 "defaultValue": "() => ({\n  component: HeaderComponent,\n  template: `\n  <app-header></app-header>`,\n\n})"
             },
             {
-                "name": "increment",
+                "name": "Indiviualcard1",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/ngrx-example2/actions/counter.actions.ts",
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
                 "type": "",
-                "defaultValue": "createAction('[Counter Component] Increment')"
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Indiviualcard2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "initialState",
@@ -3236,29 +3021,6 @@
                 "file": "src/app/product/store/product.reducer.ts",
                 "type": "ProductState",
                 "defaultValue": "adapter.getInitialState({\n  // additional entity state properties\n  error: undefined,\n  selectedProduct: undefined\n})"
-            },
-            {
-                "name": "initialState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                "type": "number",
-                "defaultValue": "0"
-            },
-            {
-                "name": "initialState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/ngrx-example/reducers/tutorial.reducer.ts",
-                "type": "Tutorial",
-                "defaultValue": "{\n    name: 'Initial Tutorial',\n    url: 'http://google.com'\n}"
-            },
-            {
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/product/store/product.reducer.ts",
-                "type": "",
-                "defaultValue": "adapter.getSelectors()"
             },
             {
                 "name": "Large",
@@ -3349,30 +3111,6 @@
                 "defaultValue": "'products'"
             },
             {
-                "name": "REMOVE_TUTORIAL",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "type": "string",
-                "defaultValue": "'[TUTORIAL] Remove'"
-            },
-            {
-                "name": "reset",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/ngrx-example2/actions/counter.actions.ts",
-                "type": "",
-                "defaultValue": "createAction('[Counter Component] Reset')"
-            },
-            {
-                "name": "saveButtonTrueFalse",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/layout/button/button.component.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\n    component: ButtonComponent,\n    template: `\n    <app-button type=\"Button\" [labelbutton]=\"labelbutton\" [disabledFlag]=\"disabledFlag\" [FormValue]=\"FormValue\" (click)=\"onArchiveTask($event)\"></app-button>\n  `,\n    props: {\n      FormValue: defaultTasksData,\n      disabledFlag: true,\n      labelbutton: 'SAVE',\n      onArchiveTask: actionsData.onArchiveTask,\n    },\n})"
-            },
-            {
                 "name": "Secondary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3416,6 +3154,30 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "Story<IndiviualProductCardComponent>",
+                "defaultValue": "(args: IndiviualProductCardComponent) => ({\n  component: IndiviualProductCardComponent,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/layout/button/button.component.stories.ts",
+                "type": "Story<ButtonComponent>",
+                "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "Story<DashboardCardComponent>",
+                "defaultValue": "(args: DashboardCardComponent) => ({\n  component: DashboardCardComponent,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/Button.stories.ts",
                 "type": "Story<Button>",
                 "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
@@ -3430,70 +3192,6 @@
             }
         ],
         "functions": [
-            {
-                "name": "counterReducer",
-                "file": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                "ctype": "miscellaneous",
-                "subtype": "function",
-                "description": "",
-                "args": [
-                    {
-                        "name": "state",
-                        "type": ""
-                    },
-                    {
-                        "name": "action",
-                        "type": ""
-                    }
-                ],
-                "returnType": "any",
-                "jsdoctags": [
-                    {
-                        "name": "state",
-                        "type": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    },
-                    {
-                        "name": "action",
-                        "type": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "reducer",
-                "file": "src/app/ngrx-example/reducers/tutorial.reducer.ts",
-                "ctype": "miscellaneous",
-                "subtype": "function",
-                "description": "",
-                "args": [
-                    {
-                        "name": "state"
-                    },
-                    {
-                        "name": "action"
-                    }
-                ],
-                "returnType": "any",
-                "jsdoctags": [
-                    {
-                        "name": "state",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    },
-                    {
-                        "name": "action",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
             {
                 "name": "reducer",
                 "file": "src/app/product/store/product.reducer.ts",
@@ -3525,53 +3223,9 @@
                 ]
             }
         ],
-        "typealiases": [
-            {
-                "name": "Actions",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "AddTutorial | RemoveTutorial",
-                "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "description": "",
-                "kind": 168
-            }
-        ],
+        "typealiases": [],
         "enumerations": [],
         "groupedVariables": {
-            "src/app/layout/button/button.component.stories.ts": [
-                {
-                    "name": "actionsData",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/layout/button/button.component.stories.ts",
-                    "type": "object",
-                    "defaultValue": "{\n  onPinTask: action('onPinTask'),\n  onArchiveTask: action('onArchiveTask'),\n}"
-                },
-                {
-                    "name": "defaultTasksData",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/layout/button/button.component.stories.ts",
-                    "type": "[]",
-                    "defaultValue": "[\n  { id: '1' },\n]"
-                },
-                {
-                    "name": "EditButtonDisableFalse",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/layout/button/button.component.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: ButtonComponent,\n  template: `\n  <app-button type=\"Button\" [labelbutton]=\"labelbutton\" [disabledFlag]=\"disabledFlag\" [FormValue]=\"FormValue\" (click)=\"onArchiveTask($event)\"></app-button>`,\n  props: {\n    FormValue: defaultTasksData,\n    disabledFlag: false,\n    labelbutton: 'Edit',\n    onArchiveTask: actionsData.onArchiveTask,\n  },\n})"
-                },
-                {
-                    "name": "saveButtonTrueFalse",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/layout/button/button.component.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n    component: ButtonComponent,\n    template: `\n    <app-button type=\"Button\" [labelbutton]=\"labelbutton\" [disabledFlag]=\"disabledFlag\" [FormValue]=\"FormValue\" (click)=\"onArchiveTask($event)\"></app-button>\n  `,\n    props: {\n      FormValue: defaultTasksData,\n      disabledFlag: true,\n      labelbutton: 'SAVE',\n      onArchiveTask: actionsData.onArchiveTask,\n    },\n})"
-                }
-            ],
             "src/app/product/store/product.reducer.ts": [
                 {
                     "name": "adapter",
@@ -3582,19 +3236,19 @@
                     "defaultValue": "createEntityAdapter<Product>()"
                 },
                 {
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/product/store/product.reducer.ts",
+                    "type": "",
+                    "defaultValue": "adapter.getSelectors()"
+                },
+                {
                     "name": "initialState",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/product/store/product.reducer.ts",
                     "type": "ProductState",
                     "defaultValue": "adapter.getInitialState({\n  // additional entity state properties\n  error: undefined,\n  selectedProduct: undefined\n})"
-                },
-                {
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/product/store/product.reducer.ts",
-                    "type": "",
-                    "defaultValue": "adapter.getSelectors()"
                 },
                 {
                     "name": "productReducer",
@@ -3611,24 +3265,6 @@
                     "file": "src/app/product/store/product.reducer.ts",
                     "type": "string",
                     "defaultValue": "'products'"
-                }
-            ],
-            "src/app/ngrx-example/actions/tutorials.actions.ts": [
-                {
-                    "name": "ADD_TUTORIAL",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                    "type": "string",
-                    "defaultValue": "'[TUTORIAL] Add'"
-                },
-                {
-                    "name": "REMOVE_TUTORIAL",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                    "type": "string",
-                    "defaultValue": "'[TUTORIAL] Remove'"
                 }
             ],
             "src/app/product/store/product.actions.ts": [
@@ -3731,30 +3367,112 @@
                     "defaultValue": "[\n    {\n      id: '1',\n      name: 'Wise and Otherwise: A salute to Life',\n      display_name: 'Wise and Otherwise',\n      author: 'Sudha Murty',\n      price: '250',\n      description: 'Understanding human and human nature is one of the toughest jobs .Many time what seems right and good or vice versa can be completely different if explored to proper depth. In many instance, we all come across people and forms an opinion about the people we meet without actually knowing anything about them. But hearing and learning about such instances helps us to redefine our thought process and become wiser. Sudha Murty’s book Wise and otherwise will take you to a journey across the length and breadth of India through narrations of 51 stories inspired by the extensive travels of the author herself.',\n      img_path: 'assets/img/sudhamurti1.jpeg'\n    },\n]"
                 },
                 {
-                    "name": "dashboardCardContainer",
+                    "name": "bookData2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                    "type": "[]",
+                    "defaultValue": "[\n  {\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  },\n]"
+                },
+                {
+                    "name": "card1",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: DashboardCardComponent,\n  template: `\n  <app-dashboard-card [productData]='data'></app-dashboard-card>`,\n    props: {\n        data: bookData,\n    }\n})"
-                }
-            ],
-            "src/app/ngrx-example2/reducers/counter.reducer.ts": [
-                {
-                    "name": "counterReducerr",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                    "type": "",
-                    "defaultValue": "createReducer(\n  initialState,\n  on(increment, (state) => state + 1),\n  on(decrement, (state) => state - 1),\n  on(reset, (state) => 0)\n)"
+                    "defaultValue": "Template.bind({})"
                 },
                 {
-                    "name": "initialState",
+                    "name": "card2",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                    "type": "number",
-                    "defaultValue": "0"
+                    "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                    "type": "Story<DashboardCardComponent>",
+                    "defaultValue": "(args: DashboardCardComponent) => ({\n  component: DashboardCardComponent,\n  props: args,\n})"
+                }
+            ],
+            "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts": [
+                {
+                    "name": "bookData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                    "type": "object",
+                    "defaultValue": "{\n      id: '1',\n      name: 'Wise and Otherwise: A salute to Life',\n      display_name: 'Wise and Otherwise',\n      author: 'Sudha Murty',\n      price: '250',\n      description: 'Understanding human and human nature is one of the toughest jobs .Many time what seems right and good or vice versa can be completely different if explored to proper depth. In many instance, we all come across people and forms an opinion about the people we meet without actually knowing anything about them. But hearing and learning about such instances helps us to redefine our thought process and become wiser. Sudha Murty’s book Wise and otherwise will take you to a journey across the length and breadth of India through narrations of 51 stories inspired by the extensive travels of the author herself.',\n      img_path: 'assets/img/sudhamurti1.jpeg'\n    }"
+                },
+                {
+                    "name": "bookData2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                    "type": "object",
+                    "defaultValue": "{\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  }"
+                },
+                {
+                    "name": "Indiviualcard1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Indiviualcard2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                    "type": "Story<IndiviualProductCardComponent>",
+                    "defaultValue": "(args: IndiviualProductCardComponent) => ({\n  component: IndiviualProductCardComponent,\n  props: args,\n})"
+                }
+            ],
+            "src/app/layout/button/button.component.stories.ts": [
+                {
+                    "name": "Button",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/layout/button/button.component.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Delete",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/layout/button/button.component.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Edit",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/layout/button/button.component.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/layout/button/button.component.stories.ts",
+                    "type": "Story<ButtonComponent>",
+                    "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
                 }
             ],
             "src/app/shared/services/theme.service.ts": [
@@ -3773,32 +3491,6 @@
                     "file": "src/app/shared/services/theme.service.ts",
                     "type": "object",
                     "defaultValue": "{\n  'primary-color': '#fff',\n  'background-color': '#fff',\n  'text-color': '#2d2d2d'\n}"
-                }
-            ],
-            "src/app/ngrx-example2/actions/counter.actions.ts": [
-                {
-                    "name": "decrement",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example2/actions/counter.actions.ts",
-                    "type": "",
-                    "defaultValue": "createAction('[Counter Component] Decrement')"
-                },
-                {
-                    "name": "increment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example2/actions/counter.actions.ts",
-                    "type": "",
-                    "defaultValue": "createAction('[Counter Component] Increment')"
-                },
-                {
-                    "name": "reset",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example2/actions/counter.actions.ts",
-                    "type": "",
-                    "defaultValue": "createAction('[Counter Component] Reset')"
                 }
             ],
             "src/environments/environment.ts": [
@@ -3849,16 +3541,6 @@
                     "file": "src/app/layout/header/header.component.stories.ts",
                     "type": "",
                     "defaultValue": "() => ({\n  component: HeaderComponent,\n  template: `\n  <app-header></app-header>`,\n\n})"
-                }
-            ],
-            "src/app/ngrx-example/reducers/tutorial.reducer.ts": [
-                {
-                    "name": "initialState",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/ngrx-example/reducers/tutorial.reducer.ts",
-                    "type": "Tutorial",
-                    "defaultValue": "{\n    name: 'Initial Tutorial',\n    url: 'http://google.com'\n}"
                 }
             ],
             "src/stories/Button.stories.ts": [
@@ -3931,74 +3613,6 @@
             ]
         },
         "groupedFunctions": {
-            "src/app/ngrx-example2/reducers/counter.reducer.ts": [
-                {
-                    "name": "counterReducer",
-                    "file": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                    "ctype": "miscellaneous",
-                    "subtype": "function",
-                    "description": "",
-                    "args": [
-                        {
-                            "name": "state",
-                            "type": ""
-                        },
-                        {
-                            "name": "action",
-                            "type": ""
-                        }
-                    ],
-                    "returnType": "any",
-                    "jsdoctags": [
-                        {
-                            "name": "state",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "action",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "src/app/ngrx-example/reducers/tutorial.reducer.ts": [
-                {
-                    "name": "reducer",
-                    "file": "src/app/ngrx-example/reducers/tutorial.reducer.ts",
-                    "ctype": "miscellaneous",
-                    "subtype": "function",
-                    "description": "",
-                    "args": [
-                        {
-                            "name": "state"
-                        },
-                        {
-                            "name": "action"
-                        }
-                    ],
-                    "returnType": "any",
-                    "jsdoctags": [
-                        {
-                            "name": "state",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "action",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
             "src/app/product/store/product.reducer.ts": [
                 {
                     "name": "reducer",
@@ -4033,19 +3647,7 @@
             ]
         },
         "groupedEnumerations": {},
-        "groupedTypeAliases": {
-            "src/app/ngrx-example/actions/tutorials.actions.ts": [
-                {
-                    "name": "Actions",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "AddTutorial | RemoveTutorial",
-                    "file": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                    "description": "",
-                    "kind": 168
-                }
-            ]
-        }
+        "groupedTypeAliases": {}
     },
     "routes": {
         "name": "<root>",
@@ -4099,6 +3701,10 @@
                                 "component": "DashboardComponent"
                             },
                             {
+                                "path": "product/:id",
+                                "component": "IndiviualProductComponent"
+                            },
+                            {
                                 "path": "crud-oprations",
                                 "component": "AddLinksComponent",
                                 "canActivate": [
@@ -4134,20 +3740,6 @@
                                 ]
                             },
                             {
-                                "path": "ngrx-tutorial-example2",
-                                "component": "ReadComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
-                                "path": "ngrx-tutorial-example1",
-                                "component": "MyCounterComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
                                 "path": "product-list",
                                 "component": "ProductListComponent",
                                 "canActivate": [
@@ -4158,7 +3750,7 @@
                     },
                     {
                         "path": "**",
-                        "redirectTo": "user/login",
+                        "redirectTo": "/home",
                         "pathMatch": "full"
                     }
                 ],
@@ -4185,7 +3777,7 @@
                 "linktype": "component",
                 "name": "AddLinksComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/19",
+                "coverageCount": "0/21",
                 "status": "low"
             },
             {
@@ -4198,30 +3790,12 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/app.effects.ts",
-                "type": "injectable",
-                "linktype": "injectable",
-                "name": "AppEffects",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/app.state.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "AppState",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
-                "status": "low"
-            },
-            {
                 "filePath": "src/app/common.service.ts",
                 "type": "injectable",
                 "linktype": "injectable",
                 "name": "CommonService",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -4239,7 +3813,37 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "dashboardCardContainer",
+                "name": "bookData2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "card1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "card2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4250,7 +3854,7 @@
                 "linktype": "component",
                 "name": "DashboardCardComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -4259,7 +3863,75 @@
                 "linktype": "component",
                 "name": "DashboardComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "bookData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "bookData2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Indiviualcard1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Indiviualcard2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IndiviualProductCardComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/indiviual-product/indiviual-product.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IndiviualProductComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -4305,7 +3977,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "actionsData",
+                "name": "Button",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4315,7 +3987,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "defaultTasksData",
+                "name": "Delete",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4325,7 +3997,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "EditButtonDisableFalse",
+                "name": "Edit",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4335,7 +4007,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "saveButtonTrueFalse",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4374,159 +4046,7 @@
                 "linktype": "component",
                 "name": "LayoutComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "type": "class",
-                "linktype": "classe",
-                "name": "AddTutorial",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "type": "class",
-                "linktype": "classe",
-                "name": "RemoveTutorial",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "ADD_TUTORIAL",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/actions/tutorials.actions.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "REMOVE_TUTORIAL",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/create/create.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "CreateComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/models/tutorial.model.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "Tutorial",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/read/read.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ReadComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/reducers/tutorial.reducer.ts",
-                "type": "function",
-                "linksubtype": "function",
-                "name": "reducer",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example/reducers/tutorial.reducer.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "initialState",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/actions/counter.actions.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "decrement",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/actions/counter.actions.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "increment",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/actions/counter.actions.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "reset",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/my-counter/my-counter.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "MyCounterComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/6",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                "type": "function",
-                "linksubtype": "function",
-                "name": "counterReducer",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "counterReducerr",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/ngrx-example2/reducers/counter.reducer.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "initialState",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
@@ -4708,7 +4228,6 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "initialState",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4718,6 +4237,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "initialState",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -4778,7 +4298,7 @@
                 "linktype": "injectable",
                 "name": "LoginRegistrationSetupService",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -4787,7 +4307,7 @@
                 "linktype": "component",
                 "name": "LoginComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {

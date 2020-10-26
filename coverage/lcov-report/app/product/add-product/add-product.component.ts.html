@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.78% </span>
+                <span class="strong">38.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/36</span>
+                <span class='fraction'>14/36</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.53% </span>
+                <span class="strong">35.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/34</span>
+                <span class='fraction'>12/34</span>
             </div>
         
             
@@ -145,28 +145,36 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,14 +182,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,20 +257,20 @@ export class AddProductComponent implements OnInit {
   isEdit: boolean;
   userStatus: any;
   productId: any;
-<span class="fstat-no" title="function not covered" >  constructor(</span>
-    private <span class="cstat-no" title="statement not covered" >fb: F</span>ormBuilder,
-    private <span class="cstat-no" title="statement not covered" >store: S</span>tore&lt;ProductState&gt;,
-    private <span class="cstat-no" title="statement not covered" >activatedRoute: A</span>ctivatedRoute,
-    private <span class="cstat-no" title="statement not covered" >router: R</span>outer
+  constructor(
+    private fb: FormBuilder,
+    private store: Store&lt;ProductState&gt;,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
     ) {
-      const prodid = <span class="cstat-no" title="statement not covered" >'id';</span>
-<span class="cstat-no" title="statement not covered" >      this. productId = this.activatedRoute.snapshot.params[prodid];</span>
-<span class="cstat-no" title="statement not covered" >      if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {</span>
-<span class="cstat-no" title="statement not covered" >        this.edit();</span>
-      }
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  ngOnInit(</span>): void{
+    const prodid = <span class="cstat-no" title="statement not covered" >'id';</span>
+<span class="cstat-no" title="statement not covered" >    this. productId = this.activatedRoute.snapshot.params[prodid];</span>
+<span class="cstat-no" title="statement not covered" >    if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {</span>
+<span class="cstat-no" title="statement not covered" >      this.edit();</span>
+    }
 <span class="cstat-no" title="statement not covered" >    this.createForm();</span>
   }
 <span class="fstat-no" title="function not covered" >  createForm(</span>): void{
@@ -328,7 +328,7 @@ export class AddProductComponent implements OnInit {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 21 2020 09:21:36 GMT+0530 (India Standard Time)
+                at Sat Oct 24 2020 20:47:35 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

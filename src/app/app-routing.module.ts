@@ -3,15 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddLinksComponent } from './add-links/add-links.component';
 import { FlexLayoutComponent } from './flex-layout/flex-layout.component';
 import { GridLayoutComponent } from './grid-layout/grid-layout.component';
-import { ReadComponent } from './ngrx-example/read/read.component';
-import { MyCounterComponent } from './ngrx-example2/my-counter/my-counter.component';
+// import { ReadComponent } from './ngrx-example/read/read.component';
+// import { MyCounterComponent } from './ngrx-example2/my-counter/my-counter.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { LayoutComponent  } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { IndiviualProductComponent } from './dashboard/indiviual-product/indiviual-product.component';
 import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
-const routes: Routes = [
+export const routes: Routes = [
 
   {
     path: '',
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: DashboardComponent,
+      },
+      {
+        path: 'product/:id',
+        component: IndiviualProductComponent,
       },
       {
         path: 'crud-oprations',
@@ -55,16 +60,16 @@ const routes: Routes = [
         component: GridLayoutComponent,
         canActivate: [AuthGuard],
       },
-      {
-        path: 'ngrx-tutorial-example2',
-        component: ReadComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'ngrx-tutorial-example1',
-        component: MyCounterComponent,
-        canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'ngrx-tutorial-example2',
+      //   component: ReadComponent,
+      //   canActivate: [AuthGuard],
+      // },
+      // {
+      //   path: 'ngrx-tutorial-example1',
+      //   component: MyCounterComponent,
+      //   canActivate: [AuthGuard],
+      // },
       {
         path: 'product-list',
         component: ProductListComponent,
@@ -75,7 +80,7 @@ const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: 'user/login',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
 ];

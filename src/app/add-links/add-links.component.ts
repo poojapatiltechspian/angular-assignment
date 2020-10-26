@@ -19,6 +19,8 @@ export class AddLinksComponent implements OnInit {
   buttonEdit = 'Edit';
   buttonDelete = 'delete';
   sub: Subscription;
+  isDelete: boolean;
+  isSubmit: boolean;
   constructor(
     private commonService: CommonService,
     private fb: FormBuilder,
@@ -49,37 +51,39 @@ export class AddLinksComponent implements OnInit {
       img_path: ['assets/img/box.jpg']
     });
   }
-    delete(id): void {
-      this.commonService.deleteLink(id).subscribe((data) => {
-        this.getLinks();
-      });
-    }
-    getLinks(): void {
-      this.sub = this.commonService.getLink().subscribe(
-        (data) => { this.products = data; },
-        (error) =>  { console.log('HTTP Error', error); }
-      );
-    }
-    onSubmit(data): void{
-      this.commonService.createLink(data.value).subscribe(() => {
-        this.getLinks();
-        this.linksForm.reset();
-      });
-    }
-    edit(id): void {
-      this.buttonLable =  'Edit';
-      this.commonService.getLinkData(id).subscribe((data) => {
-        this.patchForm(data);
-        this.isEdit = true;
-      });
-    }
-    editData(): void{
-      this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {
-        this.getLinks();
-        this.linksForm.reset();
-        this.isEdit = false;
-        this.buttonLable =  'SAVE';
-      });
+  delete(id): void {
+    this.commonService.deleteLink(id).subscribe((data) => {
+      this.isDelete = true;
+      this.getLinks();
+    });
+  }
+  getLinks(): void {
+    this.sub = this.commonService.getLink().subscribe(
+      (data) => { this.products = data; },
+      // (error) =>  { const errmsg = 'HTTP Error ' + error; alert(errmsg); }
+    );
+  }
+  onSubmit(data): void{
+    this.commonService.createLink(data.value).subscribe(() => {
+      this.getLinks();
+      this.linksForm.reset();
+      this.isSubmit = true;
+    });
+  }
+  edit(id): void {
+    this.buttonLable =  'Edit';
+    this.commonService.getLinkData(id).subscribe((data) => {
+      this.patchForm(data);
+      this.isEdit = true;
+    });
+  }
+  editData(): void{
+    this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {
+      this.getLinks();
+      this.linksForm.reset();
+      this.isEdit = false;
+      this.buttonLable =  'SAVE';
+    });
   }
 }
 

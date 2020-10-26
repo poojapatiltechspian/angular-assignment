@@ -26,6 +26,22 @@ describe('CommonService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should be add product data and return added data', () => {
+    const saveData =  {
+      category_tag: 'tech',
+      id: 6,
+      short_description: 'short description 6',
+      title: 'link 6',
+    };
+    service.createLink(saveData).subscribe((addedPost) => {
+      expect(addedPost).toBe(saveData);
+    });
+    const req = http.expectOne('http://localhost:3000/products/');
+    expect(req.cancelled).toBeFalsy();
+    expect(req.request.responseType).toEqual('json');
+    req.flush(saveData);
+  });
+
   it('should test http client get for produts', () => {
     const saveData =  {
           id: '1',
@@ -45,29 +61,33 @@ describe('CommonService', () => {
     req.flush(saveData);
   });
 
-  it('should be add product data and return added data', () => {
-    const saveData =  {
-      category_tag: 'tech',
-      id: 6,
-      short_description: 'short description 6',
-      title: 'link 6',
-    };
-    service.createLink(saveData).subscribe((addedPost) => {
-      expect(addedPost).toBe(saveData);
+  it('should test http client get for produt from id', () => {
+    const expectData = {
+        id: '1',
+        name: 'Wise and Otherwise',
+        description: 'Understanding human and human nature is one of the toughest jobs .Many time what seems right and good or vice versa can be completely different if explored to proper depth. In many instance, we all come across people and forms an opinion about the people we meet without actually knowing anything about them. But hearing and learning about such instances helps us to redefine our thought process and become wiser. Sudha Murty’s book Wise and otherwise will take you to a journey across the length and breadth of India through narrations of 51 stories inspired by the extensive travels of the author herself.',
+        price: '1200',
+        quantity: '30',
+        img_path: 'assets/img/sudhamurti1.jpeg'
+      };
+
+    service.getLinkData('1').subscribe((post) => {
+      expect(expectData).toBe(post);
     });
-    const req = http.expectOne('http://localhost:3000/products/');
+    const req = http.expectOne('http://localhost:3000/products/1');
+
     expect(req.cancelled).toBeFalsy();
     expect(req.request.responseType).toEqual('json');
-    req.flush(saveData);
+    req.flush(expectData);
   });
 
   it('should be edit product data and return edit data', () => {
     const id = '1';
     const saveData =  {
-      category_tag: 'tech',
-      id: 1,
-      short_description: 'short description 6',
-      title: 'link 6',
+      name: 'tech',
+      description: 'desc 5',
+      price: '5',
+      quantity: '5',
     };
     service.updateLink(id, saveData).subscribe((addedPost) => {
       expect(addedPost).toBe(saveData);
@@ -78,17 +98,16 @@ describe('CommonService', () => {
     req.flush(saveData);
   });
 
-  // it('should test 404 error', () => {
-  //   const errorMsg = 'mock 404 error occour';
-  //   service.getLinkError().subscribe((data) => {
-  //     fail('failing with error 404');
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       expect(err.status).toEqual(404);
-  //       expect(err.error).toEqual(errorMsg);
-  //     }
-  //   );
-  //   const req = http.expectOne('http://localhost:3000/productss/');
-  //   req.flush(errorMsg, {status: 404, statusText: 'Not Found'});
-  // });
+  it('should be delete product data and return empty data', () => {
+    const id = '1';
+    const deleteData =  [];
+    service.deleteLink(id).subscribe((addedPost) => {
+      expect(addedPost).toBe(deleteData);
+    });
+    const req = http.expectOne('http://localhost:3000/products/1');
+    expect(req.cancelled).toBeFalsy();
+    expect(req.request.responseType).toEqual('json');
+    req.flush(deleteData);
+  });
+
 });

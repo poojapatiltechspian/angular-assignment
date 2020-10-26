@@ -1,13 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginRegistrationSetupService } from '../login-registration-setup.service';
+import { of } from 'rxjs';
+import { Router} from '@angular/router';
 describe('LoginComponent', () => {
   let fixture: any;
   let component;
+  let service: LoginRegistrationSetupService;
+  window.alert = jest.fn();
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,6 +31,8 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    service = TestBed.inject(LoginRegistrationSetupService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -54,5 +61,31 @@ describe('LoginComponent', () => {
     component.LoginForm.controls.password.setValue('1234');
     expect(component.LoginForm.valid).toBeTruthy();
   });
+
+  it('should call LoginUser and return empty array', fakeAsync(() => {
+    const loginForm = {
+      user_name:  '',
+      password: ''
+    };
+    spyOn(service, 'LoginUser').and.returnValue(of([]));
+    spyOn(window, 'alert');
+    component.onSubmit(loginForm);
+    expect(window.alert).toHaveBeenCalledWith('User is not register!');
+  }));
+
+  it('should call LoginUser and return user array', fakeAsync(() => {
+    const loginForm = {
+      user_name:  'user2',
+      password: '123'
+    };
+    const RecivedloginForm = [ {user_name: 'user2', password: '123', confirm_password: '123', id: '_ruzhpi'}];
+    const spy = spyOn(service, 'LoginUser').and.returnValue(of(RecivedloginForm));
+    spyOn(window, 'alert');
+    spyOn(router, 'navigate');
+    component.onSubmit(loginForm);
+    expect(router.navigate).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(window.alert).toHaveBeenCalledWith('Login successful!');
+  }));
 });
 

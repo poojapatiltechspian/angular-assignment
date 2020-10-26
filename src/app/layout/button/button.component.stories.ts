@@ -1,52 +1,38 @@
-import { moduleMetadata } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
+// also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
+import { Story, Meta } from '@storybook/angular/types-6-0';
 import { ButtonComponent } from './button.component';
-import { action } from '@storybook/addon-actions';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule} from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export default {
-  title: 'Button',
-  excludeStories: /.*Data$/,
-  decorators: [
-    moduleMetadata({
-      // imports both components to allow component composition with storybook
-      declarations: [ButtonComponent],
-      imports: [CommonModule, RouterTestingModule,
-        ReactiveFormsModule,
-        HttpClientTestingModule],
-    }),
-  ],
+  title: 'Button data',
+  component: ButtonComponent,
+  argTypes: {
+    props: {
+          FormValue: 'value',
+          disabledFlag: true,
+          labelbutton: 'save'
+    }
+  },
+} as Meta;
+
+const Template: Story<ButtonComponent> = (args: ButtonComponent) => ({
+  component: ButtonComponent,
+  props: args,
+});
+
+export const Button = Template.bind({});
+Button.args = {
+  disabledFlag: true,
+  labelbutton: 'Button',
 };
 
-export const defaultTasksData = [
-  { id: '1' },
-];
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const Edit = Template.bind({});
+Edit.args = {
+  disabledFlag: true,
+  labelbutton: 'Edit',
 };
-export const EditButtonDisableFalse = () => ({
-  component: ButtonComponent,
-  template: `
-  <app-button type="Button" [labelbutton]="labelbutton" [disabledFlag]="disabledFlag" [FormValue]="FormValue" (click)="onArchiveTask($event)"></app-button>`,
-  props: {
-    FormValue: defaultTasksData,
-    disabledFlag: false,
-    labelbutton: 'Edit',
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
-export const saveButtonTrueFalse = () => ({
-    component: ButtonComponent,
-    template: `
-    <app-button type="Button" [labelbutton]="labelbutton" [disabledFlag]="disabledFlag" [FormValue]="FormValue" (click)="onArchiveTask($event)"></app-button>
-  `,
-    props: {
-      FormValue: defaultTasksData,
-      disabledFlag: true,
-      labelbutton: 'SAVE',
-      onArchiveTask: actionsData.onArchiveTask,
-    },
-});
+
+export const Delete = Template.bind({});
+Delete.args = {
+  disabledFlag: false,
+  labelbutton: 'Delete',
+};

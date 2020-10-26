@@ -21,6 +21,10 @@ export class LayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getUserStatus();
+    this.theme(false);
+  }
+  getUserStatus(): any {
     this.isChecked = false;
     this.loginRegistrationSetupService.getData().subscribe(wrapper => {
       if (wrapper) {
@@ -29,8 +33,6 @@ export class LayoutComponent implements OnInit {
       this.isLoginUser = false;
     }
    });
-    // console.log(this.isLoginUser);
-    this.theme(false);
   }
   theme(event): any {
     if (event) {
@@ -41,11 +43,8 @@ export class LayoutComponent implements OnInit {
     this.isChecked = !event;
   }
   logout(): any {
-    this.loginRegistrationSetupService.Logout().subscribe ( (data) => {
-      if (data) {
-        this.loginRegistrationSetupService.sendData(false);
-        this.router.navigate(['/home']);
-      }
-    });
+    this.loginRegistrationSetupService.Logout();
+    this.loginRegistrationSetupService.sendData(false);
+    this.router.navigate(['/home']);
   }
 }

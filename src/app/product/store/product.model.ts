@@ -1,8 +1,8 @@
 export class Product {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: string;
-  quantity: number;
+  quantity: string;
   imgPath: string;
 }

@@ -33,14 +33,6 @@ export class CommonService {
      catchError(this.errorHandlingService.handleError)
    );
   }
-  getLinkError(): Observable<Product[]> {
-    const url = this.baseurl + 'productss/';
-    return this.http.get<Product[]>(url)
-    .pipe(
-     retry(1),
-     catchError(this.errorHandlingService.handleError)
-   );
-  }
   getLinkData(id): Observable<Product> {
     const url = this.baseurl + 'products/' + id;
     return this.http.get<Product>(url)
@@ -57,7 +49,6 @@ export class CommonService {
      catchError(this.errorHandlingService.handleError)
    );
   }
-
   deleteLink(id): any {
     const url = this.baseurl + 'products/' + id;
     return this.http.delete(url)

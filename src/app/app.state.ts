@@ -1,5 +1,5 @@
-import { Tutorial } from './ngrx-example/models/tutorial.model';
+// import { Tutorial } from './ngrx-example/models/tutorial.model';
 
-export interface AppState {
-    readonly tutorial: Tutorial[];
-}
+// export interface AppState {
+//     readonly tutorial: Tutorial[];
+// }

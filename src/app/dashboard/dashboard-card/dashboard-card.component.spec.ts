@@ -22,4 +22,11 @@ describe('DashboardCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should listen for form changes', () => {
+    spyOn(component.newItemEvent, 'emit');
+    component.addNewItem('data');
+    fixture.detectChanges();
+    expect(component.newItemEvent.emit).toHaveBeenCalled();
+  });
 });

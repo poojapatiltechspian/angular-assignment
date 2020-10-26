@@ -1,6 +1,6 @@
 <div class="container form-width m-1">
     <div class="heading">User Login</div>
-    <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="LoginForm" (ngSubmit)="onSubmit(LoginForm.value)">
       <div class="input-container">
         <input type="text" formControlName="user_name" placeholder="User Name" class="full-width">
       </div>

@@ -1,22 +1,8 @@
-import { moduleMetadata } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
+// also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
+import { Story, Meta } from '@storybook/angular/types-6-0';
 import { DashboardCardComponent } from './dashboard-card.component';
-import { action } from '@storybook/addon-actions';
-import { props } from '@ngrx/store';
 
-export default {
-  title: 'Dashboard Component',
-  excludeStories: /.*Data$/,
-  decorators: [
-    moduleMetadata({
-      // imports both components to allow component composition with storybook
-      declarations: [DashboardCardComponent],
-      imports: [CommonModule],
-    }),
-  ],
-};
-
-export const bookData = [
+const bookData = [
     {
       id: '1',
       name: 'Wise and Otherwise: A salute to Life',
@@ -27,11 +13,38 @@ export const bookData = [
       img_path: 'assets/img/sudhamurti1.jpeg'
     },
 ];
-export const dashboardCardContainer = () => ({
+const bookData2 = [
+  {
+    id: 2,
+    name: 'The Gopi Diaries',
+    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',
+    price: '390',
+    quantity: '23',
+    img_path: 'assets/img/sudhamurti2.jpeg'
+  },
+];
+
+export default {
+  title: 'Card data',
   component: DashboardCardComponent,
-  template: `
-  <app-dashboard-card [productData]='data'></app-dashboard-card>`,
+  argTypes: {
     props: {
-        data: bookData,
+      productData: bookData,
     }
+  },
+} as Meta;
+
+const Template: Story<DashboardCardComponent> = (args: DashboardCardComponent) => ({
+  component: DashboardCardComponent,
+  props: args,
 });
+
+export const card1 = Template.bind({});
+card1.args = {
+  productData: bookData,
+};
+
+export const card2 = Template.bind({});
+card2.args = {
+  productData: bookData2,
+};

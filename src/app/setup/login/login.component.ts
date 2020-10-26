@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   LoginForm: FormGroup;
+  isLogin: boolean;
   constructor(
     private fb: FormBuilder,
     private loginRegistrationSetupService: LoginRegistrationSetupService,
@@ -26,13 +27,15 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(2)]],
     });
   }
-  onSubmit(): void {
-    this.loginRegistrationSetupService.LoginUser(this.LoginForm.value.user_name, this.LoginForm.value.password).subscribe((data) => {
+  onSubmit(form): void {
+    this.loginRegistrationSetupService.LoginUser(form.user_name, form.password).subscribe((data) => {
       if (data[0] === undefined) {
         alert('User is not register!');
+        this.isLogin = false;
       }else {
         alert('Login successful!');
         this.loginRegistrationSetupService.sendData(true);
+        this.isLogin = true;
         const jsonData = JSON.stringify(data[0]);
         localStorage.setItem('user', jsonData);
         this.router.navigate(['/home']);

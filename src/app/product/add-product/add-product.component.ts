@@ -28,14 +28,14 @@ export class AddProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
     ) {
-      const prodid = 'id';
-      this. productId = this.activatedRoute.snapshot.params[prodid];
-      if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {
-        this.edit();
-      }
     }
 
   ngOnInit(): void{
+    const prodid = 'id';
+    this. productId = this.activatedRoute.snapshot.params[prodid];
+    if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {
+      this.edit();
+    }
     this.createForm();
   }
   createForm(): void{

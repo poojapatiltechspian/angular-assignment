@@ -47,6 +47,46 @@ describe('AppComponent', () => {
     expect(component.products).toEqual(response);
   }));
 
+  it('should call delete', fakeAsync(() => {
+    const response: Product[] = [];
+    spyOn(commonServiceMock, 'deleteLink').and.returnValue(of([]));
+    component.delete(1);
+    fixture.detectChanges();
+    expect(component.isDelete).toEqual(true);
+  }));
+
+  it('should call edit', fakeAsync(() => {
+    const response: Product[] = [];
+    spyOn(commonServiceMock, 'getLinkData').and.returnValue(of([response]));
+    component.edit(1);
+    fixture.detectChanges();
+    expect(component.isEdit).toEqual(true);
+  }));
+
+  it('Edited data submit', fakeAsync(() => {
+    const response: Product[] = [];
+    spyOn(commonServiceMock, 'updateLink').and.returnValue(of([response]));
+    component.editData();
+    fixture.detectChanges();
+    expect(component.isEdit).toEqual(false);
+  }));
+
+  it('Should submit form', fakeAsync(() => {
+    const linkForm = {
+      id:  '1',
+      name: 'product1',
+      description: 'Description',
+      price: '10',
+      quantity: '5',
+      img_path: 'assets/img/box.jpg'
+    };
+    const response: Product[] = [];
+    spyOn(commonServiceMock, 'createLink').and.returnValue(of([response]));
+    component.onSubmit(linkForm);
+    fixture.detectChanges();
+    expect(component.isSubmit).toEqual(true);
+  }));
+
   it('check form feilds', () => {
     const linkForm = {
                 id:  '',
@@ -58,6 +98,7 @@ describe('AppComponent', () => {
               };
     expect(component.linksForm.value).toEqual(linkForm);
   });
+
   it('should invalidate form', () => {
     component.linksForm.controls.name.setValue('');
     component.linksForm.controls.description.setValue('');

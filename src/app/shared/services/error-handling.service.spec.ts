@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Observable } from 'rxjs';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ErrorHandlingService } from './error-handling.service';
 
 describe('ErrorHandlingService', () => {
@@ -8,7 +11,12 @@ describe('ErrorHandlingService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule
+      ],
       providers: [ErrorHandlingService]
     });
     service = TestBed.inject(ErrorHandlingService);

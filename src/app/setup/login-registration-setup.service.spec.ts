@@ -39,4 +39,25 @@ describe('LoginRegistrationSetupService', () => {
     req.flush(saveData);
   });
 
+  it('should test http client get for Login User details', () => {
+    const saveData =  {
+      userId: '1',
+      userName: 'user2',
+      password: '123'
+    };
+
+    service.LoginUser(saveData.userName, saveData.password).subscribe((post) => {
+      expect(saveData).toBe(post);
+    });
+    const req = http.expectOne('http://localhost:3000/user-details?user_name=user2&password=123');
+
+    expect(req.cancelled).toBeFalsy();
+    expect(req.request.responseType).toEqual('json');
+    req.flush(saveData);
+  });
+
+  it('should call logout', () => {
+    service.Logout();
+    expect(localStorage.getItem('user')).toBeNull();
+  });
 });

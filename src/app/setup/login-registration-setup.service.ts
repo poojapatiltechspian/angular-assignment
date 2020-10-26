@@ -35,18 +35,8 @@ export class LoginRegistrationSetupService {
       catchError(this.errorHandlingService.handleError)
     );
   }
-  isLoginUser(): boolean {
-    if (localStorage.getItem('user') !== null) {
-      return true;
-    }
-    return false;
-  }
-  Logout(): Observable<boolean> {
+  Logout(): any{
     localStorage.clear();
-    if (localStorage.getItem('user') === null) {
-      return of(true);
-    }
-    return of(false);
   }
   sendData(islogin: boolean): any {
     this.flagLogin.next(islogin);
