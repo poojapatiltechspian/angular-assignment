@@ -53,7 +53,15 @@ describe('LayoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
+  it('should call getUserStatus and return isLoginUser false', fakeAsync(() => {
+    component.getUserStatus();
+    fixture.detectChanges();
+    if (localStorage.getItem('user') === null) {
+      expect(component.isLoginUser).toEqual(false);
+    }else {
+      expect(component.isLoginUser).toEqual(true);
+    }
+  }));
   it('should call getUserStatus and return isLoginUser true', fakeAsync(() => {
     spyOn(service, 'getData').and.returnValue(of(true));
     component.getUserStatus();

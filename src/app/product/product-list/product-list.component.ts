@@ -27,7 +27,7 @@ export class ProductListComponent implements OnInit {
     this.productList$ = this.store.pipe(select(selectProduct));
   }
   edit(id): void{
-    this.router.navigate(['./edit-product/', id]);
+    this.router.navigate(['./ngrx-crud-opration/edit-product/', id]);
   }
   delete(id): void {
     const ids = {id};

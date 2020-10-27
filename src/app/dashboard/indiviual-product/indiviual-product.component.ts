@@ -24,7 +24,7 @@ export class IndiviualProductComponent implements OnInit {
     this.getData();
   }
   getData(): any {
-    this.commonService.getLinkData(this.productId).subscribe((data) => {
+    this.commonService.getProductData(this.productId).subscribe((data) => {
       this.productData = data;
     });
   }

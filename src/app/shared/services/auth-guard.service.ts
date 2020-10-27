@@ -9,7 +9,7 @@ export class AuthGuardService {
 
   canActivate(): boolean {
     if (localStorage.getItem('user') === null) {
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['/home']);
       return false;
     }
     return true;

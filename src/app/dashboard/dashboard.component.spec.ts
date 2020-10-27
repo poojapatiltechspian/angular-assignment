@@ -50,7 +50,7 @@ describe('DashboardComponent', () => {
 
   it('should call getproduct and return list of products', fakeAsync(() => {
     const response: Product[] = [];
-    spyOn(commonServiceMock, 'getLink').and.returnValue(of(response));
+    spyOn(commonServiceMock, 'getProducts').and.returnValue(of(response));
     component.getBooksData();
     fixture.detectChanges();
     expect(component.productData).toEqual(response);

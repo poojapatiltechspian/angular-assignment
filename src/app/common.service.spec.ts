@@ -33,7 +33,7 @@ describe('CommonService', () => {
       short_description: 'short description 6',
       title: 'link 6',
     };
-    service.createLink(saveData).subscribe((addedPost) => {
+    service.createProduct(saveData).subscribe((addedPost) => {
       expect(addedPost).toBe(saveData);
     });
     const req = http.expectOne('http://localhost:3000/products/');
@@ -51,7 +51,7 @@ describe('CommonService', () => {
           quantity: 'link 5',
         };
 
-    service.getLink().subscribe((post) => {
+    service.getProducts().subscribe((post) => {
       expect(saveData).toBe(post);
     });
     const req = http.expectOne('http://localhost:3000/products/');
@@ -71,7 +71,7 @@ describe('CommonService', () => {
         img_path: 'assets/img/sudhamurti1.jpeg'
       };
 
-    service.getLinkData('1').subscribe((post) => {
+    service.getProductData('1').subscribe((post) => {
       expect(expectData).toBe(post);
     });
     const req = http.expectOne('http://localhost:3000/products/1');
@@ -89,7 +89,7 @@ describe('CommonService', () => {
       price: '5',
       quantity: '5',
     };
-    service.updateLink(id, saveData).subscribe((addedPost) => {
+    service.updateProduct(id, saveData).subscribe((addedPost) => {
       expect(addedPost).toBe(saveData);
     });
     const req = http.expectOne('http://localhost:3000/products/1');
@@ -101,7 +101,7 @@ describe('CommonService', () => {
   it('should be delete product data and return empty data', () => {
     const id = '1';
     const deleteData =  [];
-    service.deleteLink(id).subscribe((addedPost) => {
+    service.deleteProduct(id).subscribe((addedPost) => {
       expect(addedPost).toBe(deleteData);
     });
     const req = http.expectOne('http://localhost:3000/products/1');

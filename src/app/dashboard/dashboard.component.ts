@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
     this.getBooksData();
   }
   getBooksData(): void {
-    this.commonService.getLink().subscribe((data) => {
+    this.commonService.getProducts().subscribe((data) => {
       this.productData = data;
     });
   }

@@ -8,14 +8,18 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductRoutingModule } from './product-routing.module';
+import { LayoutModule } from '../layout/layout.module';
 @NgModule({
   declarations: [ProductListComponent, AddProductComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    ProductRoutingModule,
+    LayoutModule,
     StoreModule.forFeature(fromProduct.productsFeatureKey, fromProduct.reducer),
     EffectsModule.forFeature([ProductEffects])
   ]
 })
-export class Product2Module { }
+export class ProductModule { }

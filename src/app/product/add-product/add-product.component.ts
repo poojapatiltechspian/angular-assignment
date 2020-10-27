@@ -18,7 +18,7 @@ export class AddProductComponent implements OnInit {
 
   products$: Observable<Product[]>;
   selectedProduct: any;
-  linksForm: FormGroup;
+  productForm: FormGroup;
   isEdit: boolean;
   userStatus: any;
   productId: any;
@@ -39,7 +39,7 @@ export class AddProductComponent implements OnInit {
     this.createForm();
   }
   createForm(): void{
-    this.linksForm = this.fb.group({
+    this.productForm = this.fb.group({
       id:  [''],
       name: ['', Validators.required],
       description: ['', [Validators.required]],
@@ -49,7 +49,7 @@ export class AddProductComponent implements OnInit {
     });
   }
   patchForm(data?: any): void{
-    this.linksForm = this.fb.group({
+    this.productForm = this.fb.group({
       id:  ['' || data.id],
       name: ['' || data.name, Validators.required],
       description: ['' || data.description, [Validators.required]],
@@ -60,9 +60,9 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit(data): void{
-    this.store.dispatch(addProduct({product: data.value}));
-    this.linksForm.reset();
-    this.router.navigate(['./product-list']);
+    this.store.dispatch(addProduct({product: data}));
+    this.productForm.reset();
+    this.router.navigate(['./ngrx-crud-opration/product-list']);
   }
   edit(): void {
     this.isEdit = true;
@@ -74,15 +74,15 @@ export class AddProductComponent implements OnInit {
     });
   }
   editData(): void{
-    this.linksForm.value.id = this.productId;
+    this.productForm.value.id = this.productId;
     const uppdate: Update<Product> = {
-      id: this.linksForm.value.id,
-      changes: this.linksForm.value
+      id: this.productForm.value.id,
+      changes: this.productForm.value
     };
     this.store.dispatch(updateProduct({product: uppdate}));
-    this.linksForm.reset();
+    this.productForm.reset();
     this.isEdit = false;
-    this.router.navigate(['./product-list']);
+    this.router.navigate(['./ngrx-crud-opration/product-list']);
   }
 
 }

@@ -31,7 +31,7 @@ describe('IndiviualProductComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(IndiviualProductComponent);
     commonServiceMock = TestBed.inject(CommonService);
-    component = fixture.componentInstance;;
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -42,7 +42,7 @@ describe('IndiviualProductComponent', () => {
   it('should call getLinks and return list of products', fakeAsync(() => {
     const response: Product[] = [];
     component.productId = '1';
-    spyOn(commonServiceMock, 'getLinkData').and.returnValue(of(response));
+    spyOn(commonServiceMock, 'getProductData').and.returnValue(of(response));
     component.getData();
     fixture.detectChanges();
     expect(component.productData).toEqual(response);

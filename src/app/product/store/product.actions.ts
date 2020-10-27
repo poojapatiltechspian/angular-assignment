@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
 import { Product } from './product.model';
@@ -24,6 +24,10 @@ export const loadProductsSuccess = createAction(
   '[Product List Effect] Load Products Success',
   props<{ products: Product[] }>()
 );
+// export class LoadProductsSuccess implements Action {
+//   readonly type = '[Product List Effect] Load Products Success';
+//   constructor(public payload: Product[]) {}
+// }
 export const loadProductsFailure = createAction(
   '[Product List Effect] Load Products Failure',
   props<{ error: any }>()

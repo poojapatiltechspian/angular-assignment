@@ -12,7 +12,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(fromProductAction.addProduct),
       mergeMap(action =>
-        this.commonService.createLink(action.product).pipe(
+        this.commonService.createProduct(action.product).pipe(
             map(product => fromProductAction.addProductSuccess({product})),
             catchError(error => of(fromProductAction.addProductFailure({error})))
         )
@@ -24,7 +24,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(fromProductAction.loadProducts),
       mergeMap(() =>
-        this.commonService.getLink().pipe(
+        this.commonService.getProducts().pipe(
             map(products => fromProductAction.loadProductsSuccess({products})),
             catchError(error => of(fromProductAction.loadProductsFailure({error})))
         )
@@ -36,7 +36,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(fromProductAction.loadProduct),
       mergeMap((action) =>
-        this.commonService.getLinkData(action.id).pipe(
+        this.commonService.getProductData(action.id).pipe(
             map(product => fromProductAction.loadProductSuccess({selectedProduct: product})),
             catchError(error => of(fromProductAction.loadProductFailure({error})))
         )
@@ -48,7 +48,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(fromProductAction.updateProduct),
       mergeMap(action =>
-        this.commonService.updateLink(
+        this.commonService.updateProduct(
           action.product.id,
           action.product.changes
           )
@@ -62,7 +62,7 @@ export class ProductEffects {
   this.actions$.pipe(
     ofType(fromProductAction.deleteProduct),
     mergeMap(action =>
-       this.commonService.deleteLink(
+       this.commonService.deleteProduct(
           action.id,
         )
       ),

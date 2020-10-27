@@ -32,7 +32,7 @@
     "injectables": [
         {
             "name": "AuthGuardService",
-            "id": "injectable-AuthGuardService-6b3ca64aa3a7cf7336e6801aedc55a0d",
+            "id": "injectable-AuthGuardService-d7978dbc5199b7fb3f72b934d1c0ddd2",
             "file": "src/app/shared/services/auth-guard.service.ts",
             "properties": [
                 {
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Router, CanActivate } from '@angular/router';\n@Injectable({\n  providedIn: 'root'\n})\nexport class AuthGuardService {\n\n  constructor(public router: Router) {}\n\n  canActivate(): boolean {\n    if (localStorage.getItem('user') === null) {\n      this.router.navigate(['/user/login']);\n      return false;\n    }\n    return true;\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Router, CanActivate } from '@angular/router';\n@Injectable({\n  providedIn: 'root'\n})\nexport class AuthGuardService {\n\n  constructor(public router: Router) {}\n\n  canActivate(): boolean {\n    if (localStorage.getItem('user') === null) {\n      this.router.navigate(['/home']);\n      return false;\n    }\n    return true;\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -82,7 +82,7 @@
         },
         {
             "name": "CommonService",
-            "id": "injectable-CommonService-74e70e3bde8c90c02fb4b8bc155b68bf",
+            "id": "injectable-CommonService-264672b7fa3d0e7a7a3a3aea2a5a4402",
             "file": "src/app/common.service.ts",
             "properties": [
                 {
@@ -96,7 +96,7 @@
             ],
             "methods": [
                 {
-                    "name": "createLink",
+                    "name": "createProduct",
                     "args": [
                         {
                             "name": "product",
@@ -118,7 +118,7 @@
                     ]
                 },
                 {
-                    "name": "deleteLink",
+                    "name": "deleteProduct",
                     "args": [
                         {
                             "name": "id",
@@ -140,15 +140,7 @@
                     ]
                 },
                 {
-                    "name": "getLink",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "Observable<Product[]>",
-                    "typeParameters": [],
-                    "line": 28
-                },
-                {
-                    "name": "getLinkData",
+                    "name": "getProductData",
                     "args": [
                         {
                             "name": "id",
@@ -170,7 +162,15 @@
                     ]
                 },
                 {
-                    "name": "updateLink",
+                    "name": "getProducts",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<Product[]>",
+                    "typeParameters": [],
+                    "line": 28
+                },
+                {
+                    "name": "updateProduct",
                     "args": [
                         {
                             "name": "id",
@@ -204,7 +204,7 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createLink(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLink(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getLinkData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  deleteLink(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Product } from './product/store/product.model';\nimport { Observable } from 'rxjs';\nimport { environment } from '../environments/environment';\nimport { ErrorHandlingService } from './shared/services/error-handling.service';\nimport { retry, catchError } from 'rxjs/operators';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class CommonService {\n\n  baseurl = environment.baseUrl;\n  constructor(\n    private http: HttpClient,\n    private errorHandlingService: ErrorHandlingService,\n  ) { }\n\n  createProduct(product): Observable<Product> {\n    const url = this.baseurl + 'products/';\n    return this.http.post<Product>(url, product)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getProducts(): Observable<Product[]> {\n    const url = this.baseurl + 'products/';\n    return this.http.get<Product[]>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  getProductData(id): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.get<Product>(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  updateProduct(id: string | number, data: Partial<Product>): Observable<Product> {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.put<Product>(url, data)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n  deleteProduct(id): any {\n    const url = this.baseurl + 'products/' + id;\n    return this.http.delete(url)\n    .pipe(\n     retry(1),\n     catchError(this.errorHandlingService.handleError)\n   );\n  }\n\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -240,9 +240,25 @@
         },
         {
             "name": "ErrorHandlingService",
-            "id": "injectable-ErrorHandlingService-b7f3b0da3983260acc20c923d081385f",
+            "id": "injectable-ErrorHandlingService-a73f29d29f36d88c08e4ada50b08468c",
             "file": "src/app/shared/services/error-handling.service.ts",
-            "properties": [],
+            "properties": [
+                {
+                    "name": "error",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "errorMessage",
+                    "defaultValue": "''",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                }
+            ],
             "methods": [
                 {
                     "name": "handleError",
@@ -255,7 +271,7 @@
                     "optional": false,
                     "returnType": "Observable<never>",
                     "typeParameters": [],
-                    "line": 9,
+                    "line": 10,
                     "jsdoctags": [
                         {
                             "name": "error",
@@ -268,12 +284,12 @@
                 }
             ],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Observable, throwError } from 'rxjs';\n@Injectable({\n  providedIn: 'root'\n})\nexport class ErrorHandlingService {\n\n  constructor() { }\n  handleError(error): Observable<never> {\n    let errorMessage = '';\n    if (error.error instanceof ErrorEvent) {\n        // client-side error\n        errorMessage = `Error: ${error.error.message}`;\n    } else {\n        // server-side error\n        errorMessage = `Error Code: ${error.status}\\nMessage: ${error.message}`;\n    }\n    return throwError(errorMessage);\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Observable, throwError } from 'rxjs';\n@Injectable({\n  providedIn: 'root'\n})\nexport class ErrorHandlingService {\n  error: '';\n  errorMessage = '';\n  constructor() { }\n  handleError(error): Observable<never> {\n    if (error.error instanceof ErrorEvent) {\n        // client-side error\n        this.error = error.error.message;\n        this.errorMessage = `Error: ${error.error.message}`;\n    } else {\n        // server-side error\n        this.error = error.message;\n        this.errorMessage = `Error Code: ${error.status}\\nMessage: ${error.message}`;\n    }\n    console.log(error);\n    return throwError(this.errorMessage);\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
                 "args": [],
-                "line": 6
+                "line": 8
             },
             "type": "injectable"
         },
@@ -445,12 +461,12 @@
         },
         {
             "name": "ProductEffects",
-            "id": "injectable-ProductEffects-d8a00e60cb56a639ba28336598c0e382",
+            "id": "injectable-ProductEffects-047b1f89824d1c483c0609d8f1bc7f23",
             "file": "src/app/product/store/product.effects.ts",
             "properties": [
                 {
                     "name": "createProduct$",
-                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.addProduct),\n      mergeMap(action =>\n        this.commonService.createLink(action.product).pipe(\n            map(product => fromProductAction.addProductSuccess({product})),\n            catchError(error => of(fromProductAction.addProductFailure({error})))\n        )\n      )\n    )\n  )",
+                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.addProduct),\n      mergeMap(action =>\n        this.commonService.createProduct(action.product).pipe(\n            map(product => fromProductAction.addProductSuccess({product})),\n            catchError(error => of(fromProductAction.addProductFailure({error})))\n        )\n      )\n    )\n  )",
                     "type": "",
                     "optional": false,
                     "description": "",
@@ -458,7 +474,7 @@
                 },
                 {
                     "name": "deleteProduct$",
-                    "defaultValue": "createEffect(() =>\n  this.actions$.pipe(\n    ofType(fromProductAction.deleteProduct),\n    mergeMap(action =>\n       this.commonService.deleteLink(\n          action.id,\n        )\n      ),\n      // tab(()=> this.router.navigate(''))\n    ),\n    {dispatch: false}\n)",
+                    "defaultValue": "createEffect(() =>\n  this.actions$.pipe(\n    ofType(fromProductAction.deleteProduct),\n    mergeMap(action =>\n       this.commonService.deleteProduct(\n          action.id,\n        )\n      ),\n      // tab(()=> this.router.navigate(''))\n    ),\n    {dispatch: false}\n)",
                     "type": "",
                     "optional": false,
                     "description": "",
@@ -466,7 +482,7 @@
                 },
                 {
                     "name": "editProduct$",
-                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.updateProduct),\n      mergeMap(action =>\n        this.commonService.updateLink(\n          action.product.id,\n          action.product.changes\n          )\n        ),\n        // tab(()=> this.router.navigate(''))\n      ),\n      {dispatch: false}\n  )",
+                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.updateProduct),\n      mergeMap(action =>\n        this.commonService.updateProduct(\n          action.product.id,\n          action.product.changes\n          )\n        ),\n        // tab(()=> this.router.navigate(''))\n      ),\n      {dispatch: false}\n  )",
                     "type": "",
                     "optional": false,
                     "description": "",
@@ -474,7 +490,7 @@
                 },
                 {
                     "name": "loadProducts$",
-                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProducts),\n      mergeMap(() =>\n        this.commonService.getLink().pipe(\n            map(products => fromProductAction.loadProductsSuccess({products})),\n            catchError(error => of(fromProductAction.loadProductsFailure({error})))\n        )\n      )\n    )\n  )",
+                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProducts),\n      mergeMap(() =>\n        this.commonService.getProducts().pipe(\n            map(products => fromProductAction.loadProductsSuccess({products})),\n            catchError(error => of(fromProductAction.loadProductsFailure({error})))\n        )\n      )\n    )\n  )",
                     "type": "",
                     "optional": false,
                     "description": "",
@@ -482,7 +498,7 @@
                 },
                 {
                     "name": "loadSelectedProduct$",
-                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProduct),\n      mergeMap((action) =>\n        this.commonService.getLinkData(action.id).pipe(\n            map(product => fromProductAction.loadProductSuccess({selectedProduct: product})),\n            catchError(error => of(fromProductAction.loadProductFailure({error})))\n        )\n      )\n    )\n  )",
+                    "defaultValue": "createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProduct),\n      mergeMap((action) =>\n        this.commonService.getProductData(action.id).pipe(\n            map(product => fromProductAction.loadProductSuccess({selectedProduct: product})),\n            catchError(error => of(fromProductAction.loadProductFailure({error})))\n        )\n      )\n    )\n  )",
                     "type": "",
                     "optional": false,
                     "description": "",
@@ -491,7 +507,7 @@
             ],
             "methods": [],
             "description": "",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Actions, createEffect, ofType} from '@ngrx/effects';\nimport { mergeMap, map, catchError} from 'rxjs/operators';\nimport { CommonService } from '../../common.service';\nimport * as fromProductAction from './product.actions';\nimport { of } from 'rxjs';\n\n@Injectable()\nexport class ProductEffects {\n// add product\n  createProduct$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.addProduct),\n      mergeMap(action =>\n        this.commonService.createLink(action.product).pipe(\n            map(product => fromProductAction.addProductSuccess({product})),\n            catchError(error => of(fromProductAction.addProductFailure({error})))\n        )\n      )\n    )\n  );\n// Load list of products\n  loadProducts$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProducts),\n      mergeMap(() =>\n        this.commonService.getLink().pipe(\n            map(products => fromProductAction.loadProductsSuccess({products})),\n            catchError(error => of(fromProductAction.loadProductsFailure({error})))\n        )\n      )\n    )\n  );\n// Load indiviual product\n  loadSelectedProduct$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProduct),\n      mergeMap((action) =>\n        this.commonService.getLinkData(action.id).pipe(\n            map(product => fromProductAction.loadProductSuccess({selectedProduct: product})),\n            catchError(error => of(fromProductAction.loadProductFailure({error})))\n        )\n      )\n    )\n  );\n// update product\n  editProduct$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.updateProduct),\n      mergeMap(action =>\n        this.commonService.updateLink(\n          action.product.id,\n          action.product.changes\n          )\n        ),\n        // tab(()=> this.router.navigate(''))\n      ),\n      {dispatch: false}\n  );\n// delete product\n  deleteProduct$ = createEffect(() =>\n  this.actions$.pipe(\n    ofType(fromProductAction.deleteProduct),\n    mergeMap(action =>\n       this.commonService.deleteLink(\n          action.id,\n        )\n      ),\n      // tab(()=> this.router.navigate(''))\n    ),\n    {dispatch: false}\n);\n  constructor(\n    private actions$: Actions,\n    private commonService: CommonService,\n    ) {}\n\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { Actions, createEffect, ofType} from '@ngrx/effects';\nimport { mergeMap, map, catchError} from 'rxjs/operators';\nimport { CommonService } from '../../common.service';\nimport * as fromProductAction from './product.actions';\nimport { of } from 'rxjs';\n\n@Injectable()\nexport class ProductEffects {\n// add product\n  createProduct$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.addProduct),\n      mergeMap(action =>\n        this.commonService.createProduct(action.product).pipe(\n            map(product => fromProductAction.addProductSuccess({product})),\n            catchError(error => of(fromProductAction.addProductFailure({error})))\n        )\n      )\n    )\n  );\n// Load list of products\n  loadProducts$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProducts),\n      mergeMap(() =>\n        this.commonService.getProducts().pipe(\n            map(products => fromProductAction.loadProductsSuccess({products})),\n            catchError(error => of(fromProductAction.loadProductsFailure({error})))\n        )\n      )\n    )\n  );\n// Load indiviual product\n  loadSelectedProduct$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.loadProduct),\n      mergeMap((action) =>\n        this.commonService.getProductData(action.id).pipe(\n            map(product => fromProductAction.loadProductSuccess({selectedProduct: product})),\n            catchError(error => of(fromProductAction.loadProductFailure({error})))\n        )\n      )\n    )\n  );\n// update product\n  editProduct$ = createEffect(() =>\n    this.actions$.pipe(\n      ofType(fromProductAction.updateProduct),\n      mergeMap(action =>\n        this.commonService.updateProduct(\n          action.product.id,\n          action.product.changes\n          )\n        ),\n        // tab(()=> this.router.navigate(''))\n      ),\n      {dispatch: false}\n  );\n// delete product\n  deleteProduct$ = createEffect(() =>\n  this.actions$.pipe(\n    ofType(fromProductAction.deleteProduct),\n    mergeMap(action =>\n       this.commonService.deleteProduct(\n          action.id,\n        )\n      ),\n      // tab(()=> this.router.navigate(''))\n    ),\n    {dispatch: false}\n);\n  constructor(\n    private actions$: Actions,\n    private commonService: CommonService,\n    ) {}\n\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -707,283 +723,8 @@
     "directives": [],
     "components": [
         {
-            "name": "AddLinksComponent",
-            "id": "component-AddLinksComponent-fb1354857a51d7eb7e037754e073b53d",
-            "file": "src/app/add-links/add-links.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-add-links",
-            "styleUrls": [
-                "./add-links.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./add-links.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "buttonDelete",
-                    "defaultValue": "'delete'",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 20
-                },
-                {
-                    "name": "buttonEdit",
-                    "defaultValue": "'Edit'",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 19
-                },
-                {
-                    "name": "buttonLable",
-                    "type": "any",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
-                },
-                {
-                    "name": "isDelete",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 22
-                },
-                {
-                    "name": "isEdit",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 16
-                },
-                {
-                    "name": "isSubmit",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 23
-                },
-                {
-                    "name": "linksForm",
-                    "type": "FormGroup",
-                    "optional": false,
-                    "description": "",
-                    "line": 15
-                },
-                {
-                    "name": "products",
-                    "type": "any",
-                    "optional": false,
-                    "description": "",
-                    "line": 13
-                },
-                {
-                    "name": "selectedProduct",
-                    "type": "any",
-                    "optional": false,
-                    "description": "",
-                    "line": 14
-                },
-                {
-                    "name": "sub",
-                    "type": "Subscription",
-                    "optional": false,
-                    "description": "",
-                    "line": 21
-                },
-                {
-                    "name": "userStatus",
-                    "type": "any",
-                    "optional": false,
-                    "description": "",
-                    "line": 17
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "createForm",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 33
-                },
-                {
-                    "name": "delete",
-                    "args": [
-                        {
-                            "name": "id",
-                            "type": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 54,
-                    "jsdoctags": [
-                        {
-                            "name": "id",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "edit",
-                    "args": [
-                        {
-                            "name": "id",
-                            "type": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 73,
-                    "jsdoctags": [
-                        {
-                            "name": "id",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "editData",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 80
-                },
-                {
-                    "name": "getLinks",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 60
-                },
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 29
-                },
-                {
-                    "name": "onSubmit",
-                    "args": [
-                        {
-                            "name": "data",
-                            "type": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 66,
-                    "jsdoctags": [
-                        {
-                            "name": "data",
-                            "type": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "patchForm",
-                    "args": [
-                        {
-                            "name": "data",
-                            "type": "any",
-                            "optional": true
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 44,
-                    "jsdoctags": [
-                        {
-                            "name": "data",
-                            "type": "any",
-                            "optional": true,
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-add-links',\n  templateUrl: './add-links.component.html',\n  styleUrls: ['./add-links.component.scss']\n})\nexport class AddLinksComponent implements OnInit {\n\n  products: any;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  buttonLable: any;\n  buttonEdit = 'Edit';\n  buttonDelete = 'delete';\n  sub: Subscription;\n  isDelete: boolean;\n  isSubmit: boolean;\n  constructor(\n    private commonService: CommonService,\n    private fb: FormBuilder,\n    ) {}\n\n  ngOnInit(): void{\n    this.createForm();\n    this.getLinks();\n  }\n  createForm(): void{\n    this.buttonLable = 'save';\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  delete(id): void {\n    this.commonService.deleteLink(id).subscribe((data) => {\n      this.isDelete = true;\n      this.getLinks();\n    });\n  }\n  getLinks(): void {\n    this.sub = this.commonService.getLink().subscribe(\n      (data) => { this.products = data; },\n      // (error) =>  { const errmsg = 'HTTP Error ' + error; alert(errmsg); }\n    );\n  }\n  onSubmit(data): void{\n    this.commonService.createLink(data.value).subscribe(() => {\n      this.getLinks();\n      this.linksForm.reset();\n      this.isSubmit = true;\n    });\n  }\n  edit(id): void {\n    this.buttonLable =  'Edit';\n    this.commonService.getLinkData(id).subscribe((data) => {\n      this.patchForm(data);\n      this.isEdit = true;\n    });\n  }\n  editData(): void{\n    this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {\n      this.getLinks();\n      this.linksForm.reset();\n      this.isEdit = false;\n      this.buttonLable =  'SAVE';\n    });\n  }\n}\n\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".input-container{\n    padding: 10px;\n}\n\n@media only screen \nand (min-width: 760px), (min-device-width: 768px) \nand (min-deviace-width: 1024px)   {\ntable{\n    width: 100%;\n    border-collapse: collapse;\n    border-spacing: 0;\n    }\nthead {\n    color: #4c61af;\n}\ntr{\n    border-bottom: 1px solid rgba(0,0,0,0.12);\n}\ntbody {\n    display: table-row-group;\n    vertical-align: middle;\n    border-color: inherit;\n}\ntable, thead, tbody, th, td, tr {\n    padding: 20px;\n    font-size: 18px;\n}\ntd {\n    color: black !important;\n}\n// .table-row:nth-child(odd) {\n//     background: #ccc;\n//     }\n}\n@media only screen \nand (max-width: 760px), (min-device-width: 768px) \nand (max-deviace-width: 1024px)  {\n    .container {\n        margin: 0 auto;\n        padding: 5px;\n        width: 90%;\n    }\n    /* Force table to not be like tables anymore */\n    table, thead, tbody, th, td, tr {\n        display: block;\n        font-size: 14px;\n    }\n\n    /* Hide table headers (but not display: none;, for accessibility) */\n    thead tr {\n        position: absolute;\n        top: -9999px;\n        left: -9999px;\n    }\n\n    tr {\n        margin: 0 0 1rem 0;\n    }\n\n    tr:nth-child(odd) {\n        background: #ccc;\n    }\n\n    td {\n        /* Behave  like a \"row\" */\n        border: none;\n        border-bottom: 1px solid #eee;\n        position: relative;\n        padding-left: 50%;\n        color: black !important;\n    }\n\n    td:before {\n        /* Now like a table header */\n        position: absolute;\n        /* Top/left values mimic padding */\n        top: 0;\n        left: 6px;\n        width: 45%;\n        padding-right: 10px;\n        white-space: nowrap;\n    }\n\n    /*\n    Label the data\n    You could also use a data-* attribute and content for this. That way \"bloats\" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.\n    */\n    td:nth-of-type(1):before { content: \"Id\"; }\n    td:nth-of-type(2):before { content: \"Name\"; }\n    td:nth-of-type(3):before { content: \"Description\"; }\n    td:nth-of-type(4):before { content: \"Price\"; }\n    td:nth-of-type(5):before { content: \"Quntity\"; }\n    td:nth-of-type(6):before { content: \"Edit\"; }\n    td:nth-of-type(7):before { content: \"Delete\"; }\n}",
-                    "styleUrl": "./add-links.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [
-                    {
-                        "name": "commonService",
-                        "type": "CommonService"
-                    },
-                    {
-                        "name": "fb",
-                        "type": "FormBuilder"
-                    }
-                ],
-                "line": 23,
-                "jsdoctags": [
-                    {
-                        "name": "commonService",
-                        "type": "CommonService",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    },
-                    {
-                        "name": "fb",
-                        "type": "FormBuilder",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<div class=\"container\">\n  <div class=\"heading\">Add Product</div>\n  <form [formGroup]=\"linksForm\">\n    <div class=\"input-container\">\n      <input type=\"text\"  formControlName=\"name\" placeholder=\"Name\" class=\"full-width\">\n    </div>\n    <div class=\"error-msg\" *ngIf=\"linksForm.controls.name.invalid && (linksForm.controls.name.dirty || linksForm.controls.name.touched)\" class=\"text-danger\">\n      <span class=\"error-msg\" *ngIf=\"linksForm.controls.name.errors.required\">Name is required!</span>\n    </div>\n    <div class=\"input-container\">\n      <textarea formControlName=\"description\" placeholder=\"Description\" class=\"full-width\"></textarea>\n    </div>\n    <div class=\"error-msg\" *ngIf=\"linksForm.controls.description.invalid && (linksForm.controls.description.dirty || linksForm.controls.description.touched)\" class=\"text-danger\">\n      <span class=\"error-msg\" *ngIf=\"linksForm.controls.description.errors.required\">Description is required!</span>\n    </div>\n    <div class=\"input-container\">\n      <input type=\"text\"  formControlName=\"price\" placeholder=\"Price\" class=\"full-width\">\n    </div> \n    <div class=\"error-msg\" *ngIf=\"linksForm.controls.price.invalid && (linksForm.controls.price.dirty || linksForm.controls.price.touched)\" class=\"text-danger\">\n      <span class=\"error-msg\" *ngIf=\"linksForm.controls.price.errors.required\">Price is required!</span>\n    </div>\n    <div class=\"input-container\">\n      <input type=\"text\"  formControlName=\"quantity\" placeholder=\"Quantity\" class=\"full-width\">\n    </div>\n    <div class=\"error-msg\" *ngIf=\"linksForm.controls.quantity.invalid && (linksForm.controls.quantity.dirty || linksForm.controls.quantity.touched)\" class=\"text-danger\">\n      <span class=\"error-msg\" *ngIf=\"linksForm.controls.quantity.errors.required\">Quantity is required!</span>\n    </div>\n    <div class=\"input-container\" *ngIf=\"isEdit != true\">\n      <app-button [labelbutton]=\"buttonLable\" [disabledFlag]=\"linksForm.invalid\" [FormValue]=\"linksForm.value\" (click)=\"onSubmit(linksForm)\"></app-button>\n    </div>\n    <div class=\"input-container\" *ngIf=\"isEdit == true\">\n      <app-button [labelbutton]=\"buttonLable\" [disabledFlag]=\"linksForm.invalid\" [FormValue]=\"linksForm.value\" (click)=\"editData(linksForm)\"></app-button>\n    </div>\n  </form>\n  <hr class=\"solid\">\n<div class=\"heading\">Link Products</div>\n  <table>\n    <thead>\n      <tr>\n        <th>ID</th>\n        <th>Name</th>\n        <th>Description</th>\n        <th>Price</th>\n        <th>Quantity</th>\n        <th>Edit</th>\n        <th>Delete</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let link of products\" class=\"table-row\">\n        <td>{{link.id}}</td>\n        <td>{{link.name}}</td>\n        <td>{{link.description}}</td>\n        <td>{{link.price}}</td>\n        <td>{{link.quantity}}</td>\n        <td>\n        <app-button [labelbutton]=\"buttonEdit\" [disabledFlag]=\"false\" [FormValue]=\"link.id\" (click)=\"edit(link.id)\"></app-button>\n          <!-- <button (click)=\"edit(link.id)\">Edit</button> -->\n        </td>\n        <td>\n          <app-button [labelbutton]=\"buttonDelete\" [disabledFlag]=\"false\" [FormValue]=\"link.id\" (click)=\"delete(link.id)\"></app-button>\n          <!-- <button (click)=\"delete(link.id)\">Delete</button> -->\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
-        },
-        {
             "name": "AddProductComponent",
-            "id": "component-AddProductComponent-0309331c29a612204a9217a65d7eee73",
+            "id": "component-AddProductComponent-53661056ce3ea5b0b0bf6b2ad0cdfcfd",
             "file": "src/app/product/add-product/add-product.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1010,7 +751,7 @@
                     "line": 22
                 },
                 {
-                    "name": "linksForm",
+                    "name": "productForm",
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
@@ -1130,7 +871,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { ProductState } from '../store/product.reducer';\nimport { select, Store } from '@ngrx/store';\nimport { addProduct, loadProduct, loadProducts, updateProduct } from '../store/product.actions';\nimport { selectProduct, selectedProduct } from '../store/product.selecters';\nimport { Observable } from 'rxjs';\nimport { Product } from '../store/product.model';\nimport { Update } from '@ngrx/entity';\nimport { Router, ActivatedRoute } from '@angular/router';\n\n@Component({\n  selector: 'app-add-product',\n  templateUrl: './add-product.component.html',\n  styleUrls: ['./add-product.component.scss']\n})\nexport class AddProductComponent implements OnInit {\n\n  products$: Observable<Product[]>;\n  selectedProduct: any;\n  linksForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  productId: any;\n  constructor(\n    private fb: FormBuilder,\n    private store: Store<ProductState>,\n    private activatedRoute: ActivatedRoute,\n    private router: Router\n    ) {\n    }\n\n  ngOnInit(): void{\n    const prodid = 'id';\n    this. productId = this.activatedRoute.snapshot.params[prodid];\n    if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {\n      this.edit();\n    }\n    this.createForm();\n  }\n  createForm(): void{\n    this.linksForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.linksForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n\n  onSubmit(data): void{\n    this.store.dispatch(addProduct({product: data.value}));\n    this.linksForm.reset();\n    this.router.navigate(['./product-list']);\n  }\n  edit(): void {\n    this.isEdit = true;\n    const id = this.productId;\n    this.store.dispatch(loadProduct({id}));\n    this.store.pipe(select(selectedProduct)).subscribe((product) => {\n      this.selectedProduct = Object.assign(new Product(), product);\n      this.patchForm(this.selectedProduct);\n    });\n  }\n  editData(): void{\n    this.linksForm.value.id = this.productId;\n    const uppdate: Update<Product> = {\n      id: this.linksForm.value.id,\n      changes: this.linksForm.value\n    };\n    this.store.dispatch(updateProduct({product: uppdate}));\n    this.linksForm.reset();\n    this.isEdit = false;\n    this.router.navigate(['./product-list']);\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';\nimport { ProductState } from '../store/product.reducer';\nimport { select, Store } from '@ngrx/store';\nimport { addProduct, loadProduct, loadProducts, updateProduct } from '../store/product.actions';\nimport { selectProduct, selectedProduct } from '../store/product.selecters';\nimport { Observable } from 'rxjs';\nimport { Product } from '../store/product.model';\nimport { Update } from '@ngrx/entity';\nimport { Router, ActivatedRoute } from '@angular/router';\n\n@Component({\n  selector: 'app-add-product',\n  templateUrl: './add-product.component.html',\n  styleUrls: ['./add-product.component.scss']\n})\nexport class AddProductComponent implements OnInit {\n\n  products$: Observable<Product[]>;\n  selectedProduct: any;\n  productForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  productId: any;\n  constructor(\n    private fb: FormBuilder,\n    private store: Store<ProductState>,\n    private activatedRoute: ActivatedRoute,\n    private router: Router\n    ) {\n    }\n\n  ngOnInit(): void{\n    // const prodid = 'id';\n    // this. productId = this.activatedRoute.snapshot.params.get(prodid);\n    // if (this.activatedRoute.snapshot.url[0].path === 'edit-product') {\n    //   this.edit();\n    // }\n    this.createForm();\n  }\n  createForm(): void{\n    this.productForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.productForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n\n  onSubmit(data): void{\n    this.store.dispatch(addProduct({product: data}));\n    this.productForm.reset();\n    this.router.navigate(['./ngrx-crud-opration/product-list']);\n  }\n  edit(): void {\n    this.isEdit = true;\n    const id = this.productId;\n    this.store.dispatch(loadProduct({id}));\n    this.store.pipe(select(selectedProduct)).subscribe((product) => {\n      this.selectedProduct = Object.assign(new Product(), product);\n      this.patchForm(this.selectedProduct);\n    });\n  }\n  editData(): void{\n    this.productForm.value.id = this.productId;\n    const uppdate: Update<Product> = {\n      id: this.productForm.value.id,\n      changes: this.productForm.value\n    };\n    this.store.dispatch(updateProduct({product: uppdate}));\n    this.productForm.reset();\n    this.isEdit = false;\n    this.router.navigate(['./ngrx-crud-opration/product-list']);\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1195,7 +936,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container\">\n    <div class=\"heading\" *ngIf=\"isEdit != true\">Add Product</div>\n    <div class=\"heading\" *ngIf=\"isEdit == true\">Edit Product</div>\n\n    <form [formGroup]=\"linksForm\" (ngSubmit)=\"onSubmit(linksForm)\">\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"name\" placeholder=\"Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"linksForm.controls.name.invalid && (linksForm.controls.name.dirty || linksForm.controls.name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"linksForm.controls.name.errors.required\">Name is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <textarea formControlName=\"description\" placeholder=\"Description\" class=\"full-width\"></textarea>\n      </div>\n      <div class=\"error-msg\" *ngIf=\"linksForm.controls.description.invalid && (linksForm.controls.description.dirty || linksForm.controls.description.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"linksForm.controls.description.errors.required\">Description is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"price\" placeholder=\"Price\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"linksForm.controls.price.invalid && (linksForm.controls.price.dirty || linksForm.controls.price.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"linksForm.controls.price.errors.required\">Price is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"quantity\" placeholder=\"Quantity\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"linksForm.controls.quantity.invalid && (linksForm.controls.quantity.dirty || linksForm.controls.quantity.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"linksForm.controls.quantity.errors.required\">Quantity is required!</span>\n      </div>\n      <div class=\"input-container\" *ngIf=\"isEdit != true\">\n        <button type=\"submit\" [disabled]=\"linksForm.invalid\">\n          Save\n        </button>\n      </div>\n      <div class=\"input-container\" *ngIf=\"isEdit == true\">\n        <button type=\"Button\" [disabled]=\"linksForm.invalid\" (click)=\"editData()\">\n          Update\n        </button>\n      </div>\n    </form>\n</div>\n  "
+            "templateData": "<div class=\"container\">\n    <div class=\"heading\" *ngIf=\"isEdit != true\">Add Product</div>\n    <div class=\"heading\" *ngIf=\"isEdit == true\">Edit Product</div>\n\n    <form [formGroup]=\"productForm\" (ngSubmit)=\"onSubmit(productForm.value)\">\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"name\" placeholder=\"Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.name.invalid && (productForm.controls.name.dirty || productForm.controls.name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.name.errors.required\">Name is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <textarea formControlName=\"description\" placeholder=\"Description\" class=\"full-width\"></textarea>\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.description.invalid && (productForm.controls.description.dirty || productForm.controls.description.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.description.errors.required\">Description is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"price\" placeholder=\"Price\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.price.invalid && (productForm.controls.price.dirty || productForm.controls.price.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.price.errors.required\">Price is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"quantity\" placeholder=\"Quantity\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.quantity.invalid && (productForm.controls.quantity.dirty || productForm.controls.quantity.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.quantity.errors.required\">Quantity is required!</span>\n      </div>\n      <div class=\"input-container\" *ngIf=\"isEdit != true\">\n        <button type=\"submit\" [disabled]=\"productForm.invalid\">\n          Save\n        </button>\n      </div>\n      <div class=\"input-container\" *ngIf=\"isEdit == true\">\n        <button type=\"Button\" [disabled]=\"productForm.invalid\" (click)=\"editData()\">\n          Update\n        </button>\n      </div>\n    </form>\n</div>\n  "
         },
         {
             "name": "AppComponent",
@@ -1526,11 +1267,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"wrapper\">\n    <div class=\"img__wrap\" *ngFor=\"let product of productData\" (click)=\"addNewItem(product.id)\">\n        <img [src]=\"product.img_path\" class=\"img__img\" [alt]=\"product.name\">\n        <div class=\"img__description\"> \n            <div class=\"product-name\">{{product.name}}<div>\n            <div class=\"product-price\">${{product.price}}<div>\n        </div>\n    </div>\n</div>"
+            "templateData": "<div class=\"wrapper\">\n    <div class=\"img__wrap\" *ngFor=\"let product of productData; let i = index;\" (click)=\"addNewItem(product.id)\" (keyup.enter)=\"addNewItem(product.id)\" tabindex=\"{{i+5}}\">\n        <img [src]=\"product.img_path\" class=\"img__img\" [alt]=\"product.name\">\n        <div class=\"img__description\"> \n            <div class=\"product-name\">{{product.name}}<div>\n            <div class=\"product-price\">${{product.price}}<div>\n        </div>\n    </div>\n</div>"
         },
         {
             "name": "DashboardComponent",
-            "id": "component-DashboardComponent-b6db98c54cac80a4c91062c912cb62b3",
+            "id": "component-DashboardComponent-f4709ee3f38a12b9283f6483c1329662",
             "file": "src/app/dashboard/dashboard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1602,7 +1343,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  productData: any;\n  constructor(\n    private commonService: CommonService,\n    private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.getBooksData();\n  }\n  getBooksData(): void {\n    this.commonService.getLink().subscribe((data) => {\n      this.productData = data;\n    });\n  }\n  navigationRouteString(id): any {\n    this.router.navigate(['/product/', id]);\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../common.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-dashboard',\n  templateUrl: './dashboard.component.html',\n  styleUrls: ['./dashboard.component.scss']\n})\nexport class DashboardComponent implements OnInit {\n\n  productData: any;\n  constructor(\n    private commonService: CommonService,\n    private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.getBooksData();\n  }\n  getBooksData(): void {\n    this.commonService.getProducts().subscribe((data) => {\n      this.productData = data;\n    });\n  }\n  navigationRouteString(id): any {\n    this.router.navigate(['/product/', id]);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1646,118 +1387,6 @@
                 "OnInit"
             ],
             "templateData": "<app-dashboard-card [productData]=\"productData\" (newItemEvent)=\"navigationRouteString($event)\"></app-dashboard-card>"
-        },
-        {
-            "name": "FlexLayoutComponent",
-            "id": "component-FlexLayoutComponent-58d27f1800fea3c296eef7e95ab209e6",
-            "file": "src/app/flex-layout/flex-layout.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-flex-layout",
-            "styleUrls": [
-                "./flex-layout.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./flex-layout.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-flex-layout',\n  templateUrl: './flex-layout.component.html',\n  styleUrls: ['./flex-layout.component.scss']\n})\nexport class FlexLayoutComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@media(min-width: 768px) {\n    .container-1 {\n        display: flex;\n\n        // align-items: flex-start;\n        // align-items: flex-end;\n        // align-items: center;\n        // align-items: stretch;\n        \n        // flex-direction: column;\n        // flex-direction: column-reverse;\n        // flex-direction: row;\n        //  flex-direction: row-reverse;\n    }\n\n    .container-2 {\n        display: flex;\n\n        justify-content: space-around;\n        // justify-content: space-between;\n        // justify-content: space-evenly;\n        // justify-content: flex-start;\n        // justify-content: flex-end;\n        // justify-content: center;\n    }\n}\n\n.container-3 {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: space-around;\n}\n.box-1 {\n    flex:2;\n    order:2;\n    align-self: flex-start;\n}\n.box-2 {\n    flex:1;\n    order:1;\n    align-self: flex-end;\n}\n.box-3 {\n    flex:1;\n    order:3;\n    align-self: center;\n}\n\n.container-2-box {\n    flex-basis: 30%;\n}\n\n.container-3-box {\n    flex-basis: 15%;\n}\n\n\n.container-1 div, .container-2 div, .container-3 div {\n    border: 1px #ccc solid;\n    padding: 10px;\n}",
-                    "styleUrl": "./flex-layout.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [],
-                "line": 8
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<div class=\"container-1\">\n    <div class=\"box-1\">\n        <h3>Box One</h3>\n        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quia natus quisquam in culpa cupiditate facere libero itaque aliquam aperiam rerum temporibus? Nihil, voluptates omnis provident reiciendis ut quas facere perspiciatis vitae odio tempore sint quidem totam soluta qui nostrum tenetur suscipit amet, libero, reprehenderit eligendi labore. Odio voluptatem, aperiam fugit reiciendis optio aliquid temporibus error est harum laudantium similique at aspernatur, nostrum commodi. Consequuntur magni totam, nam veritatis possimus pariatur, dolorum nobis voluptatibus libero quas cum est blanditiis doloribus? Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"box-2\">\n        <h3>Box Two</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing. </p>\n    </div>\n    <div class=\"box-3\">\n        <h3>Box Three</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing. </p>\n    </div>\n</div>\n<div class=\"container-2\">\n    <div class=\"container-2-box\">\n        <h3>Box Four</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-2-box\">\n        <h3>Box Five</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-2-box\">\n        <h3>Box Six</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n</div>\n\n<div class=\"container-3\">\n    <div class=\"container-3-box\">\n        <h3>Box Seven</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-3-box\">\n        <h3>Box Eight</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-3-box\">\n        <h3>Box Nine</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-3-box\">\n        <h3>Box Ten</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-3-box\">\n        <h3>Box Eleven</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"container-3-box\">\n        <h3>Box Twevle</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n</div>"
-        },
-        {
-            "name": "GridLayoutComponent",
-            "id": "component-GridLayoutComponent-b1812a05a581e12058520528e062fe9f",
-            "file": "src/app/grid-layout/grid-layout.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-grid-layout",
-            "styleUrls": [
-                "./grid-layout.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./grid-layout.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-grid-layout',\n  templateUrl: './grid-layout.component.html',\n  styleUrls: ['./grid-layout.component.scss']\n})\nexport class GridLayoutComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "\n.container-1 {\n    display: grid;\n    grid-template-columns: 70% 30%;\n\n    // grid-column-gap: 1em;\n    // grid-row-gap: 1em;\n    grid-gap: 1em;\n}\n\n\n.container-2 {\n    display: grid;\n    // grid-template-columns: 1fr 2fr  1fr;\n    grid-template-columns: repeat(4, 1fr);\n    // grid-auto-rows: 100px;\n    grid-auto-rows: minmax(100px, auto);\n    grid-gap: 1em;\n}\n.nested {\n    display: grid;\n    grid-template-columns: repeat(3,1fr);\n    grid-auto-rows: 70px;\n    grid-gap: 1em;\n}\n\n.container-3 {\n    display: grid;\n    grid-template-columns: 1fr 2fr  1fr 2fr; \n    grid-auto-rows: minmax(100px, auto);\n    grid-gap: 1em;\n\n    justify-items: stretch;\n    // justify-items: start;\n    // justify-items: end;\n    // justify-items: center;\n\n    // align-items: stretch;\n    // align-items: start;\n    // align-items: end;\n    // align-items: center;\n\n}\n\n.box-1{\n    align-self: start;   \n}\n.box-2{\n    align-self: end;   \n}\n.box-3{\n    align-self: center;   \n}\n.box-4{\n    align-self: stretch;   \n    \n}\n\n\n.container-4 {\n    display: grid;\n    grid-template-columns: 1fr 2fr  1fr; \n    grid-auto-rows: minmax(100px, auto);\n    grid-gap: 1em;\n}\n\n.box-41{\n    grid-column: 1/3;\n    grid-row: 1/3;\n}\n.box-42{\n    grid-column: 3;\n    grid-row: 1/3;\n}\n.box-43{\n    grid-column: 2/4;\n    grid-row: 3;\n}\n.box-44{\n    grid-column: 1;\n    grid-row: 2/4;\n}\n.container-1 > div, .container-2> div, .container-3> div, .container-4> div{\n    border: 1px black solid;\n    padding: 10px;\n}\n.container-1 > div:nth-child(odd), .container-2> div:nth-child(odd), .container-3> div:nth-child(odd), .container-4> div:nth-child(odd) {\n    border: 1px black solid;\n    padding: 10px;\n}\n\n.nested> div{\n    border: #333 1px solid;\n    padding: 1em;\n}\n\n",
-                    "styleUrl": "./grid-layout.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [],
-                "line": 8
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<h1>container-1</h1>\n<div class=\"container-1\">\n    <div>\n        <h3>Box One</h3>\n        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptas quo provident dignissimos libero, dolores in unde odit ducimus atque nesciunt ea, numquam deleniti voluptates expedita nobis soluta, voluptatum iusto. </p>\n    </div>\n    <div>\n        <h3>Box Two</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div>\n        <h3>Box Three</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div>\n        <h3>Box Four</h3>\n        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi quos reprehenderit nesciunt quod accusantium impedit deserunt odit voluptas a laboriosam adipisci esse veniam vitae, nostrum rerum repudiandae blanditiis! Eaque quisquam nobis ratione provident praesentium, ipsum tempore quibusdam inventore ipsam sint molestias, similique aliquid commodi adipisci itaque ullam modi nisi fugiat. ipsum dolor sit amet consectetur adipisicing elit. Esse voluptas quo provident dignissimos libero, dolores in unde odit ducimus atque nesciunt ea, numquam deleniti voluptates expedita nobis soluta, voluptatum iusto. </p>\n    </div>\n</div>\n\n<h1>container-2</h1>\n<div class=\"container-2\">\n    <div>\n        <h3>Box One</h3>\n        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, rem quibusdam beatae ea repudiandae provident delectus rerum, quidem molestias quos ipsum consectetur mollitia iure consequuntur eum, praesentium non expedita! Aspernatur enim id iusto obcaecati, voluptas vero corporis laudantium architecto? Placeat iure voluptate eius, quidem, fuga perspiciatis non, fugit debitis cupiditate sint excepturi illum. Adipisci quisquam qui delectus blanditiis a, voluptatum consequuntur, tempora debitis ullam iste harum eveniet deserunt vitae autem ab odio nisi quasi ipsum. At adipisci autem commodi ipsam maxime, corporis, quod distinctio voluptates officiis eveniet aperiam dignissimos pariatur dolorum laboriosam minus numquam nostrum quo inventore repellat fuga obcaecati? Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div class=\"nested\">\n        <div>Lorem Ipsum1. </div>\n        <div>Lorem Ipsum2. </div>\n        <div>Lorem Ipsum3. </div>\n        <div>Lorem Ipsum4. </div>\n        <div>Lorem Ipsum5. </div>\n        <div>Lorem Ipsum6. </div>\n        <div>Lorem Ipsum7. </div>\n        <div>Lorem Ipsum8. </div>\n        <div>Lorem Ipsum9. </div>\n        <div>Lorem Ipsum10. </div>\n        <div>Lorem Ipsum11. </div>\n        <div>Lorem Ipsum12. </div>\n        <div>Lorem Ipsum13. </div>\n        <div>Lorem Ipsum14. </div>\n        <div>Lorem Ipsum15. </div>\n    </div>\n    <div>\n        <h3>Box Three</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div>\n        <h3>Box Four</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div>\n        <h3>Box Five</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n    <div>\n        <h3>Box Six</h3>\n        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>\n    </div>\n</div>\n\n<h1>container-3</h1>\n<div class=\"container-3\">\n    <div class=\"box box-1\">Box 1</div>\n    <div class=\"box box-2\">Box 2</div>\n    <div class=\"box box-3\">Box 3</div>\n    <div class=\"box box-4\">Box 4</div>\n</div>\n\n<h1>container-4</h1>\n<div class=\"container-4\">\n    <div class=\"box box-41\">Box 1</div>\n    <div class=\"box box-42\">Box 2</div>\n    <div class=\"box box-43\">Box 3</div>\n    <div class=\"box box-44\">Box 4</div>\n</div>\n"
         },
         {
             "name": "HeaderComponent",
@@ -1813,7 +1442,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"navbar\">\n    <a routerLink=\"./home\" routerLinkActive=\"active\">Home</a>\n    <a routerLink=\"./crud-oprations\" routerLinkActive=\"active\">Crud Operations</a>\n    <div class=\"dropdown\">\n        <button class=\"dropbtn\">NgRx \n          <i class=\"fa fa-caret-down\"></i>\n        </button>\n        <div class=\"dropdown-content\">\n          <a routerLink=\"./product-list\" routerLinkActive=\"active\">Product List</a>\n          <a routerLink=\"./add-product\" routerLinkActive=\"active\">Add Product</a>\n        </div>\n    </div> \n    <div class=\"dropdown\">\n      <button class=\"dropbtn\">Practice Assignment \n        <i class=\"fa fa-caret-down\"></i>\n      </button>\n      <div class=\"dropdown-content\">\n        <a routerLink=\"./flex-Layout\" routerLinkActive=\"active\">Flexbox Layout</a>\n        <a routerLink=\"./grid-layout\" routerLinkActive=\"active\">Grid Layout</a>\n        <!-- <a routerLink=\"./ngrx-tutorial-example1\" routerLinkActive=\"active\">NgRx Example1</a>\n        <a routerLink=\"./ngrx-tutorial-example2\" routerLinkActive=\"active\">NgRx Example2</a> -->\n      </div>\n    </div> \n  </div>"
+            "templateData": "<div class=\"navbar\">\n    <a routerLink=\"./home\" routerLinkActive=\"active\">Home</a>\n    <a routerLink=\"./crud-opration/product\" routerLinkActive=\"active\">Crud Operations</a>\n    <div class=\"dropdown\">\n        <button class=\"dropbtn\">NgRx \n          <i class=\"fa fa-caret-down\"></i>\n        </button>\n        <div class=\"dropdown-content\">\n          <a routerLink=\"./ngrx-crud-opration/product-list\" routerLinkActive=\"active\">Product List</a>\n          <a routerLink=\"./ngrx-crud-opration/add-product\" routerLinkActive=\"active\">Add Product</a>\n        </div>\n    </div> \n    <!--<div class=\"dropdown\">\n      <button class=\"dropbtn\">Practice Assignment \n        <i class=\"fa fa-caret-down\"></i>\n      </button>\n      <div class=\"dropdown-content\">\n        <a routerLink=\"./flex-Layout\" routerLinkActive=\"active\">Flexbox Layout</a>\n        <a routerLink=\"./grid-layout\" routerLinkActive=\"active\">Grid Layout</a>\n         <a routerLink=\"./ngrx-tutorial-example1\" routerLinkActive=\"active\">NgRx Example1</a>\n        <a routerLink=\"./ngrx-tutorial-example2\" routerLinkActive=\"active\">NgRx Example2</a> \n      </div>\n    </div> -->\n  </div>"
         },
         {
             "name": "HeaderStoryComponent",
@@ -1921,7 +1550,7 @@
         },
         {
             "name": "IndiviualProductComponent",
-            "id": "component-IndiviualProductComponent-6452e5b71fdcea9367c68b24e1e231f9",
+            "id": "component-IndiviualProductComponent-7896a66ce59449e380d1f325a0e59b7b",
             "file": "src/app/dashboard/indiviual-product/indiviual-product.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1978,7 +1607,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../../common.service';\nimport { Router, ActivatedRoute } from '@angular/router';\nimport { Product } from '../../product/store/product.model';\n\n@Component({\n  selector: 'app-indiviual-product',\n  templateUrl: './indiviual-product.component.html',\n  styleUrls: ['./indiviual-product.component.scss']\n})\nexport class IndiviualProductComponent implements OnInit {\n\n  productId: any;\n  productData: Product;\n  constructor(\n    private activatedRoute: ActivatedRoute,\n    private commonService: CommonService\n  ) {\n    const prodid = 'id';\n    this. productId = this.activatedRoute.snapshot.params[prodid];\n  }\n\n  ngOnInit(): void {\n    this.getData();\n  }\n  getData(): any {\n    this.commonService.getLinkData(this.productId).subscribe((data) => {\n      this.productData = data;\n    });\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../../common.service';\nimport { Router, ActivatedRoute } from '@angular/router';\nimport { Product } from '../../product/store/product.model';\n\n@Component({\n  selector: 'app-indiviual-product',\n  templateUrl: './indiviual-product.component.html',\n  styleUrls: ['./indiviual-product.component.scss']\n})\nexport class IndiviualProductComponent implements OnInit {\n\n  productId: any;\n  productData: Product;\n  constructor(\n    private activatedRoute: ActivatedRoute,\n    private commonService: CommonService\n  ) {\n    const prodid = 'id';\n    this. productId = this.activatedRoute.snapshot.params[prodid];\n  }\n\n  ngOnInit(): void {\n    this.getData();\n  }\n  getData(): any {\n    this.commonService.getProductData(this.productId).subscribe((data) => {\n      this.productData = data;\n    });\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2025,7 +1654,7 @@
         },
         {
             "name": "LayoutComponent",
-            "id": "component-LayoutComponent-5fa85c1221bd0e7549402f720f686a81",
+            "id": "component-LayoutComponent-22e6d271577060261a6d1ab4bc7dcdf0",
             "file": "src/app/layout/layout/layout.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2081,7 +1710,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 28
                 },
                 {
                     "name": "logout",
@@ -2089,7 +1718,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 45
+                    "line": 51
                 },
                 {
                     "name": "ngOnInit",
@@ -2110,7 +1739,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 43,
                     "jsdoctags": [
                         {
                             "name": "event",
@@ -2127,7 +1756,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { ThemeService } from '../../shared/services/theme.service';\nimport { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-layout',\n  templateUrl: './layout.component.html',\n  styleUrls: ['./layout.component.scss']\n})\nexport class LayoutComponent implements OnInit {\n\n  darkTheme = new FormControl(false);\n  userName: any;\n  isLoginUser: boolean;\n  isChecked: boolean;\n  constructor(\n    private themeService: ThemeService,\n    private loginRegistrationSetupService: LoginRegistrationSetupService,\n    private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.getUserStatus();\n    this.theme(false);\n  }\n  getUserStatus(): any {\n    this.isChecked = false;\n    this.loginRegistrationSetupService.getData().subscribe(wrapper => {\n      if (wrapper) {\n      this.isLoginUser = true;\n    }else {\n      this.isLoginUser = false;\n    }\n   });\n  }\n  theme(event): any {\n    if (event) {\n      this.themeService.toggleDark();\n    } else {\n      this.themeService.toggleLight();\n    }\n    this.isChecked = !event;\n  }\n  logout(): any {\n    this.loginRegistrationSetupService.Logout();\n    this.loginRegistrationSetupService.sendData(false);\n    this.router.navigate(['/home']);\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { ThemeService } from '../../shared/services/theme.service';\nimport { LoginRegistrationSetupService } from '../../setup/login-registration-setup.service';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-layout',\n  templateUrl: './layout.component.html',\n  styleUrls: ['./layout.component.scss']\n})\nexport class LayoutComponent implements OnInit {\n\n  darkTheme = new FormControl(false);\n  userName: any;\n  isLoginUser: boolean;\n  isChecked: boolean;\n  constructor(\n    private themeService: ThemeService,\n    private loginRegistrationSetupService: LoginRegistrationSetupService,\n    private router: Router\n  ) {}\n\n  ngOnInit(): void {\n    this.isChecked = false;\n    this.getUserStatus();\n    this.theme(false);\n  }\n  getUserStatus(): any {\n    this.isChecked = false;\n    if (localStorage.getItem('user') !== null) {\n      this.isLoginUser = true;\n    }else if (localStorage.getItem('user') === null) {\n      this.isLoginUser = false;\n    }\n    this.loginRegistrationSetupService.getData().subscribe(wrapper => {\n      if (wrapper) {\n      this.isLoginUser = true;\n    }else {\n      this.isLoginUser = false;\n    }\n   });\n  }\n  theme(event): any {\n    if (event) {\n      this.themeService.toggleDark();\n    } else {\n      this.themeService.toggleLight();\n    }\n    this.isChecked = !event;\n  }\n  logout(): any {\n    this.loginRegistrationSetupService.Logout();\n    this.loginRegistrationSetupService.sendData(false);\n    this.router.navigate(['/home']);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2322,7 +1951,7 @@
         },
         {
             "name": "ProductListComponent",
-            "id": "component-ProductListComponent-bdc3d4fe57234c4fc2e0568863ff287d",
+            "id": "component-ProductListComponent-436b2d20a90d76e46383cdcbf8955514",
             "file": "src/app/product/product-list/product-list.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2424,7 +2053,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { select, Store } from '@ngrx/store';\nimport * as formActions from '../store/product.actions';\nimport { Product } from '../store/product.model';\nimport { Observable } from 'rxjs';\nimport { selectProduct } from '../store/product.selecters';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-product-list',\n  templateUrl: './product-list.component.html',\n  styleUrls: ['./product-list.component.scss']\n})\nexport class ProductListComponent implements OnInit {\n\n  products: Product[] = [];\n  productList$: Observable<Product[]>;\n  constructor(\n  private store: Store,\n  private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.store.dispatch(formActions.loadProducts());\n    this.getLinks();\n  }\n  getLinks(): void {\n    this.productList$ = this.store.pipe(select(selectProduct));\n  }\n  edit(id): void{\n    this.router.navigate(['./edit-product/', id]);\n  }\n  delete(id): void {\n    const ids = {id};\n    this.store.dispatch(formActions.deleteProduct(ids));\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { select, Store } from '@ngrx/store';\nimport * as formActions from '../store/product.actions';\nimport { Product } from '../store/product.model';\nimport { Observable } from 'rxjs';\nimport { selectProduct } from '../store/product.selecters';\nimport { Router } from '@angular/router';\n@Component({\n  selector: 'app-product-list',\n  templateUrl: './product-list.component.html',\n  styleUrls: ['./product-list.component.scss']\n})\nexport class ProductListComponent implements OnInit {\n\n  products: Product[] = [];\n  productList$: Observable<Product[]>;\n  constructor(\n  private store: Store,\n  private router: Router\n  ) { }\n\n  ngOnInit(): void {\n    this.store.dispatch(formActions.loadProducts());\n    this.getLinks();\n  }\n  getLinks(): void {\n    this.productList$ = this.store.pipe(select(selectProduct));\n  }\n  edit(id): void{\n    this.router.navigate(['./ngrx-crud-opration/edit-product/', id]);\n  }\n  delete(id): void {\n    const ids = {id};\n    this.store.dispatch(formActions.deleteProduct(ids));\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2468,6 +2097,281 @@
                 "OnInit"
             ],
             "templateData": "<div class=\"container\">\n  <div class=\"heading\">NgRx Product List</div>\n  <table>\n    <thead>\n      <tr>\n        <th>ID</th>\n        <th>Name</th>\n        <th>Description</th>\n        <th>Price</th>\n        <th>Quntity</th>\n        <th>Edit</th>\n        <th>Delete</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let link of productList$ | async\" classe=\"table-row\">\n        <td>{{link.id}}</td>\n        <td>{{link.name}}</td>\n        <td>{{link.description}}</td>\n        <td>{{link.price}}</td>\n        <td>{{link.quantity}}</td>\n        <td>\n            <button (click)=\"edit(link.id)\">Edit</button>\n        </td> \n        <td>\n            <button (click)=\"delete(link.id)\">Delete</button>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+        },
+        {
+            "name": "ProductsCrudOprationComponent",
+            "id": "component-ProductsCrudOprationComponent-9a37b74eb21fb834b9a3df76c83651a8",
+            "file": "src/app/crud-oprations/products-crud-opration/products-crud-opration.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-products-crud-opration",
+            "styleUrls": [
+                "./products-crud-opration.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./products-crud-opration.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "buttonDelete",
+                    "defaultValue": "'delete'",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "buttonEdit",
+                    "defaultValue": "'Edit'",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "buttonLable",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "isDelete",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "isEdit",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "isSubmit",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                },
+                {
+                    "name": "productForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "products",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "selectedProduct",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "sub",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "userStatus",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "createForm",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33
+                },
+                {
+                    "name": "delete",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 54,
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "edit",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 73,
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "editData",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 80
+                },
+                {
+                    "name": "getLinks",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 60
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29
+                },
+                {
+                    "name": "onSubmit",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 66,
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "patchForm",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "optional": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 44,
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "optional": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { CommonService } from '../../common.service';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-products-crud-opration',\n  templateUrl: './products-crud-opration.component.html',\n  styleUrls: ['./products-crud-opration.component.scss']\n})\nexport class ProductsCrudOprationComponent implements OnInit {\n\n  products: any;\n  selectedProduct: any;\n  productForm: FormGroup;\n  isEdit: boolean;\n  userStatus: any;\n  buttonLable: any;\n  buttonEdit = 'Edit';\n  buttonDelete = 'delete';\n  sub: Subscription;\n  isDelete: boolean;\n  isSubmit: boolean;\n  constructor(\n    private commonService: CommonService,\n    private fb: FormBuilder,\n    ) {}\n\n  ngOnInit(): void{\n    this.createForm();\n    this.getLinks();\n  }\n  createForm(): void{\n    this.buttonLable = 'save';\n    this.productForm = this.fb.group({\n      id:  [''],\n      name: ['', Validators.required],\n      description: ['', [Validators.required]],\n      price: ['', [Validators.required]],\n      quantity: ['', [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  patchForm(data?: any): void{\n    this.productForm = this.fb.group({\n      id:  ['' || data.id],\n      name: ['' || data.name, Validators.required],\n      description: ['' || data.description, [Validators.required]],\n      price: ['' || data.price, [Validators.required]],\n      quantity: ['' || data.quantity, [Validators.required]],\n      img_path: ['assets/img/box.jpg']\n    });\n  }\n  delete(id): void {\n    this.commonService.deleteProduct(id).subscribe((data) => {\n      this.isDelete = true;\n      this.getLinks();\n    });\n  }\n  getLinks(): void {\n    this.sub = this.commonService.getProducts().subscribe(\n      (data) => { this.products = data; },\n      // (error) =>  { const errmsg = 'HTTP Error ' + error; alert(errmsg); }\n    );\n  }\n  onSubmit(data): void{\n    this.commonService.createProduct(data.value).subscribe(() => {\n      this.getLinks();\n      this.productForm.reset();\n      this.isSubmit = true;\n    });\n  }\n  edit(id): void {\n    this.buttonLable =  'Edit';\n    this.commonService.getProductData(id).subscribe((data) => {\n      this.patchForm(data);\n      this.isEdit = true;\n    });\n  }\n  editData(): void{\n    this.commonService.updateProduct(this.productForm.value.id, this.productForm.value).subscribe((data) => {\n      this.getLinks();\n      this.productForm.reset();\n      this.isEdit = false;\n      this.buttonLable =  'SAVE';\n    });\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".input-container{\n    padding: 10px;\n}\n\n@media only screen \nand (min-width: 760px), (min-device-width: 768px) \nand (min-deviace-width: 1024px)   {\ntable{\n    width: 100%;\n    border-collapse: collapse;\n    border-spacing: 0;\n    }\nthead {\n    color: #4c61af;\n}\ntr{\n    border-bottom: 1px solid rgba(0,0,0,0.12);\n}\ntbody {\n    display: table-row-group;\n    vertical-align: middle;\n    border-color: inherit;\n}\ntable, thead, tbody, th, td, tr {\n    padding: 20px;\n    font-size: 18px;\n}\ntd {\n    color: black !important;\n}\n// .table-row:nth-child(odd) {\n//     background: #ccc;\n//     }\n}\n@media only screen \nand (max-width: 760px), (min-device-width: 768px) \nand (max-deviace-width: 1024px)  {\n    .container {\n        margin: 0 auto;\n        padding: 5px;\n        width: 90%;\n    }\n    /* Force table to not be like tables anymore */\n    table, thead, tbody, th, td, tr {\n        display: block;\n        font-size: 14px;\n    }\n\n    /* Hide table headers (but not display: none;, for accessibility) */\n    thead tr {\n        position: absolute;\n        top: -9999px;\n        left: -9999px;\n    }\n\n    tr {\n        margin: 0 0 1rem 0;\n    }\n\n    tr:nth-child(odd) {\n        background: #ccc;\n    }\n\n    td {\n        /* Behave  like a \"row\" */\n        border: none;\n        border-bottom: 1px solid #eee;\n        position: relative;\n        padding-left: 50%;\n        color: black !important;\n    }\n\n    td:before {\n        /* Now like a table header */\n        position: absolute;\n        /* Top/left values mimic padding */\n        top: 0;\n        left: 6px;\n        width: 45%;\n        padding-right: 10px;\n        white-space: nowrap;\n    }\n\n    /*\n    Label the data\n    You could also use a data-* attribute and content for this. That way \"bloats\" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.\n    */\n    td:nth-of-type(1):before { content: \"Id\"; }\n    td:nth-of-type(2):before { content: \"Name\"; }\n    td:nth-of-type(3):before { content: \"Description\"; }\n    td:nth-of-type(4):before { content: \"Price\"; }\n    td:nth-of-type(5):before { content: \"Quntity\"; }\n    td:nth-of-type(6):before { content: \"Edit\"; }\n    td:nth-of-type(7):before { content: \"Delete\"; }\n}",
+                    "styleUrl": "./products-crud-opration.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "commonService",
+                        "type": "CommonService"
+                    },
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder"
+                    }
+                ],
+                "line": 23,
+                "jsdoctags": [
+                    {
+                        "name": "commonService",
+                        "type": "CommonService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"container\">\n    <div class=\"heading\">Add Product</div>\n    <form [formGroup]=\"productForm\">\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"name\" placeholder=\"Name\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.name.invalid && (productForm.controls.name.dirty || productForm.controls.name.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.name.errors.required\">Name is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <textarea formControlName=\"description\" placeholder=\"Description\" class=\"full-width\"></textarea>\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.description.invalid && (productForm.controls.description.dirty || productForm.controls.description.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.description.errors.required\">Description is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"price\" placeholder=\"Price\" class=\"full-width\">\n      </div> \n      <div class=\"error-msg\" *ngIf=\"productForm.controls.price.invalid && (productForm.controls.price.dirty || productForm.controls.price.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.price.errors.required\">Price is required!</span>\n      </div>\n      <div class=\"input-container\">\n        <input type=\"text\"  formControlName=\"quantity\" placeholder=\"Quantity\" class=\"full-width\">\n      </div>\n      <div class=\"error-msg\" *ngIf=\"productForm.controls.quantity.invalid && (productForm.controls.quantity.dirty || productForm.controls.quantity.touched)\" class=\"text-danger\">\n        <span class=\"error-msg\" *ngIf=\"productForm.controls.quantity.errors.required\">Quantity is required!</span>\n      </div>\n      <div class=\"input-container\" *ngIf=\"isEdit != true\">\n        <app-button [labelbutton]=\"buttonLable\" [disabledFlag]=\"productForm.invalid\" [FormValue]=\"productForm.value\" (click)=\"onSubmit(productForm)\"></app-button>\n      </div>\n      <div class=\"input-container\" *ngIf=\"isEdit == true\">\n        <app-button [labelbutton]=\"buttonLable\" [disabledFlag]=\"productForm.invalid\" [FormValue]=\"productForm.value\" (click)=\"editData(productForm)\"></app-button>\n      </div>\n    </form>\n    <hr class=\"solid\">\n  <div class=\"heading\">Link Products</div>\n    <table>\n      <thead>\n        <tr>\n          <th>ID</th>\n          <th>Name</th>\n          <th>Description</th>\n          <th>Price</th>\n          <th>Quantity</th>\n          <th>Edit</th>\n          <th>Delete</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let link of products\" class=\"table-row\">\n          <td>{{link.id}}</td>\n          <td>{{link.name}}</td>\n          <td>{{link.description}}</td>\n          <td>{{link.price}}</td>\n          <td>{{link.quantity}}</td>\n          <td>\n          <app-button [labelbutton]=\"buttonEdit\" [disabledFlag]=\"false\" [FormValue]=\"link.id\" (click)=\"edit(link.id)\"></app-button>\n            <!-- <button (click)=\"edit(link.id)\">Edit</button> -->\n          </td>\n          <td>\n            <app-button [labelbutton]=\"buttonDelete\" [disabledFlag]=\"false\" [FormValue]=\"link.id\" (click)=\"delete(link.id)\"></app-button>\n            <!-- <button (click)=\"delete(link.id)\">Delete</button> -->\n          </td>\n        </tr>\n      </tbody>\n    </table>\n</div>"
         },
         {
             "name": "UserRegistrationComponent",
@@ -2602,9 +2506,6 @@
                     "type": "declarations",
                     "elements": [
                         {
-                            "name": "AddLinksComponent"
-                        },
-                        {
                             "name": "AppComponent"
                         },
                         {
@@ -2612,15 +2513,6 @@
                         },
                         {
                             "name": "DashboardComponent"
-                        },
-                        {
-                            "name": "FlexLayoutComponent"
-                        },
-                        {
-                            "name": "GridLayoutComponent"
-                        },
-                        {
-                            "name": "HeaderComponent"
                         },
                         {
                             "name": "IndiviualProductCardComponent"
@@ -2643,7 +2535,10 @@
                             "name": "AppRoutingModule"
                         },
                         {
-                            "name": "Product2Module"
+                            "name": "LayoutModule"
+                        },
+                        {
+                            "name": "ProductModule"
                         }
                     ]
                 },
@@ -2695,7 +2590,116 @@
             ]
         },
         {
-            "name": "Product2Module",
+            "name": "CrudOprationsModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ProductsCrudOprationComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "CrudOprationsRoutingModule"
+                        },
+                        {
+                            "name": "LayoutModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "CrudOprationsRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "LayoutModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ButtonComponent"
+                        },
+                        {
+                            "name": "HeaderComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "HeaderComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ProductModule",
             "children": [
                 {
                     "type": "providers",
@@ -2711,6 +2715,42 @@
                             "name": "ProductListComponent"
                         }
                     ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "LayoutModule"
+                        },
+                        {
+                            "name": "ProductRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ProductRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
                 },
                 {
                     "type": "imports",
@@ -2883,17 +2923,17 @@
                 "name": "bookData2",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
-                "type": "object",
-                "defaultValue": "{\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  }"
+                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "[]",
+                "defaultValue": "[\n  {\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  },\n]"
             },
             {
                 "name": "bookData2",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
-                "type": "[]",
-                "defaultValue": "[\n  {\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  },\n]"
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "object",
+                "defaultValue": "{\n    id: 2,\n    name: 'The Gopi Diaries',\n    description: 'The Gopi Diaries is a series of three books for children about a dog called Gopi. Told in Gopi voice, the first book, Coming Home, begins with Gopi going to his new home, and tells the story of how he settles down with his loving, human family. How Gopi sees the world around him and what he thinks of the people in his life give the story a truly unique flavour. Written in Sudha Murty inimitable style, these are books children and adults will treasure as the simple stories talk of basic values even when told.',\n    price: '390',\n    quantity: '23',\n    img_path: 'assets/img/sudhamurti2.jpeg'\n  }"
             },
             {
                 "name": "Button",
@@ -2952,13 +2992,6 @@
                 "defaultValue": "Template.bind({})"
             },
             {
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/product/store/product.reducer.ts",
-                "type": "",
-                "defaultValue": "adapter.getSelectors()"
-            },
-            {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2975,20 +3008,11 @@
                 "defaultValue": "{\n  production: true\n}"
             },
             {
-                "name": "flex",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/flex-layout/flex-layout.component.stories.ts",
+                "file": "src/app/product/store/product.reducer.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: FlexLayoutComponent,\n  template: `\n  <app-flex-layout></app-flex-layout>\n    `,\n  props: {\n  },\n})"
-            },
-            {
-                "name": "Grid",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/grid-layout/grid-layout.component.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\n  component: GridLayoutComponent,\n  template: `\n  <app-grid-layout></app-grid-layout>\n    `,\n  props: {\n  },\n})"
+                "defaultValue": "adapter.getSelectors()"
             },
             {
                 "name": "HeaderContainer",
@@ -3154,9 +3178,9 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
-                "type": "Story<IndiviualProductCardComponent>",
-                "defaultValue": "(args: IndiviualProductCardComponent) => ({\n  component: IndiviualProductCardComponent,\n  props: args,\n})"
+                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
+                "type": "Story<DashboardCardComponent>",
+                "defaultValue": "(args: DashboardCardComponent) => ({\n  component: DashboardCardComponent,\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -3170,9 +3194,9 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/dashboard-card/dashboard-card.component.stories.ts",
-                "type": "Story<DashboardCardComponent>",
-                "defaultValue": "(args: DashboardCardComponent) => ({\n  component: DashboardCardComponent,\n  props: args,\n})"
+                "file": "src/app/dashboard/indiviual-product-card/indiviual-product-card.component.stories.ts",
+                "type": "Story<IndiviualProductCardComponent>",
+                "defaultValue": "(args: IndiviualProductCardComponent) => ({\n  component: IndiviualProductCardComponent,\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -3513,26 +3537,6 @@
                     "defaultValue": "{\n  production: true\n}"
                 }
             ],
-            "src/app/flex-layout/flex-layout.component.stories.ts": [
-                {
-                    "name": "flex",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/flex-layout/flex-layout.component.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: FlexLayoutComponent,\n  template: `\n  <app-flex-layout></app-flex-layout>\n    `,\n  props: {\n  },\n})"
-                }
-            ],
-            "src/app/grid-layout/grid-layout.component.stories.ts": [
-                {
-                    "name": "Grid",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/grid-layout/grid-layout.component.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: GridLayoutComponent,\n  template: `\n  <app-grid-layout></app-grid-layout>\n    `,\n  props: {\n  },\n})"
-                }
-            ],
             "src/app/layout/header/header.component.stories.ts": [
                 {
                     "name": "HeaderContainer",
@@ -3669,6 +3673,10 @@
                         "component": "LayoutComponent",
                         "children": [
                             {
+                                "path": "home",
+                                "component": "DashboardComponent"
+                            },
+                            {
                                 "path": "user",
                                 "loadChildren": "./setup/setup.module#SetupModule",
                                 "children": [
@@ -3697,54 +3705,45 @@
                                 ]
                             },
                             {
-                                "path": "home",
-                                "component": "DashboardComponent"
+                                "path": "crud-opration",
+                                "loadChildren": "./crud-oprations/crud-oprations.module#CrudOprationsModule",
+                                "canActivate": [
+                                    "AuthGuard"
+                                ],
+                                "children": [
+                                    {
+                                        "kind": "module",
+                                        "children": [
+                                            {
+                                                "name": "routes",
+                                                "filename": "src/app/crud-oprations/crud-oprations-routing.module.ts",
+                                                "module": "CrudOprationsRoutingModule",
+                                                "children": [
+                                                    {
+                                                        "path": "product",
+                                                        "component": "ProductsCrudOprationComponent",
+                                                        "canActivate": [
+                                                            "AuthGuard"
+                                                        ]
+                                                    }
+                                                ],
+                                                "kind": "module"
+                                            }
+                                        ],
+                                        "module": "CrudOprationsModule"
+                                    }
+                                ]
+                            },
+                            {
+                                "path": "ngrx-crud-opration",
+                                "loadChildren": "./product/products.module#ProductModule",
+                                "canActivate": [
+                                    "AuthGuard"
+                                ]
                             },
                             {
                                 "path": "product/:id",
                                 "component": "IndiviualProductComponent"
-                            },
-                            {
-                                "path": "crud-oprations",
-                                "component": "AddLinksComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
-                                "path": "add-product",
-                                "component": "AddProductComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
-                                "path": "edit-product/:id",
-                                "component": "AddProductComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
-                                "path": "flex-Layout",
-                                "component": "FlexLayoutComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
-                                "path": "grid-layout",
-                                "component": "GridLayoutComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
-                            },
-                            {
-                                "path": "product-list",
-                                "component": "ProductListComponent",
-                                "canActivate": [
-                                    "AuthGuard"
-                                ]
                             }
                         ]
                     },
@@ -3752,6 +3751,35 @@
                         "path": "**",
                         "redirectTo": "/home",
                         "pathMatch": "full"
+                    }
+                ],
+                "kind": "module"
+            },
+            {
+                "name": "routes",
+                "filename": "src/app/product/product-routing.module.ts",
+                "module": "ProductRoutingModule",
+                "children": [
+                    {
+                        "path": "add-product",
+                        "component": "AddProductComponent",
+                        "canActivate": [
+                            "AuthGuard"
+                        ]
+                    },
+                    {
+                        "path": "edit-product/:id",
+                        "component": "AddProductComponent",
+                        "canActivate": [
+                            "AuthGuard"
+                        ]
+                    },
+                    {
+                        "path": "product-list",
+                        "component": "ProductListComponent",
+                        "canActivate": [
+                            "AuthGuard"
+                        ]
                     }
                 ],
                 "kind": "module"
@@ -3772,15 +3800,6 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/add-links/add-links.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "AddLinksComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/21",
-                "status": "low"
-            },
-            {
                 "filePath": "src/app/app.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -3796,6 +3815,15 @@
                 "name": "CommonService",
                 "coveragePercent": 0,
                 "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/crud-oprations/products-crud-opration/products-crud-opration.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProductsCrudOprationComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/21",
                 "status": "low"
             },
             {
@@ -3932,44 +3960,6 @@
                 "name": "IndiviualProductComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/6",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/flex-layout/flex-layout.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "flex",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/flex-layout/flex-layout.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "FlexLayoutComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/grid-layout/grid-layout.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Grid",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/grid-layout/grid-layout.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "GridLayoutComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -4343,7 +4333,7 @@
                 "linktype": "injectable",
                 "name": "ErrorHandlingService",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {

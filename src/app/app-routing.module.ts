@@ -1,17 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddLinksComponent } from './add-links/add-links.component';
-import { FlexLayoutComponent } from './flex-layout/flex-layout.component';
-import { GridLayoutComponent } from './grid-layout/grid-layout.component';
-// import { ReadComponent } from './ngrx-example/read/read.component';
-// import { MyCounterComponent } from './ngrx-example2/my-counter/my-counter.component';
-import { ProductListComponent } from './product/product-list/product-list.component';
-import { AddProductComponent } from './product/add-product/add-product.component';
 import { LayoutComponent  } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndiviualProductComponent } from './dashboard/indiviual-product/indiviual-product.component';
 import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
-
 export const routes: Routes = [
 
   {
@@ -24,56 +16,26 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'user',
-        loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
-      },
-      {
         path: 'home',
         component: DashboardComponent,
       },
       {
+        path: 'user',
+        loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
+      },
+      {
+        path: 'crud-opration',
+        loadChildren: () => import('./crud-oprations/crud-oprations.module').then(m => m.CrudOprationsModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'ngrx-crud-opration',
+        loadChildren: () => import('./product/products.module').then(m => m.ProductModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'product/:id',
         component: IndiviualProductComponent,
-      },
-      {
-        path: 'crud-oprations',
-        component: AddLinksComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'add-product',
-        component: AddProductComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'edit-product/:id',
-        component: AddProductComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'flex-Layout',
-        component: FlexLayoutComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'grid-layout',
-        component: GridLayoutComponent,
-        canActivate: [AuthGuard],
-      },
-      // {
-      //   path: 'ngrx-tutorial-example2',
-      //   component: ReadComponent,
-      //   canActivate: [AuthGuard],
-      // },
-      // {
-      //   path: 'ngrx-tutorial-example1',
-      //   component: MyCounterComponent,
-      //   canActivate: [AuthGuard],
-      // },
-      {
-        path: 'product-list',
-        component: ProductListComponent,
-        canActivate: [AuthGuard],
       },
     ]
   },

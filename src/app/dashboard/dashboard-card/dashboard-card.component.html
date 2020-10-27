@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="img__wrap" *ngFor="let product of productData" (click)="addNewItem(product.id)">
+    <div class="img__wrap" *ngFor="let product of productData; let i = index;" (click)="addNewItem(product.id)" (keyup.enter)="addNewItem(product.id)" tabindex="{{i+5}}">
         <img [src]="product.img_path" class="img__img" [alt]="product.name">
         <div class="img__description"> 
             <div class="product-name">{{product.name}}<div>

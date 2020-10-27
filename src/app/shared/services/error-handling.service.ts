@@ -4,17 +4,20 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ErrorHandlingService {
-
+  error: '';
+  errorMessage = '';
   constructor() { }
   handleError(error): Observable<never> {
-    let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
         // client-side error
-        errorMessage = `Error: ${error.error.message}`;
+        this.error = error.error.message;
+        this.errorMessage = `Error: ${error.error.message}`;
     } else {
         // server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        this.error = error.message;
+        this.errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    return throwError(errorMessage);
+    console.log(error);
+    return throwError(this.errorMessage);
   }
 }

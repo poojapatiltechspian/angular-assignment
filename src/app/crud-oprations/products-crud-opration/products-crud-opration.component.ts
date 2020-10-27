@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../common.service';
+import { CommonService } from '../../common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-add-links',
-  templateUrl: './add-links.component.html',
-  styleUrls: ['./add-links.component.scss']
+  selector: 'app-products-crud-opration',
+  templateUrl: './products-crud-opration.component.html',
+  styleUrls: ['./products-crud-opration.component.scss']
 })
-export class AddLinksComponent implements OnInit {
+export class ProductsCrudOprationComponent implements OnInit {
 
   products: any;
   selectedProduct: any;
-  linksForm: FormGroup;
+  productForm: FormGroup;
   isEdit: boolean;
   userStatus: any;
   buttonLable: any;
@@ -32,7 +32,7 @@ export class AddLinksComponent implements OnInit {
   }
   createForm(): void{
     this.buttonLable = 'save';
-    this.linksForm = this.fb.group({
+    this.productForm = this.fb.group({
       id:  [''],
       name: ['', Validators.required],
       description: ['', [Validators.required]],
@@ -42,7 +42,7 @@ export class AddLinksComponent implements OnInit {
     });
   }
   patchForm(data?: any): void{
-    this.linksForm = this.fb.group({
+    this.productForm = this.fb.group({
       id:  ['' || data.id],
       name: ['' || data.name, Validators.required],
       description: ['' || data.description, [Validators.required]],
@@ -52,38 +52,38 @@ export class AddLinksComponent implements OnInit {
     });
   }
   delete(id): void {
-    this.commonService.deleteLink(id).subscribe((data) => {
+    this.commonService.deleteProduct(id).subscribe((data) => {
       this.isDelete = true;
       this.getLinks();
     });
   }
   getLinks(): void {
-    this.sub = this.commonService.getLink().subscribe(
+    this.sub = this.commonService.getProducts().subscribe(
       (data) => { this.products = data; },
       // (error) =>  { const errmsg = 'HTTP Error ' + error; alert(errmsg); }
     );
   }
   onSubmit(data): void{
-    this.commonService.createLink(data.value).subscribe(() => {
+    this.commonService.createProduct(data.value).subscribe(() => {
       this.getLinks();
-      this.linksForm.reset();
+      this.productForm.reset();
       this.isSubmit = true;
     });
   }
   edit(id): void {
     this.buttonLable =  'Edit';
-    this.commonService.getLinkData(id).subscribe((data) => {
+    this.commonService.getProductData(id).subscribe((data) => {
       this.patchForm(data);
       this.isEdit = true;
     });
   }
   editData(): void{
-    this.commonService.updateLink(this.linksForm.value.id, this.linksForm.value).subscribe((data) => {
+    this.commonService.updateProduct(this.productForm.value.id, this.productForm.value).subscribe((data) => {
       this.getLinks();
-      this.linksForm.reset();
+      this.productForm.reset();
       this.isEdit = false;
       this.buttonLable =  'SAVE';
     });
   }
-}
 
+}

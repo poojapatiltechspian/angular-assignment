@@ -18,14 +18,20 @@ export class LayoutComponent implements OnInit {
     private themeService: ThemeService,
     private loginRegistrationSetupService: LoginRegistrationSetupService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.isChecked = false;
     this.getUserStatus();
     this.theme(false);
   }
   getUserStatus(): any {
     this.isChecked = false;
+    if (localStorage.getItem('user') !== null) {
+      this.isLoginUser = true;
+    }else if (localStorage.getItem('user') === null) {
+      this.isLoginUser = false;
+    }
     this.loginRegistrationSetupService.getData().subscribe(wrapper => {
       if (wrapper) {
       this.isLoginUser = true;

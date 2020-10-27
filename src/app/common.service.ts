@@ -17,7 +17,7 @@ export class CommonService {
     private errorHandlingService: ErrorHandlingService,
   ) { }
 
-  createLink(product): Observable<Product> {
+  createProduct(product): Observable<Product> {
     const url = this.baseurl + 'products/';
     return this.http.post<Product>(url, product)
     .pipe(
@@ -25,7 +25,7 @@ export class CommonService {
      catchError(this.errorHandlingService.handleError)
    );
   }
-  getLink(): Observable<Product[]> {
+  getProducts(): Observable<Product[]> {
     const url = this.baseurl + 'products/';
     return this.http.get<Product[]>(url)
     .pipe(
@@ -33,7 +33,7 @@ export class CommonService {
      catchError(this.errorHandlingService.handleError)
    );
   }
-  getLinkData(id): Observable<Product> {
+  getProductData(id): Observable<Product> {
     const url = this.baseurl + 'products/' + id;
     return this.http.get<Product>(url)
     .pipe(
@@ -41,7 +41,7 @@ export class CommonService {
      catchError(this.errorHandlingService.handleError)
    );
   }
-  updateLink(id: string | number, data: Partial<Product>): Observable<Product> {
+  updateProduct(id: string | number, data: Partial<Product>): Observable<Product> {
     const url = this.baseurl + 'products/' + id;
     return this.http.put<Product>(url, data)
     .pipe(
@@ -49,7 +49,7 @@ export class CommonService {
      catchError(this.errorHandlingService.handleError)
    );
   }
-  deleteLink(id): any {
+  deleteProduct(id): any {
     const url = this.baseurl + 'products/' + id;
     return this.http.delete(url)
     .pipe(
